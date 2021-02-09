@@ -16,7 +16,7 @@ Benchmarks use the [SMTLib](http://smtlib.cs.uiowa.edu/language.shtml) v2 format
 
 - **RegExLib (regexlib_membership, regexlib_intersection, regexlib_subset):**
 This set of benchmarks was originally reported in: An SMT-LIB Format for Sequences and Regular Expressions, Nikolaj Bjørner, Vijay Ganesh, Raphael Michel, and Margus Veanes. SMT'12, 2012. [Original Source](https://www.microsoft.com/enus/research/wp-content/uploads/2016/02/nbjornermicrosoft.automata.smtbenchmarks.zip).
-These ask for the answer to a membership, intersection, or containment problem between regular expressions taken from \url{regexlib.com}, an online library of regular expressions.
+These ask for the answer to a membership, intersection, or containment problem between regular expressions taken from [regexlib.com](regexlib.com), an online library of regular expressions.
 Of these, the membership benchmarks do not contain any (explicit or implicit) Boolean combinations.
 
 - **date** contains problems involving constraints on a string to look like a date. For example: a string like `yyyy-mmm-dd`, where if the month is `feb`, then the day must not be `30` or `31`.
@@ -25,7 +25,7 @@ Of these, the membership benchmarks do not contain any (explicit or implicit) Bo
 
 - **boolean_loops** contains regexes where Boolean operations interact with concatenation and iteration, in particular to create nontrivial unsatisfiable regexes.
 
-- **det_blowup** contains classical regex examples which have small nondeterministic state spaces but blowup when determinized, to test efficiency of derivatives in avoiding determinization. For example, these include variants of \texttt{(.*a.\{k\})\&(.*b.\{k\})} where $k$ is constant.
+- **det_blowup** contains classical regex examples which have small nondeterministic state spaces but blowup when determinized, to test efficiency of derivatives in avoiding determinization. For example, these include variants of `(.*a.{k})&(.*b.{k})` where `k` is some positive integer constant.
 
 ## References and Links
 
