@@ -1,0 +1,25 @@
+;---
+; using 8-bit bit-vectors as characters
+; check membership of .Net regex
+; regexA = ^((?<dir>[\-ld])(?<permission>([\-r][\-w][\-xs]){3})\s+(?<filecode>\d+)\s+(?<owner>\w+)\s+(?<group>\w+)\s+(?<size>\d+)\s+(?<timestamp>(?<year>\d{4})-(?<month>\d{2})-(?<day>\d?\d)\s+(?<hour>\d{2}):(?<minute>\d{2}))\s+(?<name>\w.+))$
+;---
+(set-info :status sat)
+(set-option :print-success true)
+(set-logic QF_BVRE)
+
+(declare-const regexA (RegEx String))
+(declare-const x String)
+
+;witness1: "-rwxrwsrw- \xA 2680\xC\u00BA\u00D6 \xD\xD\u00A0\u00B5\u00A01\x90889-88-6  58:47\u0085\u00F2\u00B6\u0086"
+(define-fun Witness1 () String (seq.++ "-" (seq.++ "r" (seq.++ "w" (seq.++ "x" (seq.++ "r" (seq.++ "w" (seq.++ "s" (seq.++ "r" (seq.++ "w" (seq.++ "-" (seq.++ " " (seq.++ "\x0a" (seq.++ " " (seq.++ "2" (seq.++ "6" (seq.++ "8" (seq.++ "0" (seq.++ "\x0c" (seq.++ "\xba" (seq.++ "\xd6" (seq.++ " " (seq.++ "\x0d" (seq.++ "\x0d" (seq.++ "\xa0" (seq.++ "\xb5" (seq.++ "\xa0" (seq.++ "1" (seq.++ "\x09" (seq.++ "0" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "-" (seq.++ "8" (seq.++ "8" (seq.++ "-" (seq.++ "6" (seq.++ " " (seq.++ " " (seq.++ "5" (seq.++ "8" (seq.++ ":" (seq.++ "4" (seq.++ "7" (seq.++ "\x85" (seq.++ "\xf2" (seq.++ "\xb6" (seq.++ "\x86" "")))))))))))))))))))))))))))))))))))))))))))))))))
+;witness2: "-r--rw----\u0085013\u00A0\u00859\u00AA1 \u00A0\u0085\u00E4\u00B58 \u0085783 0619-05-20\u008518:68\xD\xD\u00A09\u00D5"
+(define-fun Witness2 () String (seq.++ "-" (seq.++ "r" (seq.++ "-" (seq.++ "-" (seq.++ "r" (seq.++ "w" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ "\x85" (seq.++ "0" (seq.++ "1" (seq.++ "3" (seq.++ "\xa0" (seq.++ "\x85" (seq.++ "9" (seq.++ "\xaa" (seq.++ "1" (seq.++ " " (seq.++ "\xa0" (seq.++ "\x85" (seq.++ "\xe4" (seq.++ "\xb5" (seq.++ "8" (seq.++ " " (seq.++ "\x85" (seq.++ "7" (seq.++ "8" (seq.++ "3" (seq.++ " " (seq.++ "0" (seq.++ "6" (seq.++ "1" (seq.++ "9" (seq.++ "-" (seq.++ "0" (seq.++ "5" (seq.++ "-" (seq.++ "2" (seq.++ "0" (seq.++ "\x85" (seq.++ "1" (seq.++ "8" (seq.++ ":" (seq.++ "6" (seq.++ "8" (seq.++ "\x0d" (seq.++ "\x0d" (seq.++ "\xa0" (seq.++ "9" (seq.++ "\xd5" "")))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.union (re.range "-" "-")(re.union (re.range "d" "d") (re.range "l" "l")))(re.++ ((_ re.loop 3 3) (re.++ (re.union (re.range "-" "-") (re.range "r" "r"))(re.++ (re.union (re.range "-" "-") (re.range "w" "w")) (re.union (re.range "-" "-")(re.union (re.range "s" "s") (re.range "x" "x"))))))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_")(re.union (re.range "a" "z")(re.union (re.range "\xaa" "\xaa")(re.union (re.range "\xb5" "\xb5")(re.union (re.range "\xba" "\xba")(re.union (re.range "\xc0" "\xd6")(re.union (re.range "\xd8" "\xf6") (re.range "\xf8" "\xff")))))))))))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_")(re.union (re.range "a" "z")(re.union (re.range "\xaa" "\xaa")(re.union (re.range "\xb5" "\xb5")(re.union (re.range "\xba" "\xba")(re.union (re.range "\xc0" "\xd6")(re.union (re.range "\xd8" "\xf6") (re.range "\xf8" "\xff")))))))))))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.++ ((_ re.loop 4 4) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ (re.++ (re.opt (re.range "0" "9")) (re.range "0" "9"))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range ":" ":") ((_ re.loop 2 2) (re.range "0" "9"))))))))))(re.++ (re.+ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) (re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_")(re.union (re.range "a" "z")(re.union (re.range "\xaa" "\xaa")(re.union (re.range "\xb5" "\xb5")(re.union (re.range "\xba" "\xba")(re.union (re.range "\xc0" "\xd6")(re.union (re.range "\xd8" "\xf6") (re.range "\xf8" "\xff")))))))))) (re.+ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))))))))))))))))) (str.to_re "")))))
+
+;check that the regex contains some x
+(assert (str.in_re x regexA))
+;check also the concrete witnesses
+(assert (str.in_re Witness1 regexA))
+(assert (str.in_re Witness2 regexA))
+(check-sat)

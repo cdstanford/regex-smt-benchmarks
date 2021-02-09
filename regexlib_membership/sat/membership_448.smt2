@@ -1,0 +1,25 @@
+;---
+; using 8-bit bit-vectors as characters
+; check membership of .Net regex
+; regexA = (?:(?:[123]|I{1,3})\s*)?(?:[A-Z][a-zA-Z]+|Song of Songs|Song of Solomon).?\s*(?:1?[0-9]?[0-9]):\s*\d{1,3}(?:[,-]\s*\d{1,3})*(?:;\s*(?:(?:[123]|I{1,3})\s*)?(?:[A-Z][a-zA-Z]+|Song of Songs|Song of Solomon)?.?\s*(?:1?[0-9]?[0-9]):\s*\d{1,3}(?:[,-]\s*\d{1,3})*)*
+;---
+(set-info :status sat)
+(set-option :print-success true)
+(set-logic QF_BVRE)
+
+(declare-const regexA (RegEx String))
+(declare-const x String)
+
+;witness1: "I\u0090III\u00A0\u0085\xDSong of Songs\u00C488:\u00850;1 Song of Solomon14:\u00A0\u00A09, \u00A08\u0083`\u0093"
+(define-fun Witness1 () String (seq.++ "I" (seq.++ "\x90" (seq.++ "I" (seq.++ "I" (seq.++ "I" (seq.++ "\xa0" (seq.++ "\x85" (seq.++ "\x0d" (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ "s" (seq.++ "\xc4" (seq.++ "8" (seq.++ "8" (seq.++ ":" (seq.++ "\x85" (seq.++ "0" (seq.++ ";" (seq.++ "1" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "l" (seq.++ "o" (seq.++ "m" (seq.++ "o" (seq.++ "n" (seq.++ "1" (seq.++ "4" (seq.++ ":" (seq.++ "\xa0" (seq.++ "\xa0" (seq.++ "9" (seq.++ "," (seq.++ " " (seq.++ "\xa0" (seq.++ "8" (seq.++ "\x83" (seq.++ "`" (seq.++ "\x93" "")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+;witness2: "cSong of Songs\u00B3172:8\u008E"
+(define-fun Witness2 () String (seq.++ "c" (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ "s" (seq.++ "\xb3" (seq.++ "1" (seq.++ "7" (seq.++ "2" (seq.++ ":" (seq.++ "8" (seq.++ "\x8e" ""))))))))))))))))))))))
+
+(assert (= regexA (re.++ (re.opt (re.++ (re.union (re.range "1" "3") ((_ re.loop 1 3) (re.range "I" "I"))) (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))))(re.++ (re.union (re.++ (re.range "A" "Z") (re.+ (re.union (re.range "A" "Z") (re.range "a" "z"))))(re.union (str.to_re (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ "s" "")))))))))))))) (str.to_re (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "l" (seq.++ "o" (seq.++ "m" (seq.++ "o" (seq.++ "n" ""))))))))))))))))))(re.++ (re.opt (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.opt (re.range "1" "1"))(re.++ (re.opt (re.range "0" "9"))(re.++ (re.range "0" "9")(re.++ (re.range ":" ":")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.* (re.++ (re.range "," "-")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) ((_ re.loop 1 3) (re.range "0" "9"))))) (re.* (re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.opt (re.++ (re.union (re.range "1" "3") ((_ re.loop 1 3) (re.range "I" "I"))) (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))))(re.++ (re.opt (re.union (re.++ (re.range "A" "Z") (re.+ (re.union (re.range "A" "Z") (re.range "a" "z"))))(re.union (str.to_re (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ "s" "")))))))))))))) (str.to_re (seq.++ "S" (seq.++ "o" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "S" (seq.++ "o" (seq.++ "l" (seq.++ "o" (seq.++ "m" (seq.++ "o" (seq.++ "n" "")))))))))))))))))))(re.++ (re.opt (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.opt (re.range "1" "1"))(re.++ (re.opt (re.range "0" "9"))(re.++ (re.range "0" "9")(re.++ (re.range ":" ":")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ ((_ re.loop 1 3) (re.range "0" "9")) (re.* (re.++ (re.range "," "-")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) ((_ re.loop 1 3) (re.range "0" "9")))))))))))))))))))))))))))))))
+
+;check that the regex contains some x
+(assert (str.in_re x regexA))
+;check also the concrete witnesses
+(assert (str.in_re Witness1 regexA))
+(assert (str.in_re Witness2 regexA))
+(check-sat)
