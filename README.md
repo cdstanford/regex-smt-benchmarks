@@ -29,7 +29,7 @@ Of these, the membership benchmarks do not contain any (explicit or implicit) Bo
 
 ## References and Links
 
-- [Symbolic Boolean Derivatives for Efficiently Solving Extended Regular Expression Constraints](https://www.microsoft.com/en-us/research/publication/symbolic-boolean-derivatives-for-efficiently-solving-extended-regular-expression-constraints/), C. Stanford, M. Veanes, and N. Bjørner. Microsoft technical report, in submission, Fall 2020.
+- [Symbolic Boolean Derivatives for Efficiently Solving Extended Regular Expression Constraints](https://www.microsoft.com/en-us/research/publication/symbolic-boolean-derivatives-for-efficiently-solving-extended-regular-expression-constraints/), C. Stanford, M. Veanes, and N. Bjørner. Conditionally accepted to appear in PLDI 2021.
 
 - [SMTLib Benchmarks](https://clc-gitlab.cs.uiowa.edu:2443/SMT-LIB-benchmarks)
 
