@@ -8,6 +8,18 @@ The focus is on benchmarks which either *explicitly* or *implicitly* incorporate
 
 - *Implicit* benchmarks use multiple constraints to encode a Boolean property: for instance checking if two regular expressions intersect, or if one is a subset of another.
 
+## Source
+
+These benchmarks were used for the evaluation of our PLDI'21 paper:
+
+- *Symbolic Boolean Derivatives for Efficiently Solving Extended Regular Expression Constraints,* C. Stanford, M. Veanes, and N. Bjørner, PLDI 2021.
+
+The RegExLib benchmarks were created for an earlier SMT'12 paper:
+
+- *An SMT-LIB Format for Sequences and Regular Expressions,* Nikolaj Bjørner, Vijay Ganesh, Raphael Michel, and Margus Veanes. SMT'12, 2012. [Original Source](https://www.microsoft.com/enus/research/wp-content/uploads/2016/02/nbjornermicrosoft.automata.smtbenchmarks.zip) (now a dead link).
+
+All the rest were originally created for our PLDI 2021 evaluation.
+
 ## Syntax
 
 Benchmarks use the [SMTLib](http://smtlib.cs.uiowa.edu/language.shtml) v2 format. If you notice any out-of-date or wrong syntax, please file an issue or pull request!
@@ -15,7 +27,6 @@ Benchmarks use the [SMTLib](http://smtlib.cs.uiowa.edu/language.shtml) v2 format
 ## Directory Structure
 
 - **RegExLib (regexlib_membership, regexlib_intersection, regexlib_subset):**
-This set of benchmarks was originally reported in: An SMT-LIB Format for Sequences and Regular Expressions, Nikolaj Bjørner, Vijay Ganesh, Raphael Michel, and Margus Veanes. SMT'12, 2012. [Original Source](https://www.microsoft.com/enus/research/wp-content/uploads/2016/02/nbjornermicrosoft.automata.smtbenchmarks.zip).
 These ask for the answer to a membership, intersection, or containment problem between regular expressions taken from [regexlib.com](regexlib.com), an online library of regular expressions.
 Of these, the membership benchmarks do not contain any (explicit or implicit) Boolean combinations.
 
@@ -27,10 +38,10 @@ Of these, the membership benchmarks do not contain any (explicit or implicit) Bo
 
 - **det_blowup** contains classical regex examples which have small nondeterministic state spaces but blowup when determinized, to test efficiency of derivatives in avoiding determinization. For example, these include variants of `(.*a.{k})&(.*b.{k})` where `k` is some positive integer constant.
 
-## References and Links
-
-- [Symbolic Boolean Derivatives for Efficiently Solving Extended Regular Expression Constraints](https://www.microsoft.com/en-us/research/publication/symbolic-boolean-derivatives-for-efficiently-solving-extended-regular-expression-constraints/), C. Stanford, M. Veanes, and N. Bjørner. Conditionally accepted to appear in PLDI 2021.
+## External Links
 
 - [SMTLib Benchmarks](https://clc-gitlab.cs.uiowa.edu:2443/SMT-LIB-benchmarks)
 
-- [The Z3 Theorem Prover](https://github.com/Z3Prover/z3), GitHub.
+- [The Z3 Theorem Prover](https://github.com/Z3Prover/z3)
+
+- [PLDI21 Paper Artifact](https://github.com/cdstanford/dz3-artifact)
