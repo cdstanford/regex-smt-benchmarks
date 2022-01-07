@@ -1,6 +1,6 @@
 ;---
 ; .NET regular expressions restricted to 7-bit characters
-; membership in 
+; membership in
 ; bc(abc)*ade (empty)
 ;---
 (declare-const x String)

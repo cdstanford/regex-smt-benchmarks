@@ -2,7 +2,7 @@
 ; .NET regular expressions restricted to 7-bit characters
 ; membership in intersection of
 ; (([a-z])+.)+[A-Z]([a-z])+
-; aaaaaaaaaaaaaaaaaaaa 
+; aaaaaaaaaaaaaaaaaaaa
 ;---
 (echo "==== unsat ====")
 
