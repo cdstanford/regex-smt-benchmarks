@@ -8,17 +8,17 @@ The focus is on benchmarks which either *explicitly* or *implicitly* incorporate
 
 - *Implicit* benchmarks use multiple constraints to encode a Boolean property: for instance checking if two regular expressions intersect, or if one is a subset of another.
 
-## Source
+## Sources
 
-These benchmarks were used for the evaluation of our PLDI'21 paper:
+With the exception of the **state_space** benchmarks, all benchmarks in this repository were used for the evaluation of our PLDI'21 paper:
 
 - *Symbolic Boolean Derivatives for Efficiently Solving Extended Regular Expression Constraints,* C. Stanford, M. Veanes, and N. Bjørner, PLDI 2021.
 
-The RegExLib benchmarks were created for an earlier SMT'12 paper:
+Of these, the RegExLib benchmarks were originally created for an SMT'12 paper (which in turn used regexes from [regexlib.com](https://regexlib.com/)), with only the syntax updated for this version:
 
-- *An SMT-LIB Format for Sequences and Regular Expressions,* Nikolaj Bjørner, Vijay Ganesh, Raphael Michel, and Margus Veanes. SMT'12, 2012. [Original Source](https://www.microsoft.com/enus/research/wp-content/uploads/2016/02/nbjornermicrosoft.automata.smtbenchmarks.zip) (now a dead link).
+- *An SMT-LIB Format for Sequences and Regular Expressions,* Nikolaj Bjørner, Vijay Ganesh, Raphael Michel, and Margus Veanes. SMT'12, 2012. [Original Source (dead link)](https://www.microsoft.com/enus/research/wp-content/uploads/2016/02/nbjornermicrosoft.automata.smtbenchmarks.zip).
 
-All the rest were originally created for our PLDI 2021 evaluation.
+All the rest are handwritten specific cases, designed to be challenging in various ways.
 
 ## Syntax
 
@@ -37,6 +37,10 @@ Of these, the membership benchmarks do not contain any (explicit or implicit) Bo
 - **boolean_loops** contains regexes where Boolean operations interact with concatenation and iteration, in particular to create nontrivial unsatisfiable regexes.
 
 - **det_blowup** contains classical regex examples which have small nondeterministic state spaces but blowup when determinized, to test efficiency of derivatives in avoiding determinization. For example, these include variants of `(.*a.{k})&(.*b.{k})` where `k` is some positive integer constant.
+
+- **state_space** contains regexes which have large state spaces (either when converted to automata or when explored incrementally using derivatives).
+These benchmarks were added to this repository in January 2022.
+Many can be immediately determined to be `sat` with direct nonemptiness heuristics, but are intended to push the limits of solvers which do not hardcode an initial nonemptiness check.
 
 ## External Links
 
