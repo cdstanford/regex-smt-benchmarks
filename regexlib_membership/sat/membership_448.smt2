@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?:(?:[123]|I{1,3})\s*)?(?:[A-Z][a-zA-Z]+|Song of Songs|Song of Solomon).?\s*(?:1?[0-9]?[0-9]):\s*\d{1,3}(?:[,-]\s*\d{1,3})*(?:;\s*(?:(?:[123]|I{1,3})\s*)?(?:[A-Z][a-zA-Z]+|Song of Songs|Song of Solomon)?.?\s*(?:1?[0-9]?[0-9]):\s*\d{1,3}(?:[,-]\s*\d{1,3})*)*
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

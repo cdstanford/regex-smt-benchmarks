@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(102[0-3]|10[0-1]\d|[1-9][0-9]{0,2}|0)$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

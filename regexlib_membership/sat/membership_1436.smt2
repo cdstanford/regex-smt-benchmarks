@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ((\(\d{3,4}\)|\d{3,4}-)\d{4,9}(-\d{1,5}|\d{0}))|(\d{4,12})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

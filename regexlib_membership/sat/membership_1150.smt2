@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(([_\w-+!#$%&amp;'*/=?^`{}|~]+(\.[_\w-+!#$%&amp;'*/=?^`{}|~]+)*)|(&quot;([ _\w-+!#$%&amp;'*/=?^`{}|~]+(\.[ _\w-+!#$%&amp;'*/=?^`{}|~]+)*)&quot;))@[\w-]{1,63}(\\.[\w-]{1,63})*(\.[_\w-]{2,6})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -4,7 +4,7 @@
 ; regexA = ^((\w|\d|\-|\.)+)@{1}(((\w|\d|\-){1,67})|((\w|\d|\-)+\.(\w|\d|\-){1,67}))\.((([a-z]|[A-Z]|\d){2,4})(\.([a-z]|A|Z|\d){2})?)\z
 ; regexB = ^(\+|\-)?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)((e|E)(\+|\-)?[0-9]+)?\z
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

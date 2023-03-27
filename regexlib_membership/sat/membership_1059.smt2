@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(N[BLSTU]|[AMN]B|[BQ]C|ON|PE|SK)$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

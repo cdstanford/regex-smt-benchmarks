@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^\d{4,}$|^[3-9]\d{2}$|^2[5-9]\d$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

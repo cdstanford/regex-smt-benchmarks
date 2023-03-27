@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = &lt;a [a-zA-Z0-9 =&quot;'.:;?]*href=*[a-zA-Z0-9 =&quot;'.:;&gt;?]*[^&gt;]*&gt;([a-zA-Z0-9 =&quot;'.:;&gt;?]*[^&lt;]*&lt;)\s*/a\s*&gt;
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

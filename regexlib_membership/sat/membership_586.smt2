@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = \s*([a-z\. ]+)\s*\n\s*([a-z0-9\. #]+)\s*\n\s*([a-z \.]+)\s*,\s*([a-z \.]+)\s*\n?(?:\s*(\d{1,15}(?:-\d{1,4})?)\s*\n)?(?:\s*(\+?(?:1\s*[-\/\.]?)?(?:\((?:\d{3})\)|(?:\d{3}))\s*[-\/\.]?\s*(?:\d{3})\s*[-\/\.]?\s*(?:\d{4})(?:(?:[ \t]*[xX]|[eE][xX][tT])\.?[ \t]*(?:\d+))*))?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

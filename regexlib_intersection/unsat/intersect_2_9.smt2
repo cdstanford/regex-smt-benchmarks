@@ -4,7 +4,7 @@
 ; regexA = ^([A-Z]{2}|[a-z]{2} \d{2} [A-Z]{1,2}|[a-z]{1,2} \d{1,4})?([A-Z]{3}|[a-z]{3} \d{1,4})?\z
 ; regexB = ^((\w+((\-|\+|\.)\w+)*@\w+((\-|\.)\w+)*\.\w+((\-|\.)\w+)*)\s*[,]{0,1}\s*)+\z
 ;---
-(set-info :status unsat)
+;(set-info :status unsat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

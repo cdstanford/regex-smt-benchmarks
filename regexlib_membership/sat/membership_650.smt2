@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(\d)(\.)(\d)+\s(x)\s(10)(e|E|\^)(-)?(\d)+$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

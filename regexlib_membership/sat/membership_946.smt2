@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (\A|\s)[({\[]*([\^\*\-@#$%<>XxVvOo0ZzTt+'¬](_+|\.)[\^\*\-@#$%<>XxVvOo0ZzTt+'¬]|\._\.|[\^\*@#$%<>XxVOo0ZTt']\-[\^\*@#$%<>XxVOo0ZTt']|>>|><|<<|o[O0]|[O0]o)[)}\]]*[;.?]*['"]?(\Z|\s)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((http|https|ftp)\://|www\.)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4}(/[a-zA-Z0-9\-\._\?=\,\'\+%\$#~]*[^\.\,\)\(\s])*$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = [\s]a[\s]|[\s]about[\s]|[\s]an[\s]|[\s]are[\s]|[\s]as[\s]|[\s]at[\s]|[\s]be[\s]|[\s]by[\s]|[\s]for[\s]|[\s]from[\s]|[\s]how[\s]|[\s]in[\s]|[\s]is[\s]|[\s]it[\s]|[\s]of[\s]|[\s]on[\s]|[\s]or[\s]|[\s]that[\s]|[\s]the[\s]|[\s]this[\s]|[\s]to[\s]|[\s]was[\s]|[\s]what[\s]|[\s]when[\s]|[\s]where[\s]|[\s]who[\s]|[\s]will[\s]|[\s]with[\s]|[\s]the[\s]|[\s]www[\s]
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

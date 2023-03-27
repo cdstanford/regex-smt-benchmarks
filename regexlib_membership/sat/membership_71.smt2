@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?:(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\,?[0-9]{2,3})*)(?<dec>\.)(?<postdec>[0-9]*)?$)|(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\.?[0-9]{2,3})*)(?<dec>\,)(?<postdec>[0-9]*)?$)|(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\'?[0-9]{2,3})*)(?<dec>\.)(?<postdec>[0-9]*)?$)|(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\,[0-9]{2,3})*)(?<dec>\.)(?<postdec>[0-9]*)?$)|(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\ [0-9]{2,3})*)(?<dec>\,)(?<postdec>[0-9]*)?$)|(?:^(?<sign>[+-]?)(?<predec>[0-9]{1,3}(?:\'?[0-9]{2,3})*)(?<dec>\,)(?<postdec>[0-9]*)?$))
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[a-zA-Z]:\\(([\w]|[\u0621-\u064A\s])+\\)+([\w]|[\u0621-\u064A\s])+(.jpg|.JPG|.gif|.GIF|.BNG|.bng)$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

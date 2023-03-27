@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<nombre>\D{4})(?<fechanac>\d{6})(?<homoclave>.{1}\D{1}\d{1})?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<scheme>(?:http|https|ftp|telnet|gopher|ms\-help|file|notes)://)?(?:(?<user>[a-z][\w~%!&amp;',;=\-\.$\(\)\*\+]*):(?<password>.*)?@)?(?:(?<domain>(?:[a-z0-9]\w*[a-z0-9]*\.)*(?:(?:(?:[a-z0-9]\w*[a-z0-9]*)(?:\.[a-z0-9]+)?)|(?:(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))))(?::(?<port>[0-9]+))?)?(?:(?<path>(?:/(?:[\w`~!$=;\-\+\.\^\(\)\|\{\}\[\]]|(?:%\d\d))+)*/(?:[\w`~!$=;\-\+\.\^\(\)\|\{\}\[\]]|(?:%\d\d))*)(?<params>\?[^#]+)?(?<fragment>#[a-z0-9]\w*)?)?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

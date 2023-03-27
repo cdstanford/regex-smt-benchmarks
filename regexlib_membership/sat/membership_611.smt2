@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (^BFPO\s*[0-9]{1,4})|(^GIR\s*0AA$)|(ASCN|BBND|BIQQ|FIQQ|PCRN|SIQQ|STHL|TDCU\s*1ZZ)|(^(A[BL]|B[ABDHLNRST]?|C[ABFHMORTVW]|D[ADEGHLNTY]|E[CHNX]?|F[KY]|G[LUY]?|H[ADGPRSUX]|I[GMPV]|JE|K[ATWY]|L[ADELNSU]?|M[EKL]?|N[EGNPRW]?|O[LX]|P[AEHLOR]|R[GHM|S[AEGK-PRSTWY]?|Y[ADFNQRSW|UB|W[A-DFGHJKMNR-W]?|[YO]|[ZE])[1-9][0-9]?[ABEHMNPRVWXY]?\s*[0-9][ABD-HJLNP-UW-Z]{2}$)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

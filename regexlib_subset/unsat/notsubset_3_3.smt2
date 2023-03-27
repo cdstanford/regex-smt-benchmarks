@@ -4,7 +4,7 @@
 ; regexA = ^([A-Z]|[b-z]|[0-8])(((\.|\-)?([A-Z]|[b-z]|[0-8])+)*)@(([A-Z]|[b-z]|[0-8])+)(((\.|\-)?([A-Z]|[b-z]|[0-8])+)*)\. (([A-Z]|[b-z])([A-Z]|[b-z])+)\z
 ; regexB = ^([A-Z]|[a-z]|[0-9])(((\.|\-)?([A-Z]|[a-z]|[0-9])+)*)@(([A-Z]|[a-z]|[0-9])+)(((\.|\-)?([A-Z]|[a-z]|[0-9])+)*)\. (([A-Z]|[a-z])([A-Z]|[a-z])+)\z
 ;---
-(set-info :status unsat)
+;(set-info :status unsat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

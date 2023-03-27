@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(5[1-5]\d{2})\d{12}|(4\d{3})(\d{12}|\d{9})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

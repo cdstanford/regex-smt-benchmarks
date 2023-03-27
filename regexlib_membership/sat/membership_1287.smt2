@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[9]9\d{10}|^[5]\d{10}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

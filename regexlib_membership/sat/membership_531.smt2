@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(AT){0,1}[U]{0,1}[0-9]{8}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

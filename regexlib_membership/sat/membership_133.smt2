@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<protocol>(http|ftp|https|ftps):\/\/)?(?<site>[\w\-_\.]+\.(?<tld>([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))+(?<port>:[0-9]+)?\/?)((?<resource>[\w\-\.,@^%:/~\+#]*[\w\-\@^%/~\+#])(?<queryString>(\?[a-zA-Z0-9\[\]\-\._+%\$#\~',]*=[a-zA-Z0-9\[\]\-\._+%\$#\~',]*)+(&[a-zA-Z0-9\[\]\-\._+%\$#\~',]*=[a-zA-Z0-9\[\]\-\._+%\$#\~',]*)*)?)?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

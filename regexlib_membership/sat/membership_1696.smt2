@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (\/\/--&gt;\s*)?&lt;\/?SCRIPT([^&gt;]*)&gt;(\s*&lt;!--\s)?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

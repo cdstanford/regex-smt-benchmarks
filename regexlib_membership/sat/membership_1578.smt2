@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^\d+\x20*([pP][xXtT])?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

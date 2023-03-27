@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[0-9A-Za-z_ ]+(.[jJ][pP][gG]|.[gG][iI][fF])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

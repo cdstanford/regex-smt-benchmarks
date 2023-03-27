@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (((\[?(?<Database>[\w]+)\]?)?\.)?(\[?(?<Owner>[\w]+)\]?)?\.)?\[?(?<Object>[\w]+)\]?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = \(714|760|949|619|909|951|818|310|323|213|323|562|626\)\040\d{3}-\d{4}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

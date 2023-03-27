@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?i:(?:j(?:an(?:uary)?|u(?:ne?|ly?)))|a(?:pr(?:il)?|ug(?:ust)?)|ma(?:y|r(?:ch)?)|(?:nov|dec)(?:ember)?|feb(?:ruary)?|sep(?:tember)?|oct(?:ober)?)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

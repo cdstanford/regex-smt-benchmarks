@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = \A-?(\d{4,})-(\d{2})-(\d{2})([Z]|(?:[+-]?(?:[01]\d)|(?:[2][0123])):(?:[012345]\d))\Z
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

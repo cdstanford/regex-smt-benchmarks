@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([^_][\w\d\@\-]+(?:s\'|\'[a-zA-Z]{1,2})?(?:\,)?(?: [\w\d\@\-]+(?:s\'|\'[a-zA-Z]{1,2})?(?:\,)?)*(?:\.|\!|\?){0,3}[^\s_])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(20|21|22|23|[01]\d|\d)(([:.][0-5]\d){1,2})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

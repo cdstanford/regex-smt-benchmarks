@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[http|ftp|wap|https]{3,5}:\//\www\.\w*\.[com|net]{2,3}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

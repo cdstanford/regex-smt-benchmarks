@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = &lt;asp:requiredfieldvalidator(\s*\w+\s*=\s*\&quot;?\s*\w+\s*\&quot;?\s*)+\s*&gt;\s*&lt;\/asp:requiredfieldvalidator&gt;
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

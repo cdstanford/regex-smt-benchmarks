@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = \w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$|^([0-9a-zA-Z'\.]{3,40})\*|([0-9a-zA-Z'\.]+)@([0-9a-zA-Z']+)\.([0-9a-zA-Z']+)$|([0-9a-zA-Z'\.]+)@([0-9a-zA-Z']+)\*+$|^$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

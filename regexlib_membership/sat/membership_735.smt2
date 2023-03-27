@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<Assembly>(?<AssemblyName>[^\W/\\:*?"<>|,]+)(?:(?:,\s?(?:(?<Version>Version=(?<VersionValue>(?:\d{1,2}\.?){1,4}))|(?<Culture>Culture=(?<CultureValue>neutral|\w{2}-\w{2}))|(?<PublicKeyToken>PublicKeyToken=(?<PublicKeyTokenValue>[A-Fa-f0-9]{16})))(?:,\s?)?){3}|))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

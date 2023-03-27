@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[0-9]{10}GBR[0-9]{7}[U,M,F]{1}[0-9]{9}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

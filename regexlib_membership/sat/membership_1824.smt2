@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (a|b|c).(a.b)*.b+.c
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

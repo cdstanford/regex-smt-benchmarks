@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(389)[0-9]{11}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?i:t(?:ue(?:sday)?|hu(?:rsday)?))|s(?:un(?:day)?|at(?:urday)?)|(?:wed(?:nesday)?|(?:mon|fri)(?:day)?)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<Telephone>([0-9]|[ ]|[-]|[\(]|[\)]|ext.|[,])+)([ ]|[:]|\t|[-])*(?<Where>Home|Office|Work|Away|Fax|FAX|Phone)|(?<Where>Home|Office|Work|Away|Fax|FAX|Phone|Daytime|Evening)([ ]|[:]|\t|[-])*(?<Telephone>([0-9]|[ ]|[-]|[\(]|[\)]|ext.|[,])+)|(?<Telephone>([(]([0-9]){3}[)]([ ])?([0-9]){3}([ ]|-)([0-9]){4}))
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

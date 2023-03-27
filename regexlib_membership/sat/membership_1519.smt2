@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (&#200;|&#201;|&#202;|&#203;|&#232;|&#233;|&#234;|&#235;|&amp;#069;|&amp;#101;|&amp;#200;|&amp;#201;|&amp;#202;|&amp;#203;|&amp;Egrave;|&amp;Eacute;|&amp;Ecirc;|&amp;Euml;|&amp;#232;|&amp;#233;|&amp;#234;|&amp;#235;|&amp;egrave;|&amp;eacute;|&amp;ecirc;|&amp;euml;)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

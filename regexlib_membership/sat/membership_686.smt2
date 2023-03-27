@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = Pattern that matches all DVLA Vehicle Registration Marks (VRM). Allows for an optional single space between segments.
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

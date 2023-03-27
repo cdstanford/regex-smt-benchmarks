@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (:[a-z]{1}[a-z1-9\$#_]*){1,31}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

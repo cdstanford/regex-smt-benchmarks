@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([a-zA-Z]{5})([a-zA-Z0-9-]{3,12})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

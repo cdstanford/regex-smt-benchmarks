@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<local1300>^1300[ |\-]{0,1}\d{3}[ |\-]{0,1}\d{3}$)|(?<tollcall>^1900|1902[ |\-]{0,1}\d{3}[ |\-]{0,1}\d{3}$)|(?<freecall>^1800[ |\-]{0,1}\d{3}[ |\-]{0,1}\d{3}$)|(?<standard>^\({0,1}0[2|3|7|8]{1}\){0,1}[ \-]{0,1}\d{4}[ |\-]{0,1}\d{4}$)|(?<international>^\+61[ |\-]{0,1}[2|3|7|8]{1}[ |\-]{0,1}[0-9]{4}[ |\-]{0,1}[0-9]{4}$)|(?<local13>^13\d{4}$)|(?<mobile>^04\d{2,3}\d{6}$)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

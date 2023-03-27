@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<STag><)[/\?\s]*(?<Prefix>\w*:)*(?<TagName>\w*)\s*(?<Attributes>(?<Attribute>((?<AttributePrefix>\w*)\s*:\s*)*(?<AttributeName>\w*)\s*=\s*(?<AttributeValue>"[^"]*"|'[^']*'|[^>\s]*)\s*)*)\s*/?(?<ETag>>)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

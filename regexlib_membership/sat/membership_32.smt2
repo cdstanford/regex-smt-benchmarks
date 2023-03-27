@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^\d{8,8}$|^[SC]{2,2}\d{6,6}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

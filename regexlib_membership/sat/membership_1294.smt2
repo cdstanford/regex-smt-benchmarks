@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (^(\d{2}.\d{3}.\d{3}/\d{4}-\d{2})|(\d{14})$)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

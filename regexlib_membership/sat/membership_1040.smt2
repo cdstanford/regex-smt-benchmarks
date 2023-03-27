@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = &lt;table&gt;(&lt;tr&gt;((&lt;td&gt;([A-Za-z0-9])*&lt;/td&gt;)+)&lt;/tr&gt;)*&lt;/table&gt;
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

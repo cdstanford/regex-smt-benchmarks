@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((\d{0,1}[0-9](\.\d{0,1}[0-9])?)|(100))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

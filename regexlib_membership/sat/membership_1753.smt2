@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^0(5[012345678]|6[47]){1}(\-)?[^0\D]{1}\d{5}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

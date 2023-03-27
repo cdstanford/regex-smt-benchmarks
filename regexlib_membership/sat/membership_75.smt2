@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ((([sS]|[nN])[a-hA-Hj-zJ-Z])|(([tT]|[oO])[abfglmqrvwABFGLMQRVW])|([hH][l-zL-Z])|([jJ][lmqrvwLMQRVW]))([0-9]{2})?(([a-np-zA-NP-Z]{1}?|([0-9]{2})?([0-9]{2})?([0-9]{2})?([0-9]{2})?))
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

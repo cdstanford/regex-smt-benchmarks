@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[\w0-9]+( [\w0-9]+)*$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

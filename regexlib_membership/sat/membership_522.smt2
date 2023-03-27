@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (8[^0]\d|8\d[^0]|[0-79]\d{2})-\d{3}-\d{4}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

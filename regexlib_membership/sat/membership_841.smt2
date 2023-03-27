@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^5[1-5]\d{14}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

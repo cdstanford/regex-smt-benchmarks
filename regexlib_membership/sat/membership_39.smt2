@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((unit|u|)\s*)?(?<unit>\d*\w?)?(\s+|/)?(?<streetNo>\d+(\-\d+)?)\s+(?<streetName>\w+)\s+(?<streetType>\w+)\s+(?<suburb>\w+(\s+\w+)?)\s+(?<state>\w+)\s+(?<postcode>\d{4})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<Year>(?:\d{4}|\d{2}))-(?<Month>\d{1,2})-(?<Day>\d{1,2})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = .*[Pp]re[Ss\$]cr[iI1]pt.*
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

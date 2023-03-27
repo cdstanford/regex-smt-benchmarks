@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<dice>\d*)(?<dsides>(?<separator>[\d\D])(?<sides>\d+))(?<modifier>(?<sign>[\+\-])(?<addend>\d))?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

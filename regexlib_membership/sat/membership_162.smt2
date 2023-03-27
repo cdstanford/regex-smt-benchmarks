@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (http\:\/\/|ftp\:\/\/|https\:\/\/|ftps\:\/\/|file\:\/\/|telnet\:\/\/|www\.)([www\.]?)([a-zA-Z0-9\.\-]+)\.(de|net|org|to|com|biz|co|uk|am|pl)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = '/http:\\/\/(?:www.)?clipser\.com\/watch_video\/([0-9a-z-_]+)/i'
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

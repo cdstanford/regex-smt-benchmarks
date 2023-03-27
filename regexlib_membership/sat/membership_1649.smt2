@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(.|\n){0,16}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

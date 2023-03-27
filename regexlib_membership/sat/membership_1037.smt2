@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((l((ll)|(b)|(bb)|(bbb)))|(bb*))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

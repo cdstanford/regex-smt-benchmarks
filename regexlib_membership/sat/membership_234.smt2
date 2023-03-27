@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(FR)?\s?[A-Z0-9-[IO]]{2}[0-9]{9}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

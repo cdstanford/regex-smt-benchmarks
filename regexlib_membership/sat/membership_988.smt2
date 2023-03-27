@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?:(?'1'[0-9a-fA-F]{2})(?:\:)(?'2'[0-9a-fA-F]{2})(?:\:)(?'3'[0-9a-fA-F]{2})(?:\:)(?'4'[0-9a-fA-F]{2})(?:\:)(?'5'[0-9a-fA-F]{2})(?:\:)(?'6'[0-9a-fA-F]{2}))$|^(?:(?'1'[0-9a-fA-F]{2})(?:\-)(?'2'[0-9a-fA-F]{2})(?:\-)(?'3'[0-9a-fA-F]{2})(?:\-)(?'4'[0-9a-fA-F]{2})(?:\-)(?'5'[0-9a-fA-F]{2})(?:\-)(?'6'[0-9a-fA-F]{2}))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

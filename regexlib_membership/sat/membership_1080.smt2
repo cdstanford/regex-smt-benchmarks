@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = Password=&quot;(\{.+\}[0-9a-zA-Z]+[=]*|[0-9a-zA-Z]+)&quot;
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

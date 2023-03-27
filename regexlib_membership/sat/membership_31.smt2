@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = megaupload\.com.*(?:\?|&)(?:(?:folderi)?d|f)=([A-Z-a-z0-9]{8})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

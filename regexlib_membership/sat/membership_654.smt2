@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((\+?(?<CountryCode>1)\s(?<AreaCode>[2-9][0-8][0-9])\s)|((?<AreaCode>[2-9][0-8][0-9])\s))?(?<ExchangeCode>[2-9][0-9][0-9])\s(?<StationCode>[0-9][0-9][0-9][0-9])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

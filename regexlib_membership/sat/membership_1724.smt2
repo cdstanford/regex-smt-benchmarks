@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([ \u00c0-\u01ffa-zA-Z'])+$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

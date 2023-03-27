@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = www.runescape-money.eu
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

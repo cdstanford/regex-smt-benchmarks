@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\,*\s\s*\d{4}$|^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\,*\s\d{4}$|^(January|February|March|April|May|June|July|August|September|October|November|December)\,*\s\d{4}$|^(january|february|march|april|may|june|july|august|september|october|november|december)\,*\s\d{4}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

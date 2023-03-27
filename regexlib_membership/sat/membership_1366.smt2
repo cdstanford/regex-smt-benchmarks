@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(((ht|f)tp(s?))\://).*$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

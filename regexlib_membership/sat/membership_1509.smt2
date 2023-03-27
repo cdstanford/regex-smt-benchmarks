@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(\d{1,2})(\s?(H|h)?)(:([0-5]\d))?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

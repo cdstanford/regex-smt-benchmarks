@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?:(?<scheme>[a-zA-Z]+)://)?(?<domain>(?:[0-9a-zA-Z\-_]+(?:[.][0-9a-zA-Z\-_]+)*))(?::(?<port>[0-9]+))?(?<path>(?:/[0-9a-zA-Z\-_.]+)+)(?:[?](?<query>.+))?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

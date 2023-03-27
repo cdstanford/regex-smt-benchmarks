@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ((?<strPOBox>((POBox|PO\sBox)\s*\d*)),?\s?)?(((?<strUnit>([\w\d\s\,]*)),\s?)?( (?<strStreet>([\w\s\-]*\w\s(st\s)?[\w]*\s(street|st|road|rd|close|cl|avenue|ave|av|path|ph|drive|drv|LOOP|COURT|CT|CIRCLE|LANE|LN))  ),?\s?))?((?<strTown>([\p{Ll}\p{Lu}\p{Lo}\p{Pc}\p{Lt}\p{Lm}\s]*)),?\s?)?((?<strState>(Victoria|VIC|New South Wales|NSW|South Australia|SA|Northern Territory|NT|West Australia|WA|Tasmania|TAS|ACT|Queensland|QLD))\s*)?(?<strPostalCode>(\d{4}),?\s?)?(?<strCountry>(Australia))?
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

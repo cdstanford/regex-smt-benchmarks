@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (077|078|079)\s?\d{2}\s?\d{6}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

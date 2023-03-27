@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = /([^\x00-\xFF]\s*)/u
 ;---
-(set-info :status unsat)
+;(set-info :status unsat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

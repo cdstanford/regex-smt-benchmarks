@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<dayOfWeek>\w{3}) (?<monthName>\w{3}) (?<day>\d{1,2}) (?<year>\d{4})? ?(?<hours>\d{1,2}):(?<minutes>\d{1,2}):(?<seconds>\d{1,2}) (GMT|UTC)(?<timeZoneOffset>[-+]?\d{4}) (?<year>\d{4})?\(?(?<timeZoneName>[a-zA-Z\s]+)?\)?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

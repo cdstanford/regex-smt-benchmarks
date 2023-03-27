@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?i)([À-ÿa-z\-]{2,})\x20([À-ÿa-z\-']{2,})(?-i)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

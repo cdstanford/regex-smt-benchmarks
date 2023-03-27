@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = [URL=[a-zA-Z0-9.:/_\-]+\][a-zA-Z0-9._/ ]+\[/URL\]
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

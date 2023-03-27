@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[A-Z][a-z]+((e(m|ng)|str)a)$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

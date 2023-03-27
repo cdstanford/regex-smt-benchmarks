@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(LDAP://([\w]+/)?(CN=['\w\s\-\&amp;]+,)*(OU=['\w\s\-\&amp;]+,)*(DC=['\w\s\-\&amp;]+[,]*)+)$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

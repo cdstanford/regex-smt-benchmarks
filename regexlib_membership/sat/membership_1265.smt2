@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<zip5>^\d{5})([\- ]?(?<plus4>\d{4})?$)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

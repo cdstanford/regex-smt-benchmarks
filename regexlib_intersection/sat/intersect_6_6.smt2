@@ -4,7 +4,7 @@
 ; regexA = ^(([\p{Lu}\p{Ll}]|[1-9]|\-|\.)+)@{1}((([\p{Lu}\p{Ll}]|[1-9]|\-){1,67})|(([\p{Lu}\p{Ll}]|[1-9]|\-)+\.([\p{Lu}\p{Ll}]|[1-9]|\-){1,67}))\.((([a-z]|[A-Z]|[1-9]){2,4})(\.([a-z]|A|Z|[1-9]){2})?)\z
 ; regexB = ^((\w|\d|\-|\.)+)@{1}(((\w|\d|\-){1,67})|((\w|\d|\-)+\.(\w|\d|\-){1,67}))\.((([a-z]|[A-Z]|\d){2,4})(\.([a-z]|A|Z|\d){2})?)\z
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

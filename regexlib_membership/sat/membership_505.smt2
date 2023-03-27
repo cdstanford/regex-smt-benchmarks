@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(\d{1,8}|(\d{0,8}\.{1}\d{1,2}){1})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

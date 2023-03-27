@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<CountryCode>[1]?)\s?\(?(?<AreaCode>[2-9]{1}\d{2})\)?\s?(?<Prefix>[0-9]{3})(?:[-]|\s)?(?<Postfix>\d{4})\s?(?:ext|x\s?)(?<Extension>[1-9]{1}\d*)?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(([+]|00)39)?((3[1-6][0-9]))(\d{7})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

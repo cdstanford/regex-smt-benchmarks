@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([A-Z]{2}[\s]|[A-Z]{2})[\w]{2}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

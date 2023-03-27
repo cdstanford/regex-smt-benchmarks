@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (&#192;|&#193;|&#194;|&#195;|&#196;|&#197;|&#224;|&#225;|&#226;|&#227;|&#228;|&#229;|&amp;#097;|&amp;#065;|&amp;#064;|&amp;commat;|&amp;alpha;|&amp;#192;|&amp;#193;|&amp;#194;|&amp;#195;|&amp;#196;|&amp;#197;|&amp;Agrave;|&amp;Aacute;|&amp;Acirc;|&amp;Atilde;|&amp;Auml;|&amp;Aring;|&amp;#224;|&amp;#225;|&amp;#226;|&amp;#227;|&amp;#228;|&amp;#229;|&amp;agrave;|&amp;aacute;|&amp;acirc;|&amp;atilde;|&amp;auml;|&amp;aring;)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

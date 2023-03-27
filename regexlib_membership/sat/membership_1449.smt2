@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([A-Za-z0-9]\s?)+([,]\s?([A-Za-z0-9]\s?)+)*$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([\w][\w\-_\u0020]{4,18}[\w])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

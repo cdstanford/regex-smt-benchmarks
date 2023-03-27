@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}/(DC=['\w\d\s\-\&amp;]+[,]*){2,})|((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])/(DC=['\w\d\s\-\&amp;]+[,]*){2,})|((DC=['\w\d\s\-\&amp;]+[,]*){2,})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

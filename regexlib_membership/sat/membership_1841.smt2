@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ([a-zA-Z]:(\\w+)*\\[a-zA-Z0_9]+)?.xls
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

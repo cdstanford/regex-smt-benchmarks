@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = &lt;[aA][ ]{0,}([a-zA-Z0-9&quot;'_,.:;!?@$&amp;()%=/ ]|[-]|[	\f]){0,}&gt;((&lt;(([a-zA-Z0-9&quot;'_,.:;!?@$&amp;()%=/ ]|[-]|[	\f]){0,})&gt;([a-zA-Z0-9&quot;'_,.:;!?@$&amp;()%=/ ]|[-]|[	\f]){0,})|(([a-zA-Z0-9&quot;'_,.:;!?@$&amp;()%=/ ]|[-]|[	\f]){0,})){0,}
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

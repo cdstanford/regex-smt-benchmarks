@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((CN=['\w\d\s\-\&amp;]+,)+(OU=['\w\d\s\-\&amp;]+,)*(DC=['\w\d\s\-\&amp;]+[,]*){2,})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

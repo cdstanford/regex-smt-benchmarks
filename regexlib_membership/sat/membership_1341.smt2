@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[\w0-9&#228;&#196;&#246;&#214;&#252;&#220;&#223;\-_]+\.[a-zA-Z0-9]{2,6}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

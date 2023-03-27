@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[F][O][\s]?[0-9]{3}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

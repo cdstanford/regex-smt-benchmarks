@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (SELECT\s[\w\*\)\(\,\s]+\sFROM\s[\w]+)|
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

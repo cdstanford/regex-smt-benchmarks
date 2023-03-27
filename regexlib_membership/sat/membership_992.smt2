@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((?-i)A[cglmrstu]|B[aehikr]?|C[adeflmorsu]?|D[bsy]|E[rsu]|F[emf]?|G[ade]|H[efgos]?|I[nk]?|Kr?|L[airu]|M[dgnot]|N[abdeiop]|Os?|P[abdmortu]?|R[abefghnu]|S[bcegimnr]?|T[abcehil]|U(u[bhopqst])?|V|W|Xe|Yb?|Z[nr])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

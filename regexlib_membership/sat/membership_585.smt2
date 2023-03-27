@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<Nbr>[\+-]?((\d*\,\d+)|(\d*\.\d+)|\d+))\s*(?<Unit>mm|cm|dm|min|km|s|m|h)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

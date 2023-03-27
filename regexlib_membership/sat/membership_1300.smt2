@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = [B\][a-zA-Z0-9._/ ]+\[/B\]
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

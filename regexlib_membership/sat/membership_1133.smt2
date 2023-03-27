@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = &lt;a[a-zA-Z0-9 =&quot;'.:;?]*(name=){1}[a-zA-Z0-9 =&quot;'.:;?]*\s*((/&gt;)|(&gt;[a-zA-Z0-9 =&quot;'&lt;&gt;.:;?]*&lt;/a&gt;))
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

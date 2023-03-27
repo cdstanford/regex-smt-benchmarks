@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = (?<Day>[0-3][0-9]|[1-9])/(?<Month>[1-9]|1[0-2]|0[1-9])/(?<Year>[12]\d{3}|\d{2})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

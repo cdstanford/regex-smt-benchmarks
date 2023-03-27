@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((?<dir>[\-ld])(?<permission>([\-r][\-w][\-xs]){3})\s+(?<filecode>\d+)\s+(?<owner>\w+)\s+(?<group>\w+)\s+(?<size>\d+)\s+(?<timestamp>(?<month>[a-z|A-Z]{3})\s+(?<day>(\d?\d))\s+(?<hour>\d?\d):(?<minute>\d{2}))\s+(?<name>\w.+))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

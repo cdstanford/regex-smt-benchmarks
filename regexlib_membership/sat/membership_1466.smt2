@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA =      |       # otherwise accept decimal number between 0 - 1048575
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

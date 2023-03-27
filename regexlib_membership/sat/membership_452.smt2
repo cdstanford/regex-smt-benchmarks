@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^100$|^100.00$|^\d{0,2}(\.\d{1,2})? *%?$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

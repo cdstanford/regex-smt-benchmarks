@@ -4,7 +4,7 @@
 ; regexA = ^(\w|\-)+@((\w|\-)+\.)+(\w|\-)+\z
 ; regexB = ^\$?(\d{1,3},?(\d{3},?)*\d{3}(\.\d{0,2})?|\d{1,3}(\.\d{0,2})?|\.(\d{1,2})?)\z
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

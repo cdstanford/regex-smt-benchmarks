@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(GB){0,1}([1-9][0-9]{2}\ [0-9]{4}\ [0-9]{2})|([1-9][0-9]{2}\ [0-9]{4}\ [0-9]{2}\ [0-9]{3})|((GD|HA)[0-9]{3})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

@@ -4,7 +4,7 @@
 ; regexA = ^([\p{Lu}\p{Ll}]|\-)+@(([\p{Lu}\p{Ll}]|\-)+\.)+([\p{Lu}\p{Ll}]|\-)+\z
 ; regexB = ^(\w|\-)+@((\w|\-)+\.)+(\w|\-)+\z
 ;---
-(set-info :status unsat)
+;(set-info :status unsat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

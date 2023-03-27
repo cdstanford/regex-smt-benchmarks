@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^(?<prov>10)(?<tipo>(AV))?-(?<tomo>\d{1,4})-(?<folio>\d{1,5})|^(?<prov>[1-9])(?<tipo>(AV))?-(?<tomo>\d{1,4})-(?<folio>\d{1,5})|^(?<tipo>(E|N|PE))-(?<tomo>\d{1,4})-(?<folio>\d{1,5})
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

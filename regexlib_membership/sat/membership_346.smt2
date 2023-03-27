@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

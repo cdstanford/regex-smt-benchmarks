@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^((18[5-9][0-9])|((19|20)[0-9]{2})|(2100))$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

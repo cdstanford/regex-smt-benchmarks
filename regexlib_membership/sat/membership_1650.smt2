@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^\s*(?'num'\d+(\.\d+)?)\s*(?'unit'((w(eek)?)|(wk)|(d(ay)?)|(h(our)?)|(hr))s?)(\s*$)
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

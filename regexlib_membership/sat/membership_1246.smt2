@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^([34|37]{2})([0-9]{13})$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 

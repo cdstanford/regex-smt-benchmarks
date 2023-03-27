@@ -3,7 +3,7 @@
 ; check membership of .Net regex
 ; regexA = ^[^\s]+@[^\.][^\s]{1,}\.[A-Za-z]{2,10}$
 ;---
-(set-info :status sat)
+;(set-info :status sat)
 ;(set-option :print-success true)
 (set-logic QF_S)
 
