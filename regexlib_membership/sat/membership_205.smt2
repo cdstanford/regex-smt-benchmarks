@@ -4,16 +4,16 @@
 ; regexA = ^[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]{1}\d{1}[A-Za-z]{1}[ ]{0,1}\d{1}[A-Za-z]{1}\d{1}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "h9y 5w7"
-(define-fun Witness1 () String (seq.++ "h" (seq.++ "9" (seq.++ "y" (seq.++ " " (seq.++ "5" (seq.++ "w" (seq.++ "7" ""))))))))
+(define-fun Witness1 () String (str.++ "h" (str.++ "9" (str.++ "y" (str.++ " " (str.++ "5" (str.++ "w" (str.++ "7" ""))))))))
 ;witness2: "t1f9z8"
-(define-fun Witness2 () String (seq.++ "t" (seq.++ "1" (seq.++ "f" (seq.++ "9" (seq.++ "z" (seq.++ "8" "")))))))
+(define-fun Witness2 () String (str.++ "t" (str.++ "1" (str.++ "f" (str.++ "9" (str.++ "z" (str.++ "8" "")))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.range "A" "C")(re.union (re.range "E" "E")(re.union (re.range "G" "H")(re.union (re.range "J" "N")(re.union (re.range "P" "P")(re.union (re.range "R" "T")(re.union (re.range "V" "V")(re.union (re.range "X" "Y")(re.union (re.range "a" "c")(re.union (re.range "e" "e")(re.union (re.range "g" "h")(re.union (re.range "j" "n")(re.union (re.range "p" "p")(re.union (re.range "r" "t")(re.union (re.range "v" "v") (re.range "x" "y"))))))))))))))))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "A" "Z") (re.range "a" "z"))(re.++ (re.opt (re.range " " " "))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "A" "Z") (re.range "a" "z"))(re.++ (re.range "0" "9") (str.to_re "")))))))))))
 

@@ -4,18 +4,18 @@
 ; regexA = \(\d{3}\)\040\d{3}-\d{4}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "(781) 689-89421\u00F6"
-(define-fun Witness1 () String (seq.++ "(" (seq.++ "7" (seq.++ "8" (seq.++ "1" (seq.++ ")" (seq.++ " " (seq.++ "6" (seq.++ "8" (seq.++ "9" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "4" (seq.++ "2" (seq.++ "1" (seq.++ "\xf6" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "(" (str.++ "7" (str.++ "8" (str.++ "1" (str.++ ")" (str.++ " " (str.++ "6" (str.++ "8" (str.++ "9" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "4" (str.++ "2" (str.++ "1" (str.++ "\u{f6}" "")))))))))))))))))
 ;witness2: "\x8(258) 898-1014"
-(define-fun Witness2 () String (seq.++ "\x08" (seq.++ "(" (seq.++ "2" (seq.++ "5" (seq.++ "8" (seq.++ ")" (seq.++ " " (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ "-" (seq.++ "1" (seq.++ "0" (seq.++ "1" (seq.++ "4" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{08}" (str.++ "(" (str.++ "2" (str.++ "5" (str.++ "8" (str.++ ")" (str.++ " " (str.++ "8" (str.++ "9" (str.++ "8" (str.++ "-" (str.++ "1" (str.++ "0" (str.++ "1" (str.++ "4" ""))))))))))))))))
 
-(assert (= regexA (re.++ (re.range "(" "(")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (str.to_re (seq.++ ")" (seq.++ " " "")))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9")))))))))
+(assert (= regexA (re.++ (re.range "(" "(")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (str.to_re (str.++ ")" (str.++ " " "")))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

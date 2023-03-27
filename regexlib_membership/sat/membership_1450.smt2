@@ -4,18 +4,18 @@
 ; regexA = \xA9
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00A9UC"
-(define-fun Witness1 () String (seq.++ "\xa9" (seq.++ "U" (seq.++ "C" ""))))
+(define-fun Witness1 () String (str.++ "\u{a9}" (str.++ "U" (str.++ "C" ""))))
 ;witness2: "\u00A9\x14"
-(define-fun Witness2 () String (seq.++ "\xa9" (seq.++ "\x14" "")))
+(define-fun Witness2 () String (str.++ "\u{a9}" (str.++ "\u{14}" "")))
 
-(assert (= regexA (re.range "\xa9" "\xa9")))
+(assert (= regexA (re.range "\u{a9}" "\u{a9}")))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,16 +4,16 @@
 ; regexA = [du]{2}|[gu]{2}|[tu]{2}|[ds]{2}|[gs]{2}|[da]{2}|[ga]{2}|[ta]{2}|[dq]{2}|[gq]{2}|[tq]{2}|[DU]{2}|[GU]{2}|[TU]{2}|[DS]{2}|[GS]{2}|[DA]{2}|[GA]{2}|[TA]{2}|[DQ]{2}|[GQ]{2}|[TQ]{2}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "sg4"
-(define-fun Witness1 () String (seq.++ "s" (seq.++ "g" (seq.++ "4" ""))))
+(define-fun Witness1 () String (str.++ "s" (str.++ "g" (str.++ "4" ""))))
 ;witness2: "\u00A6mgq\u008C\u00C1\u00ED\u0080"
-(define-fun Witness2 () String (seq.++ "\xa6" (seq.++ "m" (seq.++ "g" (seq.++ "q" (seq.++ "\x8c" (seq.++ "\xc1" (seq.++ "\xed" (seq.++ "\x80" "")))))))))
+(define-fun Witness2 () String (str.++ "\u{a6}" (str.++ "m" (str.++ "g" (str.++ "q" (str.++ "\u{8c}" (str.++ "\u{c1}" (str.++ "\u{ed}" (str.++ "\u{80}" "")))))))))
 
 (assert (= regexA (re.union ((_ re.loop 2 2) (re.union (re.range "d" "d") (re.range "u" "u")))(re.union ((_ re.loop 2 2) (re.union (re.range "g" "g") (re.range "u" "u")))(re.union ((_ re.loop 2 2) (re.range "t" "u"))(re.union ((_ re.loop 2 2) (re.union (re.range "d" "d") (re.range "s" "s")))(re.union ((_ re.loop 2 2) (re.union (re.range "g" "g") (re.range "s" "s")))(re.union ((_ re.loop 2 2) (re.union (re.range "a" "a") (re.range "d" "d")))(re.union ((_ re.loop 2 2) (re.union (re.range "a" "a") (re.range "g" "g")))(re.union ((_ re.loop 2 2) (re.union (re.range "a" "a") (re.range "t" "t")))(re.union ((_ re.loop 2 2) (re.union (re.range "d" "d") (re.range "q" "q")))(re.union ((_ re.loop 2 2) (re.union (re.range "g" "g") (re.range "q" "q")))(re.union ((_ re.loop 2 2) (re.union (re.range "q" "q") (re.range "t" "t")))(re.union ((_ re.loop 2 2) (re.union (re.range "D" "D") (re.range "U" "U")))(re.union ((_ re.loop 2 2) (re.union (re.range "G" "G") (re.range "U" "U")))(re.union ((_ re.loop 2 2) (re.range "T" "U"))(re.union ((_ re.loop 2 2) (re.union (re.range "D" "D") (re.range "S" "S")))(re.union ((_ re.loop 2 2) (re.union (re.range "G" "G") (re.range "S" "S")))(re.union ((_ re.loop 2 2) (re.union (re.range "A" "A") (re.range "D" "D")))(re.union ((_ re.loop 2 2) (re.union (re.range "A" "A") (re.range "G" "G")))(re.union ((_ re.loop 2 2) (re.union (re.range "A" "A") (re.range "T" "T")))(re.union ((_ re.loop 2 2) (re.union (re.range "D" "D") (re.range "Q" "Q")))(re.union ((_ re.loop 2 2) (re.union (re.range "G" "G") (re.range "Q" "Q"))) ((_ re.loop 2 2) (re.union (re.range "Q" "Q") (re.range "T" "T"))))))))))))))))))))))))))
 

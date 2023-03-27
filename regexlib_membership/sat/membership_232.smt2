@@ -4,16 +4,16 @@
 ; regexA = \$(\d)*\d
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00E7\u0082$58\u009B\u00BDY\u00C9A\u0094\u00D8\u0093"
-(define-fun Witness1 () String (seq.++ "\xe7" (seq.++ "\x82" (seq.++ "$" (seq.++ "5" (seq.++ "8" (seq.++ "\x9b" (seq.++ "\xbd" (seq.++ "Y" (seq.++ "\xc9" (seq.++ "A" (seq.++ "\x94" (seq.++ "\xd8" (seq.++ "\x93" ""))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{e7}" (str.++ "\u{82}" (str.++ "$" (str.++ "5" (str.++ "8" (str.++ "\u{9b}" (str.++ "\u{bd}" (str.++ "Y" (str.++ "\u{c9}" (str.++ "A" (str.++ "\u{94}" (str.++ "\u{d8}" (str.++ "\u{93}" ""))))))))))))))
 ;witness2: "x\u00F5$758777922687"
-(define-fun Witness2 () String (seq.++ "x" (seq.++ "\xf5" (seq.++ "$" (seq.++ "7" (seq.++ "5" (seq.++ "8" (seq.++ "7" (seq.++ "7" (seq.++ "7" (seq.++ "9" (seq.++ "2" (seq.++ "2" (seq.++ "6" (seq.++ "8" (seq.++ "7" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "x" (str.++ "\u{f5}" (str.++ "$" (str.++ "7" (str.++ "5" (str.++ "8" (str.++ "7" (str.++ "7" (str.++ "7" (str.++ "9" (str.++ "2" (str.++ "2" (str.++ "6" (str.++ "8" (str.++ "7" ""))))))))))))))))
 
 (assert (= regexA (re.++ (re.range "$" "$")(re.++ (re.* (re.range "0" "9")) (re.range "0" "9")))))
 

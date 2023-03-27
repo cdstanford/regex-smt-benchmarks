@@ -4,16 +4,16 @@
 ; regexA = ^[A-Za-z0-9_]+$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "87gt"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "7" (seq.++ "g" (seq.++ "t" "")))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "7" (str.++ "g" (str.++ "t" "")))))
 ;witness2: "088k"
-(define-fun Witness2 () String (seq.++ "0" (seq.++ "8" (seq.++ "8" (seq.++ "k" "")))))
+(define-fun Witness2 () String (str.++ "0" (str.++ "8" (str.++ "8" (str.++ "k" "")))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))) (str.to_re "")))))
 

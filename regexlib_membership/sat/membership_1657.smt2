@@ -4,16 +4,16 @@
 ; regexA = ^((\d?)|(([-+]?\d+\.?\d*)|([-+]?\d*\.?\d+))|(([-+]?\d+\.?\d*\,\ ?)*([-+]?\d+\.?\d*))|(([-+]?\d*\.?\d+\,\ ?)*([-+]?\d*\.?\d+))|(([-+]?\d+\.?\d*\,\ ?)*([-+]?\d*\.?\d+))|(([-+]?\d*\.?\d+\,\ ?)*([-+]?\d+\.?\d*)))$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "0.8,+8327"
-(define-fun Witness1 () String (seq.++ "0" (seq.++ "." (seq.++ "8" (seq.++ "," (seq.++ "+" (seq.++ "8" (seq.++ "3" (seq.++ "2" (seq.++ "7" ""))))))))))
+(define-fun Witness1 () String (str.++ "0" (str.++ "." (str.++ "8" (str.++ "," (str.++ "+" (str.++ "8" (str.++ "3" (str.++ "2" (str.++ "7" ""))))))))))
 ;witness2: "-38,+18.58"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "3" (seq.++ "8" (seq.++ "," (seq.++ "+" (seq.++ "1" (seq.++ "8" (seq.++ "." (seq.++ "5" (seq.++ "8" "")))))))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "3" (str.++ "8" (str.++ "," (str.++ "+" (str.++ "1" (str.++ "8" (str.++ "." (str.++ "5" (str.++ "8" "")))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.opt (re.range "0" "9"))(re.union (re.union (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.* (re.range "0" "9"))))) (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.+ (re.range "0" "9"))))))(re.union (re.++ (re.* (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.range "." "."))(re.++ (re.* (re.range "0" "9"))(re.++ (re.range "," ",") (re.opt (re.range " " " ")))))))) (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.* (re.range "0" "9"))))))(re.union (re.++ (re.* (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.range "." "."))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.range "," ",") (re.opt (re.range " " " ")))))))) (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.+ (re.range "0" "9"))))))(re.union (re.++ (re.* (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.range "." "."))(re.++ (re.* (re.range "0" "9"))(re.++ (re.range "," ",") (re.opt (re.range " " " ")))))))) (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.+ (re.range "0" "9")))))) (re.++ (re.* (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.range "." "."))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.range "," ",") (re.opt (re.range " " " ")))))))) (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) (re.* (re.range "0" "9"))))))))))) (str.to_re "")))))
 

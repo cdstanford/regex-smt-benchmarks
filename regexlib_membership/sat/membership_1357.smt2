@@ -4,18 +4,18 @@
 ; regexA = ^[a-zA-Z0-9\x20'\.]{8,64}[^\s]$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "xMlN8F.e\u009A"
-(define-fun Witness1 () String (seq.++ "x" (seq.++ "M" (seq.++ "l" (seq.++ "N" (seq.++ "8" (seq.++ "F" (seq.++ "." (seq.++ "e" (seq.++ "\x9a" ""))))))))))
+(define-fun Witness1 () String (str.++ "x" (str.++ "M" (str.++ "l" (str.++ "N" (str.++ "8" (str.++ "F" (str.++ "." (str.++ "e" (str.++ "\u{9a}" ""))))))))))
 ;witness2: "s9..z9p9\u008A"
-(define-fun Witness2 () String (seq.++ "s" (seq.++ "9" (seq.++ "." (seq.++ "." (seq.++ "z" (seq.++ "9" (seq.++ "p" (seq.++ "9" (seq.++ "\x8a" ""))))))))))
+(define-fun Witness2 () String (str.++ "s" (str.++ "9" (str.++ "." (str.++ "." (str.++ "z" (str.++ "9" (str.++ "p" (str.++ "9" (str.++ "\u{8a}" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 8 64) (re.union (re.range " " " ")(re.union (re.range "'" "'")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))))(re.++ (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff"))))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 8 64) (re.union (re.range " " " ")(re.union (re.range "'" "'")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))))(re.++ (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}"))))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

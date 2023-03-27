@@ -1,3 +1,4 @@
+(set-logic QF_S)
 ;---
 ; .NET regular expressions restricted to 7-bit characters
 ; membership in
@@ -6,4 +7,4 @@
 (declare-const x String)
 (assert (str.in_re x (re.++ (re.++ (re.++ (re.++ (re.++ (re.* (re.++ (str.to_re "a") (re.* (str.to_re "bc")))) (str.to_re "d")) (re.+ (str.to_re "bc"))) (re.* (re.++ (str.to_re "a") (re.* (str.to_re "bc"))))) (str.to_re "d")) (re.* (re.++ (re.++ (re.++ (re.++ (re.++ (re.++ (str.to_re "abc") (re.* (re.++ (str.to_re "a") (re.* (str.to_re "bc"))))) (str.to_re "d")) (re.+ (str.to_re "bc"))) (re.* (re.++ (str.to_re "a") (re.* (str.to_re "bc"))))) (str.to_re "d")) (re.inter (str.to_re "a") (str.to_re "b")))))))
 (check-sat)
-(get-model)
+;(get-model)

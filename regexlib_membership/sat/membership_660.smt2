@@ -4,16 +4,16 @@
 ; regexA = ^[A-Z][a-z]+(o(i|u)(n|(v)?r(t)?|s|t|x)(e(s)?)?)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Xxouvrt"
-(define-fun Witness1 () String (seq.++ "X" (seq.++ "x" (seq.++ "o" (seq.++ "u" (seq.++ "v" (seq.++ "r" (seq.++ "t" ""))))))))
+(define-fun Witness1 () String (str.++ "X" (str.++ "x" (str.++ "o" (str.++ "u" (str.++ "v" (str.++ "r" (str.++ "t" ""))))))))
 ;witness2: "Ufkoire"
-(define-fun Witness2 () String (seq.++ "U" (seq.++ "f" (seq.++ "k" (seq.++ "o" (seq.++ "i" (seq.++ "r" (seq.++ "e" ""))))))))
+(define-fun Witness2 () String (str.++ "U" (str.++ "f" (str.++ "k" (str.++ "o" (str.++ "i" (str.++ "r" (str.++ "e" ""))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.++ (re.range "o" "o")(re.++ (re.union (re.range "i" "i") (re.range "u" "u"))(re.++ (re.union (re.range "n" "n")(re.union (re.++ (re.opt (re.range "v" "v"))(re.++ (re.range "r" "r") (re.opt (re.range "t" "t")))) (re.union (re.range "s" "t") (re.range "x" "x")))) (re.opt (re.++ (re.range "e" "e") (re.opt (re.range "s" "s"))))))) (str.to_re "")))))))
 

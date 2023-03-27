@@ -4,18 +4,18 @@
 ; regexA = (\n\r)   replacement string---->\n
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "A\u00A4,=\xA\xD   replacement string---->\xA\x1C"
-(define-fun Witness1 () String (seq.++ "A" (seq.++ "\xa4" (seq.++ "," (seq.++ "=" (seq.++ "\x0a" (seq.++ "\x0d" (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "r" (seq.++ "e" (seq.++ "p" (seq.++ "l" (seq.++ "a" (seq.++ "c" (seq.++ "e" (seq.++ "m" (seq.++ "e" (seq.++ "n" (seq.++ "t" (seq.++ " " (seq.++ "s" (seq.++ "t" (seq.++ "r" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ ">" (seq.++ "\x0a" (seq.++ "\x1c" "")))))))))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "A" (str.++ "\u{a4}" (str.++ "," (str.++ "=" (str.++ "\u{0a}" (str.++ "\u{0d}" (str.++ " " (str.++ " " (str.++ " " (str.++ "r" (str.++ "e" (str.++ "p" (str.++ "l" (str.++ "a" (str.++ "c" (str.++ "e" (str.++ "m" (str.++ "e" (str.++ "n" (str.++ "t" (str.++ " " (str.++ "s" (str.++ "t" (str.++ "r" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ ">" (str.++ "\u{0a}" (str.++ "\u{1c}" "")))))))))))))))))))))))))))))))))))
 ;witness2: "\u00E0\xA\xD   replacement string---->\xARC"
-(define-fun Witness2 () String (seq.++ "\xe0" (seq.++ "\x0a" (seq.++ "\x0d" (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "r" (seq.++ "e" (seq.++ "p" (seq.++ "l" (seq.++ "a" (seq.++ "c" (seq.++ "e" (seq.++ "m" (seq.++ "e" (seq.++ "n" (seq.++ "t" (seq.++ " " (seq.++ "s" (seq.++ "t" (seq.++ "r" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ ">" (seq.++ "\x0a" (seq.++ "R" (seq.++ "C" "")))))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{e0}" (str.++ "\u{0a}" (str.++ "\u{0d}" (str.++ " " (str.++ " " (str.++ " " (str.++ "r" (str.++ "e" (str.++ "p" (str.++ "l" (str.++ "a" (str.++ "c" (str.++ "e" (str.++ "m" (str.++ "e" (str.++ "n" (str.++ "t" (str.++ " " (str.++ "s" (str.++ "t" (str.++ "r" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ ">" (str.++ "\u{0a}" (str.++ "R" (str.++ "C" "")))))))))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "\x0a" (seq.++ "\x0d" ""))) (str.to_re (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "r" (seq.++ "e" (seq.++ "p" (seq.++ "l" (seq.++ "a" (seq.++ "c" (seq.++ "e" (seq.++ "m" (seq.++ "e" (seq.++ "n" (seq.++ "t" (seq.++ " " (seq.++ "s" (seq.++ "t" (seq.++ "r" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ "-" (seq.++ ">" (seq.++ "\x0a" "")))))))))))))))))))))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "\u{0a}" (str.++ "\u{0d}" ""))) (str.to_re (str.++ " " (str.++ " " (str.++ " " (str.++ "r" (str.++ "e" (str.++ "p" (str.++ "l" (str.++ "a" (str.++ "c" (str.++ "e" (str.++ "m" (str.++ "e" (str.++ "n" (str.++ "t" (str.++ " " (str.++ "s" (str.++ "t" (str.++ "r" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ "-" (str.++ ">" (str.++ "\u{0a}" "")))))))))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

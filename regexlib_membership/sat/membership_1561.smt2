@@ -4,18 +4,18 @@
 ; regexA = .*[\$Ss]pecia[l1]\W[Oo0]ffer.*
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "$pecial;0ffer"
-(define-fun Witness1 () String (seq.++ "$" (seq.++ "p" (seq.++ "e" (seq.++ "c" (seq.++ "i" (seq.++ "a" (seq.++ "l" (seq.++ ";" (seq.++ "0" (seq.++ "f" (seq.++ "f" (seq.++ "e" (seq.++ "r" ""))))))))))))))
+(define-fun Witness1 () String (str.++ "$" (str.++ "p" (str.++ "e" (str.++ "c" (str.++ "i" (str.++ "a" (str.++ "l" (str.++ ";" (str.++ "0" (str.++ "f" (str.++ "f" (str.++ "e" (str.++ "r" ""))))))))))))))
 ;witness2: "Specia1=0ffer_"
-(define-fun Witness2 () String (seq.++ "S" (seq.++ "p" (seq.++ "e" (seq.++ "c" (seq.++ "i" (seq.++ "a" (seq.++ "1" (seq.++ "=" (seq.++ "0" (seq.++ "f" (seq.++ "f" (seq.++ "e" (seq.++ "r" (seq.++ "_" "")))))))))))))))
+(define-fun Witness2 () String (str.++ "S" (str.++ "p" (str.++ "e" (str.++ "c" (str.++ "i" (str.++ "a" (str.++ "1" (str.++ "=" (str.++ "0" (str.++ "f" (str.++ "f" (str.++ "e" (str.++ "r" (str.++ "_" "")))))))))))))))
 
-(assert (= regexA (re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.union (re.range "$" "$")(re.union (re.range "S" "S") (re.range "s" "s")))(re.++ (str.to_re (seq.++ "p" (seq.++ "e" (seq.++ "c" (seq.++ "i" (seq.++ "a" ""))))))(re.++ (re.union (re.range "1" "1") (re.range "l" "l"))(re.++ (re.union (re.range "\x00" "/")(re.union (re.range ":" "@")(re.union (re.range "[" "^")(re.union (re.range "`" "`")(re.union (re.range "{" "\xa9")(re.union (re.range "\xab" "\xb4")(re.union (re.range "\xb6" "\xb9")(re.union (re.range "\xbb" "\xbf")(re.union (re.range "\xd7" "\xd7") (re.range "\xf7" "\xf7"))))))))))(re.++ (re.union (re.range "0" "0")(re.union (re.range "O" "O") (re.range "o" "o")))(re.++ (str.to_re (seq.++ "f" (seq.++ "f" (seq.++ "e" (seq.++ "r" ""))))) (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))))))))))))
+(assert (= regexA (re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.union (re.range "$" "$")(re.union (re.range "S" "S") (re.range "s" "s")))(re.++ (str.to_re (str.++ "p" (str.++ "e" (str.++ "c" (str.++ "i" (str.++ "a" ""))))))(re.++ (re.union (re.range "1" "1") (re.range "l" "l"))(re.++ (re.union (re.range "\u{00}" "/")(re.union (re.range ":" "@")(re.union (re.range "[" "^")(re.union (re.range "`" "`")(re.union (re.range "{" "\u{a9}")(re.union (re.range "\u{ab}" "\u{b4}")(re.union (re.range "\u{b6}" "\u{b9}")(re.union (re.range "\u{bb}" "\u{bf}")(re.union (re.range "\u{d7}" "\u{d7}") (re.range "\u{f7}" "\u{f7}"))))))))))(re.++ (re.union (re.range "0" "0")(re.union (re.range "O" "O") (re.range "o" "o")))(re.++ (str.to_re (str.++ "f" (str.++ "f" (str.++ "e" (str.++ "r" ""))))) (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

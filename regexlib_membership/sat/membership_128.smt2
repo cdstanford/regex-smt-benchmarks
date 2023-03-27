@@ -4,18 +4,18 @@
 ; regexA = '([dmstrl])([ .,?!\)\\/<])
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\xC\'d)"
-(define-fun Witness1 () String (seq.++ "\x0c" (seq.++ "'" (seq.++ "d" (seq.++ ")" "")))))
+(define-fun Witness1 () String (str.++ "\u{0c}" (str.++ "'" (str.++ "d" (str.++ ")" "")))))
 ;witness2: "\'r<"
-(define-fun Witness2 () String (seq.++ "'" (seq.++ "r" (seq.++ "<" ""))))
+(define-fun Witness2 () String (str.++ "'" (str.++ "r" (str.++ "<" ""))))
 
-(assert (= regexA (re.++ (re.range "'" "'")(re.++ (re.union (re.range "d" "d")(re.union (re.range "l" "m") (re.range "r" "t"))) (re.union (re.range " " "!")(re.union (re.range ")" ")")(re.union (re.range "," ",")(re.union (re.range "." "/")(re.union (re.range "<" "<")(re.union (re.range "?" "?") (re.range "\x5c" "\x5c")))))))))))
+(assert (= regexA (re.++ (re.range "'" "'")(re.++ (re.union (re.range "d" "d")(re.union (re.range "l" "m") (re.range "r" "t"))) (re.union (re.range " " "!")(re.union (re.range ")" ")")(re.union (re.range "," ",")(re.union (re.range "." "/")(re.union (re.range "<" "<")(re.union (re.range "?" "?") (re.range "\u{5c}" "\u{5c}")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

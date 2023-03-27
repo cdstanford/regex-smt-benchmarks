@@ -4,18 +4,18 @@
 ; regexA = ("[^"]*")|('[^\r]*)(\r\n)?
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\'\u00DF"
-(define-fun Witness1 () String (seq.++ "'" (seq.++ "\xdf" "")))
+(define-fun Witness1 () String (str.++ "'" (str.++ "\u{df}" "")))
 ;witness2: "\'"
-(define-fun Witness2 () String (seq.++ "'" ""))
+(define-fun Witness2 () String (str.++ "'" ""))
 
-(assert (= regexA (re.union (re.++ (re.range "\x22" "\x22")(re.++ (re.* (re.union (re.range "\x00" "!") (re.range "#" "\xff"))) (re.range "\x22" "\x22"))) (re.++ (re.++ (re.range "'" "'") (re.* (re.union (re.range "\x00" "\x0c") (re.range "\x0e" "\xff")))) (re.opt (str.to_re (seq.++ "\x0d" (seq.++ "\x0a" ""))))))))
+(assert (= regexA (re.union (re.++ (re.range "\u{22}" "\u{22}")(re.++ (re.* (re.union (re.range "\u{00}" "!") (re.range "#" "\u{ff}"))) (re.range "\u{22}" "\u{22}"))) (re.++ (re.++ (re.range "'" "'") (re.* (re.union (re.range "\u{00}" "\u{0c}") (re.range "\u{0e}" "\u{ff}")))) (re.opt (str.to_re (str.++ "\u{0d}" (str.++ "\u{0a}" ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

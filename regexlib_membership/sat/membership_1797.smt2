@@ -4,16 +4,16 @@
 ; regexA = ^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "F9:88:D9:1f:aB:5d"
-(define-fun Witness1 () String (seq.++ "F" (seq.++ "9" (seq.++ ":" (seq.++ "8" (seq.++ "8" (seq.++ ":" (seq.++ "D" (seq.++ "9" (seq.++ ":" (seq.++ "1" (seq.++ "f" (seq.++ ":" (seq.++ "a" (seq.++ "B" (seq.++ ":" (seq.++ "5" (seq.++ "d" ""))))))))))))))))))
+(define-fun Witness1 () String (str.++ "F" (str.++ "9" (str.++ ":" (str.++ "8" (str.++ "8" (str.++ ":" (str.++ "D" (str.++ "9" (str.++ ":" (str.++ "1" (str.++ "f" (str.++ ":" (str.++ "a" (str.++ "B" (str.++ ":" (str.++ "5" (str.++ "d" ""))))))))))))))))))
 ;witness2: "71:aa:eA:db:D2:2B"
-(define-fun Witness2 () String (seq.++ "7" (seq.++ "1" (seq.++ ":" (seq.++ "a" (seq.++ "a" (seq.++ ":" (seq.++ "e" (seq.++ "A" (seq.++ ":" (seq.++ "d" (seq.++ "b" (seq.++ ":" (seq.++ "D" (seq.++ "2" (seq.++ ":" (seq.++ "2" (seq.++ "B" ""))))))))))))))))))
+(define-fun Witness2 () String (str.++ "7" (str.++ "1" (str.++ ":" (str.++ "a" (str.++ "a" (str.++ ":" (str.++ "e" (str.++ "A" (str.++ ":" (str.++ "d" (str.++ "b" (str.++ ":" (str.++ "D" (str.++ "2" (str.++ ":" (str.++ "2" (str.++ "B" ""))))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 5 5) (re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f")))(re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f"))) (re.range ":" ":"))))(re.++ (re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f"))) (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f")))) (str.to_re ""))))))
 

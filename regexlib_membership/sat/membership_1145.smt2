@@ -4,16 +4,16 @@
 ; regexA = (^\d*\.\d{2}$)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "8.93"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "." (seq.++ "9" (seq.++ "3" "")))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "." (str.++ "9" (str.++ "3" "")))))
 ;witness2: ".49"
-(define-fun Witness2 () String (seq.++ "." (seq.++ "4" (seq.++ "9" ""))))
+(define-fun Witness2 () String (str.++ "." (str.++ "4" (str.++ "9" ""))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.range "0" "9"))(re.++ (re.range "." ".")(re.++ ((_ re.loop 2 2) (re.range "0" "9")) (str.to_re "")))))))
 

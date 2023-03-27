@@ -4,18 +4,18 @@
 ; regexA = [\x01-\x08,\x0A-\x1F,\x7F,\x81,\x8D,\x8F,\x90,\x9D]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u007F"
-(define-fun Witness1 () String (seq.++ "\x7f" ""))
+(define-fun Witness1 () String (str.++ "\u{7f}" ""))
 ;witness2: "\x15\u0094\u009D@"
-(define-fun Witness2 () String (seq.++ "\x15" (seq.++ "\x94" (seq.++ "\x9d" (seq.++ "@" "")))))
+(define-fun Witness2 () String (str.++ "\u{15}" (str.++ "\u{94}" (str.++ "\u{9d}" (str.++ "@" "")))))
 
-(assert (= regexA (re.union (re.range "\x01" "\x08")(re.union (re.range "\x0a" "\x1f")(re.union (re.range "," ",")(re.union (re.range "\x7f" "\x7f")(re.union (re.range "\x81" "\x81")(re.union (re.range "\x8d" "\x8d")(re.union (re.range "\x8f" "\x90") (re.range "\x9d" "\x9d"))))))))))
+(assert (= regexA (re.union (re.range "\u{01}" "\u{08}")(re.union (re.range "\u{0a}" "\u{1f}")(re.union (re.range "," ",")(re.union (re.range "\u{7f}" "\u{7f}")(re.union (re.range "\u{81}" "\u{81}")(re.union (re.range "\u{8d}" "\u{8d}")(re.union (re.range "\u{8f}" "\u{90}") (re.range "\u{9d}" "\u{9d}"))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

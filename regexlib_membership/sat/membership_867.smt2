@@ -4,18 +4,18 @@
 ; regexA = ((<body)|(<BODY))([^>]*)>
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ".<BODY\u008D>l\u00A9p"
-(define-fun Witness1 () String (seq.++ "." (seq.++ "<" (seq.++ "B" (seq.++ "O" (seq.++ "D" (seq.++ "Y" (seq.++ "\x8d" (seq.++ ">" (seq.++ "l" (seq.++ "\xa9" (seq.++ "p" ""))))))))))))
+(define-fun Witness1 () String (str.++ "." (str.++ "<" (str.++ "B" (str.++ "O" (str.++ "D" (str.++ "Y" (str.++ "\u{8d}" (str.++ ">" (str.++ "l" (str.++ "\u{a9}" (str.++ "p" ""))))))))))))
 ;witness2: "<BODY\u00E71>"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "B" (seq.++ "O" (seq.++ "D" (seq.++ "Y" (seq.++ "\xe7" (seq.++ "1" (seq.++ ">" "")))))))))
+(define-fun Witness2 () String (str.++ "<" (str.++ "B" (str.++ "O" (str.++ "D" (str.++ "Y" (str.++ "\u{e7}" (str.++ "1" (str.++ ">" "")))))))))
 
-(assert (= regexA (re.++ (re.union (str.to_re (seq.++ "<" (seq.++ "b" (seq.++ "o" (seq.++ "d" (seq.++ "y" "")))))) (str.to_re (seq.++ "<" (seq.++ "B" (seq.++ "O" (seq.++ "D" (seq.++ "Y" "")))))))(re.++ (re.* (re.union (re.range "\x00" "=") (re.range "?" "\xff"))) (re.range ">" ">")))))
+(assert (= regexA (re.++ (re.union (str.to_re (str.++ "<" (str.++ "b" (str.++ "o" (str.++ "d" (str.++ "y" "")))))) (str.to_re (str.++ "<" (str.++ "B" (str.++ "O" (str.++ "D" (str.++ "Y" "")))))))(re.++ (re.* (re.union (re.range "\u{00}" "=") (re.range "?" "\u{ff}"))) (re.range ">" ">")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

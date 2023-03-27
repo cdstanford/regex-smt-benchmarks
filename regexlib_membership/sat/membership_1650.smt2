@@ -4,18 +4,18 @@
 ; regexA = ^\s*(?'num'\d+(\.\d+)?)\s*(?'unit'((w(eek)?)|(wk)|(d(ay)?)|(h(our)?)|(hr))s?)(\s*$)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\x97879999.9\xDhour\xA"
-(define-fun Witness1 () String (seq.++ "\x09" (seq.++ "7" (seq.++ "8" (seq.++ "7" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "." (seq.++ "9" (seq.++ "\x0d" (seq.++ "h" (seq.++ "o" (seq.++ "u" (seq.++ "r" (seq.++ "\x0a" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{09}" (str.++ "7" (str.++ "8" (str.++ "7" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "." (str.++ "9" (str.++ "\u{0d}" (str.++ "h" (str.++ "o" (str.++ "u" (str.++ "r" (str.++ "\u{0a}" "")))))))))))))))))
 ;witness2: " 38.588 hr"
-(define-fun Witness2 () String (seq.++ " " (seq.++ "3" (seq.++ "8" (seq.++ "." (seq.++ "5" (seq.++ "8" (seq.++ "8" (seq.++ " " (seq.++ "h" (seq.++ "r" "")))))))))))
+(define-fun Witness2 () String (str.++ " " (str.++ "3" (str.++ "8" (str.++ "." (str.++ "5" (str.++ "8" (str.++ "8" (str.++ " " (str.++ "h" (str.++ "r" "")))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.++ (re.+ (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") (re.+ (re.range "0" "9")))))(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.++ (re.union (re.++ (re.range "w" "w") (re.opt (str.to_re (seq.++ "e" (seq.++ "e" (seq.++ "k" ""))))))(re.union (str.to_re (seq.++ "w" (seq.++ "k" "")))(re.union (re.++ (re.range "d" "d") (re.opt (str.to_re (seq.++ "a" (seq.++ "y" "")))))(re.union (re.++ (re.range "h" "h") (re.opt (str.to_re (seq.++ "o" (seq.++ "u" (seq.++ "r" "")))))) (str.to_re (seq.++ "h" (seq.++ "r" ""))))))) (re.opt (re.range "s" "s"))) (re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) (str.to_re "")))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))(re.++ (re.++ (re.+ (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") (re.+ (re.range "0" "9")))))(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))(re.++ (re.++ (re.union (re.++ (re.range "w" "w") (re.opt (str.to_re (str.++ "e" (str.++ "e" (str.++ "k" ""))))))(re.union (str.to_re (str.++ "w" (str.++ "k" "")))(re.union (re.++ (re.range "d" "d") (re.opt (str.to_re (str.++ "a" (str.++ "y" "")))))(re.union (re.++ (re.range "h" "h") (re.opt (str.to_re (str.++ "o" (str.++ "u" (str.++ "r" "")))))) (str.to_re (str.++ "h" (str.++ "r" ""))))))) (re.opt (re.range "s" "s"))) (re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}"))))) (str.to_re "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

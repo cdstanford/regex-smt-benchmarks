@@ -4,18 +4,18 @@
 ; regexA = .*(\.[Jj][Pp][Gg]|\.[Gg][Ii][Ff]|\.[Jj][Pp][Ee][Gg]|\.[Pp][Nn][Gg])
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ".jPG\u007F"
-(define-fun Witness1 () String (seq.++ "." (seq.++ "j" (seq.++ "P" (seq.++ "G" (seq.++ "\x7f" ""))))))
+(define-fun Witness1 () String (str.++ "." (str.++ "j" (str.++ "P" (str.++ "G" (str.++ "\u{7f}" ""))))))
 ;witness2: ".JPG\u00E9x"
-(define-fun Witness2 () String (seq.++ "." (seq.++ "J" (seq.++ "P" (seq.++ "G" (seq.++ "\xe9" (seq.++ "x" "")))))))
+(define-fun Witness2 () String (str.++ "." (str.++ "J" (str.++ "P" (str.++ "G" (str.++ "\u{e9}" (str.++ "x" "")))))))
 
-(assert (= regexA (re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "J" "J") (re.range "j" "j"))(re.++ (re.union (re.range "P" "P") (re.range "p" "p")) (re.union (re.range "G" "G") (re.range "g" "g")))))(re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "G" "G") (re.range "g" "g"))(re.++ (re.union (re.range "I" "I") (re.range "i" "i")) (re.union (re.range "F" "F") (re.range "f" "f")))))(re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "J" "J") (re.range "j" "j"))(re.++ (re.union (re.range "P" "P") (re.range "p" "p"))(re.++ (re.union (re.range "E" "E") (re.range "e" "e")) (re.union (re.range "G" "G") (re.range "g" "g")))))) (re.++ (re.range "." ".")(re.++ (re.union (re.range "P" "P") (re.range "p" "p"))(re.++ (re.union (re.range "N" "N") (re.range "n" "n")) (re.union (re.range "G" "G") (re.range "g" "g")))))))))))
+(assert (= regexA (re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "J" "J") (re.range "j" "j"))(re.++ (re.union (re.range "P" "P") (re.range "p" "p")) (re.union (re.range "G" "G") (re.range "g" "g")))))(re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "G" "G") (re.range "g" "g"))(re.++ (re.union (re.range "I" "I") (re.range "i" "i")) (re.union (re.range "F" "F") (re.range "f" "f")))))(re.union (re.++ (re.range "." ".")(re.++ (re.union (re.range "J" "J") (re.range "j" "j"))(re.++ (re.union (re.range "P" "P") (re.range "p" "p"))(re.++ (re.union (re.range "E" "E") (re.range "e" "e")) (re.union (re.range "G" "G") (re.range "g" "g")))))) (re.++ (re.range "." ".")(re.++ (re.union (re.range "P" "P") (re.range "p" "p"))(re.++ (re.union (re.range "N" "N") (re.range "n" "n")) (re.union (re.range "G" "G") (re.range "g" "g")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

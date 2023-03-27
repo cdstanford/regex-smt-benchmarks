@@ -4,16 +4,16 @@
 ; regexA = ^(([0-9]{5})*-([0-9]{4}))|([0-9]{5})$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "19807-4449\u00ED"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "9" (seq.++ "8" (seq.++ "0" (seq.++ "7" (seq.++ "-" (seq.++ "4" (seq.++ "4" (seq.++ "4" (seq.++ "9" (seq.++ "\xed" ""))))))))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "9" (str.++ "8" (str.++ "0" (str.++ "7" (str.++ "-" (str.++ "4" (str.++ "4" (str.++ "4" (str.++ "9" (str.++ "\u{ed}" ""))))))))))))
 ;witness2: "-3269\x7~y"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "3" (seq.++ "2" (seq.++ "6" (seq.++ "9" (seq.++ "\x07" (seq.++ "~" (seq.++ "y" "")))))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "3" (str.++ "2" (str.++ "6" (str.++ "9" (str.++ "\u{07}" (str.++ "~" (str.++ "y" "")))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "") (re.++ (re.* ((_ re.loop 5 5) (re.range "0" "9")))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9"))))) (re.++ ((_ re.loop 5 5) (re.range "0" "9")) (str.to_re "")))))
 

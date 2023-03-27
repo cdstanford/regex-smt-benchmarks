@@ -4,18 +4,18 @@
 ; regexA = ^.*[_A-Za-z0-9]+[\t ]+[\*&]?[\t ]*[_A-Za-z0-9](::)?[_A-Za-z0-9:]+[\t ]*\(( *[ \[\]\*&A-Za-z0-9_]+ *,? *)*\).*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "4YXQ 6L_()\u00D6"
-(define-fun Witness1 () String (seq.++ "4" (seq.++ "Y" (seq.++ "X" (seq.++ "Q" (seq.++ " " (seq.++ "6" (seq.++ "L" (seq.++ "_" (seq.++ "(" (seq.++ ")" (seq.++ "\xd6" ""))))))))))))
+(define-fun Witness1 () String (str.++ "4" (str.++ "Y" (str.++ "X" (str.++ "Q" (str.++ " " (str.++ "6" (str.++ "L" (str.++ "_" (str.++ "(" (str.++ ")" (str.++ "\u{d6}" ""))))))))))))
 ;witness2: "\u00C1a *\x99y5  ( 6zIS)"
-(define-fun Witness2 () String (seq.++ "\xc1" (seq.++ "a" (seq.++ " " (seq.++ "*" (seq.++ "\x09" (seq.++ "9" (seq.++ "y" (seq.++ "5" (seq.++ " " (seq.++ " " (seq.++ "(" (seq.++ " " (seq.++ "6" (seq.++ "z" (seq.++ "I" (seq.++ "S" (seq.++ ")" ""))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{c1}" (str.++ "a" (str.++ " " (str.++ "*" (str.++ "\u{09}" (str.++ "9" (str.++ "y" (str.++ "5" (str.++ " " (str.++ " " (str.++ "(" (str.++ " " (str.++ "6" (str.++ "z" (str.++ "I" (str.++ "S" (str.++ ")" ""))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))(re.++ (re.+ (re.union (re.range "\x09" "\x09") (re.range " " " ")))(re.++ (re.opt (re.union (re.range "&" "&") (re.range "*" "*")))(re.++ (re.* (re.union (re.range "\x09" "\x09") (re.range " " " ")))(re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))(re.++ (re.opt (str.to_re (seq.++ ":" (seq.++ ":" ""))))(re.++ (re.+ (re.union (re.range "0" ":")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))(re.++ (re.* (re.union (re.range "\x09" "\x09") (re.range " " " ")))(re.++ (re.range "(" "(")(re.++ (re.* (re.++ (re.* (re.range " " " "))(re.++ (re.+ (re.union (re.range " " " ")(re.union (re.range "&" "&")(re.union (re.range "*" "*")(re.union (re.range "0" "9")(re.union (re.range "A" "[")(re.union (re.range "]" "]")(re.union (re.range "_" "_") (re.range "a" "z")))))))))(re.++ (re.* (re.range " " " "))(re.++ (re.opt (re.range "," ",")) (re.* (re.range " " " ")))))))(re.++ (re.range ")" ")")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re "")))))))))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))(re.++ (re.+ (re.union (re.range "\u{09}" "\u{09}") (re.range " " " ")))(re.++ (re.opt (re.union (re.range "&" "&") (re.range "*" "*")))(re.++ (re.* (re.union (re.range "\u{09}" "\u{09}") (re.range " " " ")))(re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))(re.++ (re.opt (str.to_re (str.++ ":" (str.++ ":" ""))))(re.++ (re.+ (re.union (re.range "0" ":")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))(re.++ (re.* (re.union (re.range "\u{09}" "\u{09}") (re.range " " " ")))(re.++ (re.range "(" "(")(re.++ (re.* (re.++ (re.* (re.range " " " "))(re.++ (re.+ (re.union (re.range " " " ")(re.union (re.range "&" "&")(re.union (re.range "*" "*")(re.union (re.range "0" "9")(re.union (re.range "A" "[")(re.union (re.range "]" "]")(re.union (re.range "_" "_") (re.range "a" "z")))))))))(re.++ (re.* (re.range " " " "))(re.++ (re.opt (re.range "," ",")) (re.* (re.range " " " ")))))))(re.++ (re.range ")" ")")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re "")))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,16 +4,16 @@
 ; regexA = &
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\x10a\u0094\u00E7&W"
-(define-fun Witness1 () String (seq.++ "\x10" (seq.++ "a" (seq.++ "\x94" (seq.++ "\xe7" (seq.++ "&" (seq.++ "W" "")))))))
+(define-fun Witness1 () String (str.++ "\u{10}" (str.++ "a" (str.++ "\u{94}" (str.++ "\u{e7}" (str.++ "&" (str.++ "W" "")))))))
 ;witness2: "&\u00F3\u00D0["
-(define-fun Witness2 () String (seq.++ "&" (seq.++ "\xf3" (seq.++ "\xd0" (seq.++ "[" "")))))
+(define-fun Witness2 () String (str.++ "&" (str.++ "\u{f3}" (str.++ "\u{d0}" (str.++ "[" "")))))
 
 (assert (= regexA (re.range "&" "&")))
 

@@ -4,18 +4,18 @@
 ; regexA = (\d*)'*-*(\d*)/*(\d*)&quot;
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "49\'\'\'\'--&quot;"
-(define-fun Witness1 () String (seq.++ "4" (seq.++ "9" (seq.++ "'" (seq.++ "'" (seq.++ "'" (seq.++ "'" (seq.++ "-" (seq.++ "-" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" "")))))))))))))))
+(define-fun Witness1 () String (str.++ "4" (str.++ "9" (str.++ "'" (str.++ "'" (str.++ "'" (str.++ "'" (str.++ "-" (str.++ "-" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" "")))))))))))))))
 ;witness2: "6780&quot;\u00FD"
-(define-fun Witness2 () String (seq.++ "6" (seq.++ "7" (seq.++ "8" (seq.++ "0" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" (seq.++ "\xfd" ""))))))))))))
+(define-fun Witness2 () String (str.++ "6" (str.++ "7" (str.++ "8" (str.++ "0" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" (str.++ "\u{fd}" ""))))))))))))
 
-(assert (= regexA (re.++ (re.* (re.range "0" "9"))(re.++ (re.* (re.range "'" "'"))(re.++ (re.* (re.range "-" "-"))(re.++ (re.* (re.range "0" "9"))(re.++ (re.* (re.range "/" "/"))(re.++ (re.* (re.range "0" "9")) (str.to_re (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" "")))))))))))))))
+(assert (= regexA (re.++ (re.* (re.range "0" "9"))(re.++ (re.* (re.range "'" "'"))(re.++ (re.* (re.range "-" "-"))(re.++ (re.* (re.range "0" "9"))(re.++ (re.* (re.range "/" "/"))(re.++ (re.* (re.range "0" "9")) (str.to_re (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" "")))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

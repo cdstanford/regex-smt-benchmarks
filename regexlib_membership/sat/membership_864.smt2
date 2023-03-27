@@ -4,16 +4,16 @@
 ; regexA = \d+(/\d+)?
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\x1193/4\x1FUk\u00BB"
-(define-fun Witness1 () String (seq.++ "\x11" (seq.++ "9" (seq.++ "3" (seq.++ "/" (seq.++ "4" (seq.++ "\x1f" (seq.++ "U" (seq.++ "k" (seq.++ "\xbb" ""))))))))))
+(define-fun Witness1 () String (str.++ "\u{11}" (str.++ "9" (str.++ "3" (str.++ "/" (str.++ "4" (str.++ "\u{1f}" (str.++ "U" (str.++ "k" (str.++ "\u{bb}" ""))))))))))
 ;witness2: "8599/109"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "/" (seq.++ "1" (seq.++ "0" (seq.++ "9" "")))))))))
+(define-fun Witness2 () String (str.++ "8" (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "/" (str.++ "1" (str.++ "0" (str.++ "9" "")))))))))
 
 (assert (= regexA (re.++ (re.+ (re.range "0" "9")) (re.opt (re.++ (re.range "/" "/") (re.+ (re.range "0" "9")))))))
 

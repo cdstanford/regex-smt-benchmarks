@@ -4,18 +4,18 @@
 ; regexA = [-+]((0[0-9]|1[0-3]):([03]0|45)|14:00)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "-12:00"
-(define-fun Witness1 () String (seq.++ "-" (seq.++ "1" (seq.++ "2" (seq.++ ":" (seq.++ "0" (seq.++ "0" "")))))))
+(define-fun Witness1 () String (str.++ "-" (str.++ "1" (str.++ "2" (str.++ ":" (str.++ "0" (str.++ "0" "")))))))
 ;witness2: "\u00A7-09:00e\u00B0$"
-(define-fun Witness2 () String (seq.++ "\xa7" (seq.++ "-" (seq.++ "0" (seq.++ "9" (seq.++ ":" (seq.++ "0" (seq.++ "0" (seq.++ "e" (seq.++ "\xb0" (seq.++ "$" "")))))))))))
+(define-fun Witness2 () String (str.++ "\u{a7}" (str.++ "-" (str.++ "0" (str.++ "9" (str.++ ":" (str.++ "0" (str.++ "0" (str.++ "e" (str.++ "\u{b0}" (str.++ "$" "")))))))))))
 
-(assert (= regexA (re.++ (re.union (re.range "+" "+") (re.range "-" "-")) (re.union (re.++ (re.union (re.++ (re.range "0" "0") (re.range "0" "9")) (re.++ (re.range "1" "1") (re.range "0" "3")))(re.++ (re.range ":" ":") (re.union (re.++ (re.union (re.range "0" "0") (re.range "3" "3")) (re.range "0" "0")) (str.to_re (seq.++ "4" (seq.++ "5" "")))))) (str.to_re (seq.++ "1" (seq.++ "4" (seq.++ ":" (seq.++ "0" (seq.++ "0" ""))))))))))
+(assert (= regexA (re.++ (re.union (re.range "+" "+") (re.range "-" "-")) (re.union (re.++ (re.union (re.++ (re.range "0" "0") (re.range "0" "9")) (re.++ (re.range "1" "1") (re.range "0" "3")))(re.++ (re.range ":" ":") (re.union (re.++ (re.union (re.range "0" "0") (re.range "3" "3")) (re.range "0" "0")) (str.to_re (str.++ "4" (str.++ "5" "")))))) (str.to_re (str.++ "1" (str.++ "4" (str.++ ":" (str.++ "0" (str.++ "0" ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

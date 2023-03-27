@@ -4,18 +4,18 @@
 ; regexA = getting username from empid
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u0094\u00B2\u00B5\u00A3getting username from empid"
-(define-fun Witness1 () String (seq.++ "\x94" (seq.++ "\xb2" (seq.++ "\xb5" (seq.++ "\xa3" (seq.++ "g" (seq.++ "e" (seq.++ "t" (seq.++ "t" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "u" (seq.++ "s" (seq.++ "e" (seq.++ "r" (seq.++ "n" (seq.++ "a" (seq.++ "m" (seq.++ "e" (seq.++ " " (seq.++ "f" (seq.++ "r" (seq.++ "o" (seq.++ "m" (seq.++ " " (seq.++ "e" (seq.++ "m" (seq.++ "p" (seq.++ "i" (seq.++ "d" ""))))))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{94}" (str.++ "\u{b2}" (str.++ "\u{b5}" (str.++ "\u{a3}" (str.++ "g" (str.++ "e" (str.++ "t" (str.++ "t" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ " " (str.++ "u" (str.++ "s" (str.++ "e" (str.++ "r" (str.++ "n" (str.++ "a" (str.++ "m" (str.++ "e" (str.++ " " (str.++ "f" (str.++ "r" (str.++ "o" (str.++ "m" (str.++ " " (str.++ "e" (str.++ "m" (str.++ "p" (str.++ "i" (str.++ "d" ""))))))))))))))))))))))))))))))))
 ;witness2: "Qgetting username from empid"
-(define-fun Witness2 () String (seq.++ "Q" (seq.++ "g" (seq.++ "e" (seq.++ "t" (seq.++ "t" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "u" (seq.++ "s" (seq.++ "e" (seq.++ "r" (seq.++ "n" (seq.++ "a" (seq.++ "m" (seq.++ "e" (seq.++ " " (seq.++ "f" (seq.++ "r" (seq.++ "o" (seq.++ "m" (seq.++ " " (seq.++ "e" (seq.++ "m" (seq.++ "p" (seq.++ "i" (seq.++ "d" "")))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "Q" (str.++ "g" (str.++ "e" (str.++ "t" (str.++ "t" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ " " (str.++ "u" (str.++ "s" (str.++ "e" (str.++ "r" (str.++ "n" (str.++ "a" (str.++ "m" (str.++ "e" (str.++ " " (str.++ "f" (str.++ "r" (str.++ "o" (str.++ "m" (str.++ " " (str.++ "e" (str.++ "m" (str.++ "p" (str.++ "i" (str.++ "d" "")))))))))))))))))))))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "g" (seq.++ "e" (seq.++ "t" (seq.++ "t" (seq.++ "i" (seq.++ "n" (seq.++ "g" (seq.++ " " (seq.++ "u" (seq.++ "s" (seq.++ "e" (seq.++ "r" (seq.++ "n" (seq.++ "a" (seq.++ "m" (seq.++ "e" (seq.++ " " (seq.++ "f" (seq.++ "r" (seq.++ "o" (seq.++ "m" (seq.++ " " (seq.++ "e" (seq.++ "m" (seq.++ "p" (seq.++ "i" (seq.++ "d" ""))))))))))))))))))))))))))))))
+(assert (= regexA (str.to_re (str.++ "g" (str.++ "e" (str.++ "t" (str.++ "t" (str.++ "i" (str.++ "n" (str.++ "g" (str.++ " " (str.++ "u" (str.++ "s" (str.++ "e" (str.++ "r" (str.++ "n" (str.++ "a" (str.++ "m" (str.++ "e" (str.++ " " (str.++ "f" (str.++ "r" (str.++ "o" (str.++ "m" (str.++ " " (str.++ "e" (str.++ "m" (str.++ "p" (str.++ "i" (str.++ "d" ""))))))))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

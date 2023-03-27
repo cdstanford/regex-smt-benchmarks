@@ -4,14 +4,14 @@
 ; regexA = ^.{0,0}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00B2"
-(define-fun Witness1 () String (seq.++ "\xb2" ""))
+(define-fun Witness1 () String (str.++ "\u{b2}" ""))
 ;witness2: ""
 (define-fun Witness2 () String "")
 

@@ -4,18 +4,18 @@
 ; regexA = www.runescape-money.eu
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "www\u00BErunescape-moneyHeu\u00C5!"
-(define-fun Witness1 () String (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "\xbe" (seq.++ "r" (seq.++ "u" (seq.++ "n" (seq.++ "e" (seq.++ "s" (seq.++ "c" (seq.++ "a" (seq.++ "p" (seq.++ "e" (seq.++ "-" (seq.++ "m" (seq.++ "o" (seq.++ "n" (seq.++ "e" (seq.++ "y" (seq.++ "H" (seq.++ "e" (seq.++ "u" (seq.++ "\xc5" (seq.++ "!" "")))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "\u{be}" (str.++ "r" (str.++ "u" (str.++ "n" (str.++ "e" (str.++ "s" (str.++ "c" (str.++ "a" (str.++ "p" (str.++ "e" (str.++ "-" (str.++ "m" (str.++ "o" (str.++ "n" (str.++ "e" (str.++ "y" (str.++ "H" (str.++ "e" (str.++ "u" (str.++ "\u{c5}" (str.++ "!" "")))))))))))))))))))))))))
 ;witness2: "\u00C5\u00B9www)runescape-money\u00D3eu"
-(define-fun Witness2 () String (seq.++ "\xc5" (seq.++ "\xb9" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ ")" (seq.++ "r" (seq.++ "u" (seq.++ "n" (seq.++ "e" (seq.++ "s" (seq.++ "c" (seq.++ "a" (seq.++ "p" (seq.++ "e" (seq.++ "-" (seq.++ "m" (seq.++ "o" (seq.++ "n" (seq.++ "e" (seq.++ "y" (seq.++ "\xd3" (seq.++ "e" (seq.++ "u" "")))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{c5}" (str.++ "\u{b9}" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ ")" (str.++ "r" (str.++ "u" (str.++ "n" (str.++ "e" (str.++ "s" (str.++ "c" (str.++ "a" (str.++ "p" (str.++ "e" (str.++ "-" (str.++ "m" (str.++ "o" (str.++ "n" (str.++ "e" (str.++ "y" (str.++ "\u{d3}" (str.++ "e" (str.++ "u" "")))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "w" (seq.++ "w" (seq.++ "w" ""))))(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))(re.++ (str.to_re (seq.++ "r" (seq.++ "u" (seq.++ "n" (seq.++ "e" (seq.++ "s" (seq.++ "c" (seq.++ "a" (seq.++ "p" (seq.++ "e" (seq.++ "-" (seq.++ "m" (seq.++ "o" (seq.++ "n" (seq.++ "e" (seq.++ "y" ""))))))))))))))))(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")) (str.to_re (seq.++ "e" (seq.++ "u" "")))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "w" (str.++ "w" (str.++ "w" ""))))(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))(re.++ (str.to_re (str.++ "r" (str.++ "u" (str.++ "n" (str.++ "e" (str.++ "s" (str.++ "c" (str.++ "a" (str.++ "p" (str.++ "e" (str.++ "-" (str.++ "m" (str.++ "o" (str.++ "n" (str.++ "e" (str.++ "y" ""))))))))))))))))(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")) (str.to_re (str.++ "e" (str.++ "u" "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

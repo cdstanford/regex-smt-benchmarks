@@ -4,18 +4,18 @@
 ; regexA = ^[a-zA-Z0-9\.\s]{3,}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u0085\u00A0b"
-(define-fun Witness1 () String (seq.++ "\x85" (seq.++ "\xa0" (seq.++ "b" ""))))
+(define-fun Witness1 () String (str.++ "\u{85}" (str.++ "\u{a0}" (str.++ "b" ""))))
 ;witness2: "\u00859\u00A0\u00A0\u00A0\u00A06"
-(define-fun Witness2 () String (seq.++ "\x85" (seq.++ "9" (seq.++ "\xa0" (seq.++ "\xa0" (seq.++ "\xa0" (seq.++ "\xa0" (seq.++ "6" ""))))))))
+(define-fun Witness2 () String (str.++ "\u{85}" (str.++ "9" (str.++ "\u{a0}" (str.++ "\u{a0}" (str.++ "\u{a0}" (str.++ "\u{a0}" (str.++ "6" ""))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ ((_ re.loop 3 3) (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))))))) (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ ((_ re.loop 3 3) (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}"))))))))) (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

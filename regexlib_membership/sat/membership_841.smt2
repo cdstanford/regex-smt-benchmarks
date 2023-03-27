@@ -4,16 +4,16 @@
 ; regexA = ^5[1-5]\d{14}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "5489109935791509"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "4" (seq.++ "8" (seq.++ "9" (seq.++ "1" (seq.++ "0" (seq.++ "9" (seq.++ "9" (seq.++ "3" (seq.++ "5" (seq.++ "7" (seq.++ "9" (seq.++ "1" (seq.++ "5" (seq.++ "0" (seq.++ "9" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "4" (str.++ "8" (str.++ "9" (str.++ "1" (str.++ "0" (str.++ "9" (str.++ "9" (str.++ "3" (str.++ "5" (str.++ "7" (str.++ "9" (str.++ "1" (str.++ "5" (str.++ "0" (str.++ "9" "")))))))))))))))))
 ;witness2: "5168852889259953"
-(define-fun Witness2 () String (seq.++ "5" (seq.++ "1" (seq.++ "6" (seq.++ "8" (seq.++ "8" (seq.++ "5" (seq.++ "2" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "2" (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "5" (seq.++ "3" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "5" (str.++ "1" (str.++ "6" (str.++ "8" (str.++ "8" (str.++ "5" (str.++ "2" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "2" (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "5" (str.++ "3" "")))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "5" "5")(re.++ (re.range "1" "5")(re.++ ((_ re.loop 14 14) (re.range "0" "9")) (str.to_re "")))))))
 

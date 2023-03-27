@@ -4,18 +4,18 @@
 ; regexA = ^\d?\d'(\d|1[01])?.?(\d|1[01])&quot;$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "5\'11&quot;"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "'" (seq.++ "1" (seq.++ "1" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" "")))))))))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "'" (str.++ "1" (str.++ "1" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" "")))))))))))
 ;witness2: "64\'9\u00AF11&quot;"
-(define-fun Witness2 () String (seq.++ "6" (seq.++ "4" (seq.++ "'" (seq.++ "9" (seq.++ "\xaf" (seq.++ "1" (seq.++ "1" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" ""))))))))))))))
+(define-fun Witness2 () String (str.++ "6" (str.++ "4" (str.++ "'" (str.++ "9" (str.++ "\u{af}" (str.++ "1" (str.++ "1" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" ""))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "0" "9"))(re.++ (re.range "0" "9")(re.++ (re.range "'" "'")(re.++ (re.opt (re.union (re.range "0" "9") (re.++ (re.range "1" "1") (re.range "0" "1"))))(re.++ (re.opt (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.union (re.range "0" "9") (re.++ (re.range "1" "1") (re.range "0" "1")))(re.++ (str.to_re (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" ""))))))) (str.to_re "")))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "0" "9"))(re.++ (re.range "0" "9")(re.++ (re.range "'" "'")(re.++ (re.opt (re.union (re.range "0" "9") (re.++ (re.range "1" "1") (re.range "0" "1"))))(re.++ (re.opt (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.union (re.range "0" "9") (re.++ (re.range "1" "1") (re.range "0" "1")))(re.++ (str.to_re (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" ""))))))) (str.to_re "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

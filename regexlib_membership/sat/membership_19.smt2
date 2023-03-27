@@ -4,18 +4,18 @@
 ; regexA = ^(([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.){3}([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "188.108.199.229"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "8" (seq.++ "8" (seq.++ "." (seq.++ "1" (seq.++ "0" (seq.++ "8" (seq.++ "." (seq.++ "1" (seq.++ "9" (seq.++ "9" (seq.++ "." (seq.++ "2" (seq.++ "2" (seq.++ "9" ""))))))))))))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "8" (str.++ "8" (str.++ "." (str.++ "1" (str.++ "0" (str.++ "8" (str.++ "." (str.++ "1" (str.++ "9" (str.++ "9" (str.++ "." (str.++ "2" (str.++ "2" (str.++ "9" ""))))))))))))))))
 ;witness2: "03.222.4.113"
-(define-fun Witness2 () String (seq.++ "0" (seq.++ "3" (seq.++ "." (seq.++ "2" (seq.++ "2" (seq.++ "2" (seq.++ "." (seq.++ "4" (seq.++ "." (seq.++ "1" (seq.++ "1" (seq.++ "3" "")))))))))))))
+(define-fun Witness2 () String (str.++ "0" (str.++ "3" (str.++ "." (str.++ "2" (str.++ "2" (str.++ "2" (str.++ "." (str.++ "4" (str.++ "." (str.++ "1" (str.++ "1" (str.++ "3" "")))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 3 3) (re.++ (re.union (re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))(re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (seq.++ "2" (seq.++ "5" ""))) (re.range "0" "5")))) (re.range "." ".")))(re.++ (re.union (re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))(re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (seq.++ "2" (seq.++ "5" ""))) (re.range "0" "5")))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 3 3) (re.++ (re.union (re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))(re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (str.++ "2" (str.++ "5" ""))) (re.range "0" "5")))) (re.range "." ".")))(re.++ (re.union (re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))(re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (str.++ "2" (str.++ "5" ""))) (re.range "0" "5")))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

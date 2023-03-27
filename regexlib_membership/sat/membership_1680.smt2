@@ -4,18 +4,18 @@
 ; regexA = [^a-zA-Z \-]|(  )|(\-\-)|(^\s*$)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "--"
-(define-fun Witness1 () String (seq.++ "-" (seq.++ "-" "")))
+(define-fun Witness1 () String (str.++ "-" (str.++ "-" "")))
 ;witness2: ""
 (define-fun Witness2 () String "")
 
-(assert (= regexA (re.union (re.union (re.range "\x00" "\x1f")(re.union (re.range "!" ",")(re.union (re.range "." "@")(re.union (re.range "[" "`") (re.range "{" "\xff")))))(re.union (str.to_re (seq.++ " " (seq.++ " " "")))(re.union (str.to_re (seq.++ "-" (seq.++ "-" ""))) (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) (str.to_re ""))))))))
+(assert (= regexA (re.union (re.union (re.range "\u{00}" "\u{1f}")(re.union (re.range "!" ",")(re.union (re.range "." "@")(re.union (re.range "[" "`") (re.range "{" "\u{ff}")))))(re.union (str.to_re (str.++ " " (str.++ " " "")))(re.union (str.to_re (str.++ "-" (str.++ "-" ""))) (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}"))))) (str.to_re ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

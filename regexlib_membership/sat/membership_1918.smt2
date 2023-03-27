@@ -4,16 +4,16 @@
 ; regexA = ^\d{5}-\d{4}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "99280-8989"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "9" (seq.++ "2" (seq.++ "8" (seq.++ "0" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ "9" "")))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "9" (str.++ "2" (str.++ "8" (str.++ "0" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "8" (str.++ "9" "")))))))))))
 ;witness2: "39985-8341"
-(define-fun Witness2 () String (seq.++ "3" (seq.++ "9" (seq.++ "9" (seq.++ "8" (seq.++ "5" (seq.++ "-" (seq.++ "8" (seq.++ "3" (seq.++ "4" (seq.++ "1" "")))))))))))
+(define-fun Witness2 () String (str.++ "3" (str.++ "9" (str.++ "9" (str.++ "8" (str.++ "5" (str.++ "-" (str.++ "8" (str.++ "3" (str.++ "4" (str.++ "1" "")))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 5 5) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ ((_ re.loop 4 4) (re.range "0" "9")) (str.to_re "")))))))
 

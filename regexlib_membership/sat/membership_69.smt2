@@ -4,18 +4,18 @@
 ; regexA = df
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "df"
-(define-fun Witness1 () String (seq.++ "d" (seq.++ "f" "")))
+(define-fun Witness1 () String (str.++ "d" (str.++ "f" "")))
 ;witness2: "L\u0083f\u00C7df`"
-(define-fun Witness2 () String (seq.++ "L" (seq.++ "\x83" (seq.++ "f" (seq.++ "\xc7" (seq.++ "d" (seq.++ "f" (seq.++ "`" ""))))))))
+(define-fun Witness2 () String (str.++ "L" (str.++ "\u{83}" (str.++ "f" (str.++ "\u{c7}" (str.++ "d" (str.++ "f" (str.++ "`" ""))))))))
 
-(assert (= regexA (str.to_re (seq.++ "d" (seq.++ "f" "")))))
+(assert (= regexA (str.to_re (str.++ "d" (str.++ "f" "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

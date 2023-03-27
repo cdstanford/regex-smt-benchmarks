@@ -4,18 +4,18 @@
 ; regexA = ^(.){0,20}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "x\x7K"
-(define-fun Witness1 () String (seq.++ "x" (seq.++ "\x07" (seq.++ "K" ""))))
+(define-fun Witness1 () String (str.++ "x" (str.++ "\u{07}" (str.++ "K" ""))))
 ;witness2: "\x117"
-(define-fun Witness2 () String (seq.++ "\x11" (seq.++ "7" "")))
+(define-fun Witness2 () String (str.++ "\u{11}" (str.++ "7" "")))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 0 20) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 0 20) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

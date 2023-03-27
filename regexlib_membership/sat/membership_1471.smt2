@@ -4,18 +4,18 @@
 ; regexA =   |       # no pound sign after ampersand
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u0084R\u0091Y  \x11\u00B5"
-(define-fun Witness1 () String (seq.++ "\x84" (seq.++ "R" (seq.++ "\x91" (seq.++ "Y" (seq.++ " " (seq.++ " " (seq.++ "\x11" (seq.++ "\xb5" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{84}" (str.++ "R" (str.++ "\u{91}" (str.++ "Y" (str.++ " " (str.++ " " (str.++ "\u{11}" (str.++ "\u{b5}" "")))))))))
 ;witness2: "  "
-(define-fun Witness2 () String (seq.++ " " (seq.++ " " "")))
+(define-fun Witness2 () String (str.++ " " (str.++ " " "")))
 
-(assert (= regexA (re.union (str.to_re (seq.++ " " (seq.++ " " ""))) (str.to_re (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "#" (seq.++ " " (seq.++ "n" (seq.++ "o" (seq.++ " " (seq.++ "p" (seq.++ "o" (seq.++ "u" (seq.++ "n" (seq.++ "d" (seq.++ " " (seq.++ "s" (seq.++ "i" (seq.++ "g" (seq.++ "n" (seq.++ " " (seq.++ "a" (seq.++ "f" (seq.++ "t" (seq.++ "e" (seq.++ "r" (seq.++ " " (seq.++ "a" (seq.++ "m" (seq.++ "p" (seq.++ "e" (seq.++ "r" (seq.++ "s" (seq.++ "a" (seq.++ "n" (seq.++ "d" ""))))))))))))))))))))))))))))))))))))))))))
+(assert (= regexA (re.union (str.to_re (str.++ " " (str.++ " " ""))) (str.to_re (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "#" (str.++ " " (str.++ "n" (str.++ "o" (str.++ " " (str.++ "p" (str.++ "o" (str.++ "u" (str.++ "n" (str.++ "d" (str.++ " " (str.++ "s" (str.++ "i" (str.++ "g" (str.++ "n" (str.++ " " (str.++ "a" (str.++ "f" (str.++ "t" (str.++ "e" (str.++ "r" (str.++ " " (str.++ "a" (str.++ "m" (str.++ "p" (str.++ "e" (str.++ "r" (str.++ "s" (str.++ "a" (str.++ "n" (str.++ "d" ""))))))))))))))))))))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

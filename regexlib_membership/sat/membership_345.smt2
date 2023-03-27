@@ -4,18 +4,18 @@
 ; regexA = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u0097q\"\ddd\\u00CC\d\H\d\\u0097\ddd\"A\u00B6"
-(define-fun Witness1 () String (seq.++ "\x97" (seq.++ "q" (seq.++ "\x22" (seq.++ "\x5c" (seq.++ "d" (seq.++ "d" (seq.++ "d" (seq.++ "\x5c" (seq.++ "\xcc" (seq.++ "\x5c" (seq.++ "d" (seq.++ "\x5c" (seq.++ "H" (seq.++ "\x5c" (seq.++ "d" (seq.++ "\x5c" (seq.++ "\x97" (seq.++ "\x5c" (seq.++ "d" (seq.++ "d" (seq.++ "d" (seq.++ "\x22" (seq.++ "A" (seq.++ "\xb6" "")))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{97}" (str.++ "q" (str.++ "\u{22}" (str.++ "\u{5c}" (str.++ "d" (str.++ "d" (str.++ "d" (str.++ "\u{5c}" (str.++ "\u{cc}" (str.++ "\u{5c}" (str.++ "d" (str.++ "\u{5c}" (str.++ "H" (str.++ "\u{5c}" (str.++ "d" (str.++ "\u{5c}" (str.++ "\u{97}" (str.++ "\u{5c}" (str.++ "d" (str.++ "d" (str.++ "d" (str.++ "\u{22}" (str.++ "A" (str.++ "\u{b6}" "")))))))))))))))))))))))))
 ;witness2: "\u00CD\u00EE\"\ddd\\u009E\ddd\\u0093\d\\x1A\dd\""
-(define-fun Witness2 () String (seq.++ "\xcd" (seq.++ "\xee" (seq.++ "\x22" (seq.++ "\x5c" (seq.++ "d" (seq.++ "d" (seq.++ "d" (seq.++ "\x5c" (seq.++ "\x9e" (seq.++ "\x5c" (seq.++ "d" (seq.++ "d" (seq.++ "d" (seq.++ "\x5c" (seq.++ "\x93" (seq.++ "\x5c" (seq.++ "d" (seq.++ "\x5c" (seq.++ "\x1a" (seq.++ "\x5c" (seq.++ "d" (seq.++ "d" (seq.++ "\x22" ""))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{cd}" (str.++ "\u{ee}" (str.++ "\u{22}" (str.++ "\u{5c}" (str.++ "d" (str.++ "d" (str.++ "d" (str.++ "\u{5c}" (str.++ "\u{9e}" (str.++ "\u{5c}" (str.++ "d" (str.++ "d" (str.++ "d" (str.++ "\u{5c}" (str.++ "\u{93}" (str.++ "\u{5c}" (str.++ "d" (str.++ "\u{5c}" (str.++ "\u{1a}" (str.++ "\u{5c}" (str.++ "d" (str.++ "d" (str.++ "\u{22}" ""))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "\x22" (seq.++ "\x5c" "")))(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\x5c" "\x5c")(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))(re.++ (re.range "\x5c" "\x5c")(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\x5c" "\x5c")(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))(re.++ (re.range "\x5c" "\x5c")(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\x5c" "\x5c")(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))(re.++ (re.range "\x5c" "\x5c")(re.++ ((_ re.loop 1 3) (re.range "d" "d")) (re.range "\x22" "\x22")))))))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "\u{22}" (str.++ "\u{5c}" "")))(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ ((_ re.loop 1 3) (re.range "d" "d"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))(re.++ (re.range "\u{5c}" "\u{5c}")(re.++ ((_ re.loop 1 3) (re.range "d" "d")) (re.range "\u{22}" "\u{22}")))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

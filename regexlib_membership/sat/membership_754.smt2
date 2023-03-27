@@ -4,18 +4,18 @@
 ; regexA = (http(s?)://|[a-zA-Z0-9\-]+\.)[a-zA-Z0-9/~\-]+\.[a-zA-Z0-9/~\-_,&\?\.;]+[^\.,\s<]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00C3w\x1D\u00C0CY.-.?#KNg\u00A1"
-(define-fun Witness1 () String (seq.++ "\xc3" (seq.++ "w" (seq.++ "\x1d" (seq.++ "\xc0" (seq.++ "C" (seq.++ "Y" (seq.++ "." (seq.++ "-" (seq.++ "." (seq.++ "?" (seq.++ "#" (seq.++ "K" (seq.++ "N" (seq.++ "g" (seq.++ "\xa1" ""))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{c3}" (str.++ "w" (str.++ "\u{1d}" (str.++ "\u{c0}" (str.++ "C" (str.++ "Y" (str.++ "." (str.++ "-" (str.++ "." (str.++ "?" (str.++ "#" (str.++ "K" (str.++ "N" (str.++ "g" (str.++ "\u{a1}" ""))))))))))))))))
 ;witness2: "http://8.&,\u00CE\u0087\u00E1\u00B7c"
-(define-fun Witness2 () String (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" (seq.++ ":" (seq.++ "/" (seq.++ "/" (seq.++ "8" (seq.++ "." (seq.++ "&" (seq.++ "," (seq.++ "\xce" (seq.++ "\x87" (seq.++ "\xe1" (seq.++ "\xb7" (seq.++ "c" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" (str.++ ":" (str.++ "/" (str.++ "/" (str.++ "8" (str.++ "." (str.++ "&" (str.++ "," (str.++ "\u{ce}" (str.++ "\u{87}" (str.++ "\u{e1}" (str.++ "\u{b7}" (str.++ "c" "")))))))))))))))))
 
-(assert (= regexA (re.++ (re.union (re.++ (str.to_re (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" "")))))(re.++ (re.opt (re.range "s" "s")) (str.to_re (seq.++ ":" (seq.++ "/" (seq.++ "/" "")))))) (re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))) (re.range "." ".")))(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z") (re.range "~" "~"))))))(re.++ (re.range "." ".")(re.++ (re.+ (re.union (re.range "&" "&")(re.union (re.range "," "9")(re.union (re.range ";" ";")(re.union (re.range "?" "?")(re.union (re.range "A" "Z")(re.union (re.range "_" "_")(re.union (re.range "a" "z") (re.range "~" "~"))))))))) (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "+")(re.union (re.range "-" "-")(re.union (re.range "/" ";")(re.union (re.range "=" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff"))))))))))))))
+(assert (= regexA (re.++ (re.union (re.++ (str.to_re (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" "")))))(re.++ (re.opt (re.range "s" "s")) (str.to_re (str.++ ":" (str.++ "/" (str.++ "/" "")))))) (re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))) (re.range "." ".")))(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "A" "Z")(re.union (re.range "a" "z") (re.range "~" "~"))))))(re.++ (re.range "." ".")(re.++ (re.+ (re.union (re.range "&" "&")(re.union (re.range "," "9")(re.union (re.range ";" ";")(re.union (re.range "?" "?")(re.union (re.range "A" "Z")(re.union (re.range "_" "_")(re.union (re.range "a" "z") (re.range "~" "~"))))))))) (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "+")(re.union (re.range "-" "-")(re.union (re.range "/" ";")(re.union (re.range "=" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}"))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

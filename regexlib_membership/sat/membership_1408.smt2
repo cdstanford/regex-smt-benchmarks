@@ -4,16 +4,16 @@
 ; regexA = ^(\d{2}-\d{2})*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "57-8894-1234-96"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "7" (seq.++ "-" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "4" (seq.++ "-" (seq.++ "1" (seq.++ "2" (seq.++ "3" (seq.++ "4" (seq.++ "-" (seq.++ "9" (seq.++ "6" ""))))))))))))))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "7" (str.++ "-" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "4" (str.++ "-" (str.++ "1" (str.++ "2" (str.++ "3" (str.++ "4" (str.++ "-" (str.++ "9" (str.++ "6" ""))))))))))))))))
 ;witness2: "99-8949-8099-2852-0993-89"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "9" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "4" (seq.++ "9" (seq.++ "-" (seq.++ "8" (seq.++ "0" (seq.++ "9" (seq.++ "9" (seq.++ "-" (seq.++ "2" (seq.++ "8" (seq.++ "5" (seq.++ "2" (seq.++ "-" (seq.++ "0" (seq.++ "9" (seq.++ "9" (seq.++ "3" (seq.++ "-" (seq.++ "8" (seq.++ "9" ""))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "9" (str.++ "9" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "4" (str.++ "9" (str.++ "-" (str.++ "8" (str.++ "0" (str.++ "9" (str.++ "9" (str.++ "-" (str.++ "2" (str.++ "8" (str.++ "5" (str.++ "2" (str.++ "-" (str.++ "0" (str.++ "9" (str.++ "9" (str.++ "3" (str.++ "-" (str.++ "8" (str.++ "9" ""))))))))))))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 2 2) (re.range "0" "9"))))) (str.to_re "")))))
 

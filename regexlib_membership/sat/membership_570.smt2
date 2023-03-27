@@ -4,18 +4,18 @@
 ; regexA = ((^(?<property>\S+):)|(\s(?<property>)))(?<value>.*)\n
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00A0\u008B\xA"
-(define-fun Witness1 () String (seq.++ "\xa0" (seq.++ "\x8b" (seq.++ "\x0a" ""))))
+(define-fun Witness1 () String (str.++ "\u{a0}" (str.++ "\u{8b}" (str.++ "\u{0a}" ""))))
 ;witness2: "\xC\u00AF\u00C1\xAXm"
-(define-fun Witness2 () String (seq.++ "\x0c" (seq.++ "\xaf" (seq.++ "\xc1" (seq.++ "\x0a" (seq.++ "X" (seq.++ "m" "")))))))
+(define-fun Witness2 () String (str.++ "\u{0c}" (str.++ "\u{af}" (str.++ "\u{c1}" (str.++ "\u{0a}" (str.++ "X" (str.++ "m" "")))))))
 
-(assert (= regexA (re.++ (re.union (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff")))))) (re.range ":" ":"))) (re.++ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))) (str.to_re "")))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (re.range "\x0a" "\x0a")))))
+(assert (= regexA (re.++ (re.union (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}")))))) (re.range ":" ":"))) (re.++ (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))) (str.to_re "")))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (re.range "\u{0a}" "\u{0a}")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,16 +4,16 @@
 ; regexA = 
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ""
 (define-fun Witness1 () String "")
 ;witness2: "<JB"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "J" (seq.++ "B" ""))))
+(define-fun Witness2 () String (str.++ "<" (str.++ "J" (str.++ "B" ""))))
 
 (assert (= regexA (str.to_re "")))
 

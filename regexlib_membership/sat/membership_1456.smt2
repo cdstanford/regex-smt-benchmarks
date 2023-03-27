@@ -4,16 +4,16 @@
 ; regexA = (\+)?([-\._\(\) ]?[\d]{3,20}[-\._\(\) ]?){2,10}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: " 8584_4387(8865849(m\u0096<u6$A"
-(define-fun Witness1 () String (seq.++ " " (seq.++ "8" (seq.++ "5" (seq.++ "8" (seq.++ "4" (seq.++ "_" (seq.++ "4" (seq.++ "3" (seq.++ "8" (seq.++ "7" (seq.++ "(" (seq.++ "8" (seq.++ "8" (seq.++ "6" (seq.++ "5" (seq.++ "8" (seq.++ "4" (seq.++ "9" (seq.++ "(" (seq.++ "m" (seq.++ "\x96" (seq.++ "<" (seq.++ "u" (seq.++ "6" (seq.++ "$" (seq.++ "A" "")))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ " " (str.++ "8" (str.++ "5" (str.++ "8" (str.++ "4" (str.++ "_" (str.++ "4" (str.++ "3" (str.++ "8" (str.++ "7" (str.++ "(" (str.++ "8" (str.++ "8" (str.++ "6" (str.++ "5" (str.++ "8" (str.++ "4" (str.++ "9" (str.++ "(" (str.++ "m" (str.++ "\u{96}" (str.++ "<" (str.++ "u" (str.++ "6" (str.++ "$" (str.++ "A" "")))))))))))))))))))))))))))
 ;witness2: "+799807_#"
-(define-fun Witness2 () String (seq.++ "+" (seq.++ "7" (seq.++ "9" (seq.++ "9" (seq.++ "8" (seq.++ "0" (seq.++ "7" (seq.++ "_" (seq.++ "#" ""))))))))))
+(define-fun Witness2 () String (str.++ "+" (str.++ "7" (str.++ "9" (str.++ "9" (str.++ "8" (str.++ "0" (str.++ "7" (str.++ "_" (str.++ "#" ""))))))))))
 
 (assert (= regexA (re.++ (re.opt (re.range "+" "+")) ((_ re.loop 2 10) (re.++ (re.opt (re.union (re.range " " " ")(re.union (re.range "(" ")")(re.union (re.range "-" ".") (re.range "_" "_")))))(re.++ ((_ re.loop 3 20) (re.range "0" "9")) (re.opt (re.union (re.range " " " ")(re.union (re.range "(" ")")(re.union (re.range "-" ".") (re.range "_" "_")))))))))))
 

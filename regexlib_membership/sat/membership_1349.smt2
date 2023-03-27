@@ -4,18 +4,18 @@
 ; regexA = /[^/]+$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "/\u00B8\u0086\x1B"
-(define-fun Witness1 () String (seq.++ "/" (seq.++ "\xb8" (seq.++ "\x86" (seq.++ "\x1b" "")))))
+(define-fun Witness1 () String (str.++ "/" (str.++ "\u{b8}" (str.++ "\u{86}" (str.++ "\u{1b}" "")))))
 ;witness2: "\u00C6/\u00AC\"
-(define-fun Witness2 () String (seq.++ "\xc6" (seq.++ "/" (seq.++ "\xac" (seq.++ "\x5c" "")))))
+(define-fun Witness2 () String (str.++ "\u{c6}" (str.++ "/" (str.++ "\u{ac}" (str.++ "\u{5c}" "")))))
 
-(assert (= regexA (re.++ (re.range "/" "/")(re.++ (re.+ (re.union (re.range "\x00" ".") (re.range "0" "\xff"))) (str.to_re "")))))
+(assert (= regexA (re.++ (re.range "/" "/")(re.++ (re.+ (re.union (re.range "\u{00}" ".") (re.range "0" "\u{ff}"))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

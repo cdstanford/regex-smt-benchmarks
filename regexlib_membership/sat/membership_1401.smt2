@@ -4,16 +4,16 @@
 ; regexA = ([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "99@-78.--y_"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "9" (seq.++ "@" (seq.++ "-" (seq.++ "7" (seq.++ "8" (seq.++ "." (seq.++ "-" (seq.++ "-" (seq.++ "y" (seq.++ "_" ""))))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "9" (str.++ "@" (str.++ "-" (str.++ "7" (str.++ "8" (str.++ "." (str.++ "-" (str.++ "-" (str.++ "y" (str.++ "_" ""))))))))))))
 ;witness2: "_8lAD9Z_ZI@-TM.p8\x18"
-(define-fun Witness2 () String (seq.++ "_" (seq.++ "8" (seq.++ "l" (seq.++ "A" (seq.++ "D" (seq.++ "9" (seq.++ "Z" (seq.++ "_" (seq.++ "Z" (seq.++ "I" (seq.++ "@" (seq.++ "-" (seq.++ "T" (seq.++ "M" (seq.++ "." (seq.++ "p" (seq.++ "8" (seq.++ "\x18" "")))))))))))))))))))
+(define-fun Witness2 () String (str.++ "_" (str.++ "8" (str.++ "l" (str.++ "A" (str.++ "D" (str.++ "9" (str.++ "Z" (str.++ "_" (str.++ "Z" (str.++ "I" (str.++ "@" (str.++ "-" (str.++ "T" (str.++ "M" (str.++ "." (str.++ "p" (str.++ "8" (str.++ "\u{18}" "")))))))))))))))))))
 
 (assert (= regexA (re.++ (re.+ (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (re.range "." ".") (re.+ (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))))))))
 

@@ -4,18 +4,18 @@
 ; regexA = (\d)+\<\/a\>
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "!5</a>\u00D9\x1A\u00EAV\u0083"
-(define-fun Witness1 () String (seq.++ "!" (seq.++ "5" (seq.++ "<" (seq.++ "/" (seq.++ "a" (seq.++ ">" (seq.++ "\xd9" (seq.++ "\x1a" (seq.++ "\xea" (seq.++ "V" (seq.++ "\x83" ""))))))))))))
+(define-fun Witness1 () String (str.++ "!" (str.++ "5" (str.++ "<" (str.++ "/" (str.++ "a" (str.++ ">" (str.++ "\u{d9}" (str.++ "\u{1a}" (str.++ "\u{ea}" (str.++ "V" (str.++ "\u{83}" ""))))))))))))
 ;witness2: "42</a>"
-(define-fun Witness2 () String (seq.++ "4" (seq.++ "2" (seq.++ "<" (seq.++ "/" (seq.++ "a" (seq.++ ">" "")))))))
+(define-fun Witness2 () String (str.++ "4" (str.++ "2" (str.++ "<" (str.++ "/" (str.++ "a" (str.++ ">" "")))))))
 
-(assert (= regexA (re.++ (re.+ (re.range "0" "9")) (str.to_re (seq.++ "<" (seq.++ "/" (seq.++ "a" (seq.++ ">" ""))))))))
+(assert (= regexA (re.++ (re.+ (re.range "0" "9")) (str.to_re (str.++ "<" (str.++ "/" (str.++ "a" (str.++ ">" ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

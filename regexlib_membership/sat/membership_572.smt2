@@ -4,16 +4,16 @@
 ; regexA = [0-9][.][0-9]{3}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "1.048"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "." (seq.++ "0" (seq.++ "4" (seq.++ "8" ""))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "." (str.++ "0" (str.++ "4" (str.++ "8" ""))))))
 ;witness2: "\u00C6\u00E1\u00CA8.342"
-(define-fun Witness2 () String (seq.++ "\xc6" (seq.++ "\xe1" (seq.++ "\xca" (seq.++ "8" (seq.++ "." (seq.++ "3" (seq.++ "4" (seq.++ "2" "")))))))))
+(define-fun Witness2 () String (str.++ "\u{c6}" (str.++ "\u{e1}" (str.++ "\u{ca}" (str.++ "8" (str.++ "." (str.++ "3" (str.++ "4" (str.++ "2" "")))))))))
 
 (assert (= regexA (re.++ (re.range "0" "9")(re.++ (re.range "." ".")(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (str.to_re ""))))))
 

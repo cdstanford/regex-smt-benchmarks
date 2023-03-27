@@ -4,18 +4,18 @@
 ; regexA =      |       # otherwise accept decimal number between 0 - 1048575
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "n       # otherwise accept decimal number between 0 - 1048575"
-(define-fun Witness1 () String (seq.++ "n" (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "#" (seq.++ " " (seq.++ "o" (seq.++ "t" (seq.++ "h" (seq.++ "e" (seq.++ "r" (seq.++ "w" (seq.++ "i" (seq.++ "s" (seq.++ "e" (seq.++ " " (seq.++ "a" (seq.++ "c" (seq.++ "c" (seq.++ "e" (seq.++ "p" (seq.++ "t" (seq.++ " " (seq.++ "d" (seq.++ "e" (seq.++ "c" (seq.++ "i" (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ " " (seq.++ "n" (seq.++ "u" (seq.++ "m" (seq.++ "b" (seq.++ "e" (seq.++ "r" (seq.++ " " (seq.++ "b" (seq.++ "e" (seq.++ "t" (seq.++ "w" (seq.++ "e" (seq.++ "e" (seq.++ "n" (seq.++ " " (seq.++ "0" (seq.++ " " (seq.++ "-" (seq.++ " " (seq.++ "1" (seq.++ "0" (seq.++ "4" (seq.++ "8" (seq.++ "5" (seq.++ "7" (seq.++ "5" ""))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "n" (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "#" (str.++ " " (str.++ "o" (str.++ "t" (str.++ "h" (str.++ "e" (str.++ "r" (str.++ "w" (str.++ "i" (str.++ "s" (str.++ "e" (str.++ " " (str.++ "a" (str.++ "c" (str.++ "c" (str.++ "e" (str.++ "p" (str.++ "t" (str.++ " " (str.++ "d" (str.++ "e" (str.++ "c" (str.++ "i" (str.++ "m" (str.++ "a" (str.++ "l" (str.++ " " (str.++ "n" (str.++ "u" (str.++ "m" (str.++ "b" (str.++ "e" (str.++ "r" (str.++ " " (str.++ "b" (str.++ "e" (str.++ "t" (str.++ "w" (str.++ "e" (str.++ "e" (str.++ "n" (str.++ " " (str.++ "0" (str.++ " " (str.++ "-" (str.++ " " (str.++ "1" (str.++ "0" (str.++ "4" (str.++ "8" (str.++ "5" (str.++ "7" (str.++ "5" ""))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 ;witness2: "     "
-(define-fun Witness2 () String (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " ""))))))
+(define-fun Witness2 () String (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " ""))))))
 
-(assert (= regexA (re.union (str.to_re (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " "")))))) (str.to_re (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "#" (seq.++ " " (seq.++ "o" (seq.++ "t" (seq.++ "h" (seq.++ "e" (seq.++ "r" (seq.++ "w" (seq.++ "i" (seq.++ "s" (seq.++ "e" (seq.++ " " (seq.++ "a" (seq.++ "c" (seq.++ "c" (seq.++ "e" (seq.++ "p" (seq.++ "t" (seq.++ " " (seq.++ "d" (seq.++ "e" (seq.++ "c" (seq.++ "i" (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ " " (seq.++ "n" (seq.++ "u" (seq.++ "m" (seq.++ "b" (seq.++ "e" (seq.++ "r" (seq.++ " " (seq.++ "b" (seq.++ "e" (seq.++ "t" (seq.++ "w" (seq.++ "e" (seq.++ "e" (seq.++ "n" (seq.++ " " (seq.++ "0" (seq.++ " " (seq.++ "-" (seq.++ " " (seq.++ "1" (seq.++ "0" (seq.++ "4" (seq.++ "8" (seq.++ "5" (seq.++ "7" (seq.++ "5" ""))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+(assert (= regexA (re.union (str.to_re (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " "")))))) (str.to_re (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "#" (str.++ " " (str.++ "o" (str.++ "t" (str.++ "h" (str.++ "e" (str.++ "r" (str.++ "w" (str.++ "i" (str.++ "s" (str.++ "e" (str.++ " " (str.++ "a" (str.++ "c" (str.++ "c" (str.++ "e" (str.++ "p" (str.++ "t" (str.++ " " (str.++ "d" (str.++ "e" (str.++ "c" (str.++ "i" (str.++ "m" (str.++ "a" (str.++ "l" (str.++ " " (str.++ "n" (str.++ "u" (str.++ "m" (str.++ "b" (str.++ "e" (str.++ "r" (str.++ " " (str.++ "b" (str.++ "e" (str.++ "t" (str.++ "w" (str.++ "e" (str.++ "e" (str.++ "n" (str.++ " " (str.++ "0" (str.++ " " (str.++ "-" (str.++ " " (str.++ "1" (str.++ "0" (str.++ "4" (str.++ "8" (str.++ "5" (str.++ "7" (str.++ "5" ""))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

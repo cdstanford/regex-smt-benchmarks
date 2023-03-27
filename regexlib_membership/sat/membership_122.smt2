@@ -4,18 +4,18 @@
 ; regexA = ^.*(?:kumar).*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\\u00E7\x11kumar"
-(define-fun Witness1 () String (seq.++ "\x5c" (seq.++ "\xe7" (seq.++ "\x11" (seq.++ "k" (seq.++ "u" (seq.++ "m" (seq.++ "a" (seq.++ "r" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{5c}" (str.++ "\u{e7}" (str.++ "\u{11}" (str.++ "k" (str.++ "u" (str.++ "m" (str.++ "a" (str.++ "r" "")))))))))
 ;witness2: "\u00E3`\u00B2\xCS\xCkumar\u00B9"
-(define-fun Witness2 () String (seq.++ "\xe3" (seq.++ "`" (seq.++ "\xb2" (seq.++ "\x0c" (seq.++ "S" (seq.++ "\x0c" (seq.++ "k" (seq.++ "u" (seq.++ "m" (seq.++ "a" (seq.++ "r" (seq.++ "\xb9" "")))))))))))))
+(define-fun Witness2 () String (str.++ "\u{e3}" (str.++ "`" (str.++ "\u{b2}" (str.++ "\u{0c}" (str.++ "S" (str.++ "\u{0c}" (str.++ "k" (str.++ "u" (str.++ "m" (str.++ "a" (str.++ "r" (str.++ "\u{b9}" "")))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (str.to_re (seq.++ "k" (seq.++ "u" (seq.++ "m" (seq.++ "a" (seq.++ "r" ""))))))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (str.to_re (str.++ "k" (str.++ "u" (str.++ "m" (str.++ "a" (str.++ "r" ""))))))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

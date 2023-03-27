@@ -4,18 +4,18 @@
 ; regexA = ^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9,884"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "," (seq.++ "8" (seq.++ "8" (seq.++ "4" ""))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "," (str.++ "8" (str.++ "8" (str.++ "4" ""))))))
 ;witness2: "$88,889,488"
-(define-fun Witness2 () String (seq.++ "$" (seq.++ "8" (seq.++ "8" (seq.++ "," (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "," (seq.++ "4" (seq.++ "8" (seq.++ "8" ""))))))))))))
+(define-fun Witness2 () String (str.++ "$" (str.++ "8" (str.++ "8" (str.++ "," (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "," (str.++ "4" (str.++ "8" (str.++ "8" ""))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "$" "$"))(re.++ (re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "," ",")(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.range "," ","))) ((_ re.loop 3 3) (re.range "0" "9"))))) (re.+ (re.range "0" "9")))(re.++ (re.opt (re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))(re.++ (re.range "0" "9") (re.range "0" "9")))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "$" "$"))(re.++ (re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "," ",")(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.range "," ","))) ((_ re.loop 3 3) (re.range "0" "9"))))) (re.+ (re.range "0" "9")))(re.++ (re.opt (re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))(re.++ (re.range "0" "9") (re.range "0" "9")))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

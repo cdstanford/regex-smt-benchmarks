@@ -4,16 +4,16 @@
 ; regexA = ^[-]?\d{1,10}\.?([0-9][0-9])?$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "-889."
-(define-fun Witness1 () String (seq.++ "-" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "." ""))))))
+(define-fun Witness1 () String (str.++ "-" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "." ""))))))
 ;witness2: "1.83"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "." (seq.++ "8" (seq.++ "3" "")))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "." (str.++ "8" (str.++ "3" "")))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ ((_ re.loop 1 10) (re.range "0" "9"))(re.++ (re.opt (re.range "." "."))(re.++ (re.opt (re.++ (re.range "0" "9") (re.range "0" "9"))) (str.to_re ""))))))))
 

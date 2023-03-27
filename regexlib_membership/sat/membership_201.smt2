@@ -4,18 +4,18 @@
 ; regexA = ^\{([1-9]{1}|[1-9]{1}[0-9]{1,}){1}\}\{([1-9]{1}|[1-9]{1}[0-9]{1,}){1}\}(.*)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "{299}{9}"
-(define-fun Witness1 () String (seq.++ "{" (seq.++ "2" (seq.++ "9" (seq.++ "9" (seq.++ "}" (seq.++ "{" (seq.++ "9" (seq.++ "}" "")))))))))
+(define-fun Witness1 () String (str.++ "{" (str.++ "2" (str.++ "9" (str.++ "9" (str.++ "}" (str.++ "{" (str.++ "9" (str.++ "}" "")))))))))
 ;witness2: "{18}{2}q\u00A0"
-(define-fun Witness2 () String (seq.++ "{" (seq.++ "1" (seq.++ "8" (seq.++ "}" (seq.++ "{" (seq.++ "2" (seq.++ "}" (seq.++ "q" (seq.++ "\xa0" ""))))))))))
+(define-fun Witness2 () String (str.++ "{" (str.++ "1" (str.++ "8" (str.++ "}" (str.++ "{" (str.++ "2" (str.++ "}" (str.++ "q" (str.++ "\u{a0}" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "{" "{")(re.++ (re.union (re.range "1" "9") (re.++ (re.range "1" "9") (re.+ (re.range "0" "9"))))(re.++ (str.to_re (seq.++ "}" (seq.++ "{" "")))(re.++ (re.union (re.range "1" "9") (re.++ (re.range "1" "9") (re.+ (re.range "0" "9"))))(re.++ (re.range "}" "}")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re ""))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "{" "{")(re.++ (re.union (re.range "1" "9") (re.++ (re.range "1" "9") (re.+ (re.range "0" "9"))))(re.++ (str.to_re (str.++ "}" (str.++ "{" "")))(re.++ (re.union (re.range "1" "9") (re.++ (re.range "1" "9") (re.+ (re.range "0" "9"))))(re.++ (re.range "}" "}")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

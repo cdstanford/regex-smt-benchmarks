@@ -4,18 +4,18 @@
 ; regexA = <\?xml.*</note>
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\x1B.<?xml</note>\x10\xF"
-(define-fun Witness1 () String (seq.++ "\x1b" (seq.++ "." (seq.++ "<" (seq.++ "?" (seq.++ "x" (seq.++ "m" (seq.++ "l" (seq.++ "<" (seq.++ "/" (seq.++ "n" (seq.++ "o" (seq.++ "t" (seq.++ "e" (seq.++ ">" (seq.++ "\x10" (seq.++ "\x0f" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{1b}" (str.++ "." (str.++ "<" (str.++ "?" (str.++ "x" (str.++ "m" (str.++ "l" (str.++ "<" (str.++ "/" (str.++ "n" (str.++ "o" (str.++ "t" (str.++ "e" (str.++ ">" (str.++ "\u{10}" (str.++ "\u{0f}" "")))))))))))))))))
 ;witness2: "]\u0094<?xml\x13O</note>"
-(define-fun Witness2 () String (seq.++ "]" (seq.++ "\x94" (seq.++ "<" (seq.++ "?" (seq.++ "x" (seq.++ "m" (seq.++ "l" (seq.++ "\x13" (seq.++ "O" (seq.++ "<" (seq.++ "/" (seq.++ "n" (seq.++ "o" (seq.++ "t" (seq.++ "e" (seq.++ ">" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "]" (str.++ "\u{94}" (str.++ "<" (str.++ "?" (str.++ "x" (str.++ "m" (str.++ "l" (str.++ "\u{13}" (str.++ "O" (str.++ "<" (str.++ "/" (str.++ "n" (str.++ "o" (str.++ "t" (str.++ "e" (str.++ ">" "")))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "<" (seq.++ "?" (seq.++ "x" (seq.++ "m" (seq.++ "l" ""))))))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re (seq.++ "<" (seq.++ "/" (seq.++ "n" (seq.++ "o" (seq.++ "t" (seq.++ "e" (seq.++ ">" ""))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "<" (str.++ "?" (str.++ "x" (str.++ "m" (str.++ "l" ""))))))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re (str.++ "<" (str.++ "/" (str.++ "n" (str.++ "o" (str.++ "t" (str.++ "e" (str.++ ">" ""))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

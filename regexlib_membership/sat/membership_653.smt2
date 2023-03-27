@@ -4,18 +4,18 @@
 ; regexA = ^[A-Z][a-z]+((eir|(n|l)h)(a|o))$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Qyeiro"
-(define-fun Witness1 () String (seq.++ "Q" (seq.++ "y" (seq.++ "e" (seq.++ "i" (seq.++ "r" (seq.++ "o" "")))))))
+(define-fun Witness1 () String (str.++ "Q" (str.++ "y" (str.++ "e" (str.++ "i" (str.++ "r" (str.++ "o" "")))))))
 ;witness2: "Kmnho"
-(define-fun Witness2 () String (seq.++ "K" (seq.++ "m" (seq.++ "n" (seq.++ "h" (seq.++ "o" ""))))))
+(define-fun Witness2 () String (str.++ "K" (str.++ "m" (str.++ "n" (str.++ "h" (str.++ "o" ""))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.++ (re.union (str.to_re (seq.++ "e" (seq.++ "i" (seq.++ "r" "")))) (re.++ (re.union (re.range "l" "l") (re.range "n" "n")) (re.range "h" "h"))) (re.union (re.range "a" "a") (re.range "o" "o"))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.++ (re.union (str.to_re (str.++ "e" (str.++ "i" (str.++ "r" "")))) (re.++ (re.union (re.range "l" "l") (re.range "n" "n")) (re.range "h" "h"))) (re.union (re.range "a" "a") (re.range "o" "o"))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

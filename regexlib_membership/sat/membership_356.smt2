@@ -4,18 +4,18 @@
 ; regexA = sdsd
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "sdsd"
-(define-fun Witness1 () String (seq.++ "s" (seq.++ "d" (seq.++ "s" (seq.++ "d" "")))))
+(define-fun Witness1 () String (str.++ "s" (str.++ "d" (str.++ "s" (str.++ "d" "")))))
 ;witness2: "sdsd"
-(define-fun Witness2 () String (seq.++ "s" (seq.++ "d" (seq.++ "s" (seq.++ "d" "")))))
+(define-fun Witness2 () String (str.++ "s" (str.++ "d" (str.++ "s" (str.++ "d" "")))))
 
-(assert (= regexA (str.to_re (seq.++ "s" (seq.++ "d" (seq.++ "s" (seq.++ "d" "")))))))
+(assert (= regexA (str.to_re (str.++ "s" (str.++ "d" (str.++ "s" (str.++ "d" "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

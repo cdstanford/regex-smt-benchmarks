@@ -4,18 +4,18 @@
 ; regexA = (?:Error|Warning|Exception)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Exception\u00A0\u00B6"
-(define-fun Witness1 () String (seq.++ "E" (seq.++ "x" (seq.++ "c" (seq.++ "e" (seq.++ "p" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" (seq.++ "\xa0" (seq.++ "\xb6" ""))))))))))))
+(define-fun Witness1 () String (str.++ "E" (str.++ "x" (str.++ "c" (str.++ "e" (str.++ "p" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" (str.++ "\u{a0}" (str.++ "\u{b6}" ""))))))))))))
 ;witness2: "Exception"
-(define-fun Witness2 () String (seq.++ "E" (seq.++ "x" (seq.++ "c" (seq.++ "e" (seq.++ "p" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" ""))))))))))
+(define-fun Witness2 () String (str.++ "E" (str.++ "x" (str.++ "c" (str.++ "e" (str.++ "p" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" ""))))))))))
 
-(assert (= regexA (re.union (str.to_re (seq.++ "E" (seq.++ "r" (seq.++ "r" (seq.++ "o" (seq.++ "r" ""))))))(re.union (str.to_re (seq.++ "W" (seq.++ "a" (seq.++ "r" (seq.++ "n" (seq.++ "i" (seq.++ "n" (seq.++ "g" "")))))))) (str.to_re (seq.++ "E" (seq.++ "x" (seq.++ "c" (seq.++ "e" (seq.++ "p" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" ""))))))))))))))
+(assert (= regexA (re.union (str.to_re (str.++ "E" (str.++ "r" (str.++ "r" (str.++ "o" (str.++ "r" ""))))))(re.union (str.to_re (str.++ "W" (str.++ "a" (str.++ "r" (str.++ "n" (str.++ "i" (str.++ "n" (str.++ "g" "")))))))) (str.to_re (str.++ "E" (str.++ "x" (str.++ "c" (str.++ "e" (str.++ "p" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" ""))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

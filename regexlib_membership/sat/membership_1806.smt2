@@ -4,16 +4,16 @@
 ; regexA = ^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "ZNyG"
-(define-fun Witness1 () String (seq.++ "Z" (seq.++ "N" (seq.++ "y" (seq.++ "G" "")))))
+(define-fun Witness1 () String (str.++ "Z" (str.++ "N" (str.++ "y" (str.++ "G" "")))))
 ;witness2: "vydldy\' z"
-(define-fun Witness2 () String (seq.++ "v" (seq.++ "y" (seq.++ "d" (seq.++ "l" (seq.++ "d" (seq.++ "y" (seq.++ "'" (seq.++ " " (seq.++ "z" ""))))))))))
+(define-fun Witness2 () String (str.++ "v" (str.++ "y" (str.++ "d" (str.++ "l" (str.++ "d" (str.++ "y" (str.++ "'" (str.++ " " (str.++ "z" ""))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.* (re.++ (re.opt (re.++ (re.union (re.range " " " ")(re.union (re.range "'" "'") (re.range "," "."))) (re.union (re.range " " " ")(re.union (re.range "A" "Z") (re.range "a" "z"))))) (re.* (re.union (re.range "A" "Z") (re.range "a" "z"))))) (str.to_re ""))))))
 

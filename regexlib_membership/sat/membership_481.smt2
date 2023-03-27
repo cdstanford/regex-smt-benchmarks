@@ -4,18 +4,18 @@
 ; regexA = /\*[^\/]+/
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "/*\u00F2\u00D0/"
-(define-fun Witness1 () String (seq.++ "/" (seq.++ "*" (seq.++ "\xf2" (seq.++ "\xd0" (seq.++ "/" ""))))))
+(define-fun Witness1 () String (str.++ "/" (str.++ "*" (str.++ "\u{f2}" (str.++ "\u{d0}" (str.++ "/" ""))))))
 ;witness2: "\u008A/*\u007F\u00B7\u00E3\u00D8\u00CB\u009C/\u00DC\u00E1\u00C2\u00C7\u00E0nK\u007F\x14"
-(define-fun Witness2 () String (seq.++ "\x8a" (seq.++ "/" (seq.++ "*" (seq.++ "\x7f" (seq.++ "\xb7" (seq.++ "\xe3" (seq.++ "\xd8" (seq.++ "\xcb" (seq.++ "\x9c" (seq.++ "/" (seq.++ "\xdc" (seq.++ "\xe1" (seq.++ "\xc2" (seq.++ "\xc7" (seq.++ "\xe0" (seq.++ "n" (seq.++ "K" (seq.++ "\x7f" (seq.++ "\x14" ""))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{8a}" (str.++ "/" (str.++ "*" (str.++ "\u{7f}" (str.++ "\u{b7}" (str.++ "\u{e3}" (str.++ "\u{d8}" (str.++ "\u{cb}" (str.++ "\u{9c}" (str.++ "/" (str.++ "\u{dc}" (str.++ "\u{e1}" (str.++ "\u{c2}" (str.++ "\u{c7}" (str.++ "\u{e0}" (str.++ "n" (str.++ "K" (str.++ "\u{7f}" (str.++ "\u{14}" ""))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "/" (seq.++ "*" "")))(re.++ (re.+ (re.union (re.range "\x00" ".") (re.range "0" "\xff"))) (re.range "/" "/")))))
+(assert (= regexA (re.++ (str.to_re (str.++ "/" (str.++ "*" "")))(re.++ (re.+ (re.union (re.range "\u{00}" ".") (re.range "0" "\u{ff}"))) (re.range "/" "/")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

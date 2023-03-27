@@ -4,18 +4,18 @@
 ; regexA = ^(a-z|A-Z|0-9)*[^#$%^&*()']*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "A-Z0-9"
-(define-fun Witness1 () String (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "0" (seq.++ "-" (seq.++ "9" "")))))))
+(define-fun Witness1 () String (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "0" (str.++ "-" (str.++ "9" "")))))))
 ;witness2: "0-9a-za-zA-Za-z0-9A-ZA-ZA-Z0-9a-zA-ZA-Za-za-z"
-(define-fun Witness2 () String (seq.++ "0" (seq.++ "-" (seq.++ "9" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "0" (seq.++ "-" (seq.++ "9" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "0" (seq.++ "-" (seq.++ "9" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "A" (seq.++ "-" (seq.++ "Z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "a" (seq.++ "-" (seq.++ "z" ""))))))))))))))))))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "0" (str.++ "-" (str.++ "9" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "0" (str.++ "-" (str.++ "9" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "0" (str.++ "-" (str.++ "9" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "A" (str.++ "-" (str.++ "Z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "a" (str.++ "-" (str.++ "z" ""))))))))))))))))))))))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (str.to_re (seq.++ "a" (seq.++ "-" (seq.++ "z" ""))))(re.union (str.to_re (seq.++ "A" (seq.++ "-" (seq.++ "Z" "")))) (str.to_re (seq.++ "0" (seq.++ "-" (seq.++ "9" "")))))))(re.++ (re.* (re.union (re.range "\x00" "\x22")(re.union (re.range "+" "]") (re.range "_" "\xff")))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (str.to_re (str.++ "a" (str.++ "-" (str.++ "z" ""))))(re.union (str.to_re (str.++ "A" (str.++ "-" (str.++ "Z" "")))) (str.to_re (str.++ "0" (str.++ "-" (str.++ "9" "")))))))(re.++ (re.* (re.union (re.range "\u{00}" "\u{22}")(re.union (re.range "+" "]") (re.range "_" "\u{ff}")))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

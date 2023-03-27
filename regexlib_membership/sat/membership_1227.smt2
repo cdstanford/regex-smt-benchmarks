@@ -4,16 +4,16 @@
 ; regexA = ^([0-9a-fA-F]){8}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "BDA27cEf"
-(define-fun Witness1 () String (seq.++ "B" (seq.++ "D" (seq.++ "A" (seq.++ "2" (seq.++ "7" (seq.++ "c" (seq.++ "E" (seq.++ "f" "")))))))))
+(define-fun Witness1 () String (str.++ "B" (str.++ "D" (str.++ "A" (str.++ "2" (str.++ "7" (str.++ "c" (str.++ "E" (str.++ "f" "")))))))))
 ;witness2: "5fE8Fcfd"
-(define-fun Witness2 () String (seq.++ "5" (seq.++ "f" (seq.++ "E" (seq.++ "8" (seq.++ "F" (seq.++ "c" (seq.++ "f" (seq.++ "d" "")))))))))
+(define-fun Witness2 () String (str.++ "5" (str.++ "f" (str.++ "E" (str.++ "8" (str.++ "F" (str.++ "c" (str.++ "f" (str.++ "d" "")))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 8 8) (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f")))) (str.to_re "")))))
 

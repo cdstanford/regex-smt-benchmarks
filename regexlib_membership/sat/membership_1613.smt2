@@ -4,18 +4,18 @@
 ; regexA = [\\s+,]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ",\u00DF/"
-(define-fun Witness1 () String (seq.++ "," (seq.++ "\xdf" (seq.++ "/" ""))))
+(define-fun Witness1 () String (str.++ "," (str.++ "\u{df}" (str.++ "/" ""))))
 ;witness2: ",\u00E6\u00F8\u0086-."
-(define-fun Witness2 () String (seq.++ "," (seq.++ "\xe6" (seq.++ "\xf8" (seq.++ "\x86" (seq.++ "-" (seq.++ "." "")))))))
+(define-fun Witness2 () String (str.++ "," (str.++ "\u{e6}" (str.++ "\u{f8}" (str.++ "\u{86}" (str.++ "-" (str.++ "." "")))))))
 
-(assert (= regexA (re.union (re.range "+" ",")(re.union (re.range "\x5c" "\x5c") (re.range "s" "s")))))
+(assert (= regexA (re.union (re.range "+" ",")(re.union (re.range "\u{5c}" "\u{5c}") (re.range "s" "s")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,18 +4,18 @@
 ; regexA = 714|760|949|619|909|951|818|310|323|213|323|562|626-\d{3}-\d{4}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00AE323\u00E5"
-(define-fun Witness1 () String (seq.++ "\xae" (seq.++ "3" (seq.++ "2" (seq.++ "3" (seq.++ "\xe5" ""))))))
+(define-fun Witness1 () String (str.++ "\u{ae}" (str.++ "3" (str.++ "2" (str.++ "3" (str.++ "\u{e5}" ""))))))
 ;witness2: "714\u00C6\u00B9y"
-(define-fun Witness2 () String (seq.++ "7" (seq.++ "1" (seq.++ "4" (seq.++ "\xc6" (seq.++ "\xb9" (seq.++ "y" "")))))))
+(define-fun Witness2 () String (str.++ "7" (str.++ "1" (str.++ "4" (str.++ "\u{c6}" (str.++ "\u{b9}" (str.++ "y" "")))))))
 
-(assert (= regexA (re.union (str.to_re (seq.++ "7" (seq.++ "1" (seq.++ "4" ""))))(re.union (str.to_re (seq.++ "7" (seq.++ "6" (seq.++ "0" ""))))(re.union (str.to_re (seq.++ "9" (seq.++ "4" (seq.++ "9" ""))))(re.union (str.to_re (seq.++ "6" (seq.++ "1" (seq.++ "9" ""))))(re.union (str.to_re (seq.++ "9" (seq.++ "0" (seq.++ "9" ""))))(re.union (str.to_re (seq.++ "9" (seq.++ "5" (seq.++ "1" ""))))(re.union (str.to_re (seq.++ "8" (seq.++ "1" (seq.++ "8" ""))))(re.union (str.to_re (seq.++ "3" (seq.++ "1" (seq.++ "0" ""))))(re.union (str.to_re (seq.++ "3" (seq.++ "2" (seq.++ "3" ""))))(re.union (str.to_re (seq.++ "2" (seq.++ "1" (seq.++ "3" ""))))(re.union (str.to_re (seq.++ "3" (seq.++ "2" (seq.++ "3" ""))))(re.union (str.to_re (seq.++ "5" (seq.++ "6" (seq.++ "2" "")))) (re.++ (str.to_re (seq.++ "6" (seq.++ "2" (seq.++ "6" (seq.++ "-" "")))))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9")))))))))))))))))))
+(assert (= regexA (re.union (str.to_re (str.++ "7" (str.++ "1" (str.++ "4" ""))))(re.union (str.to_re (str.++ "7" (str.++ "6" (str.++ "0" ""))))(re.union (str.to_re (str.++ "9" (str.++ "4" (str.++ "9" ""))))(re.union (str.to_re (str.++ "6" (str.++ "1" (str.++ "9" ""))))(re.union (str.to_re (str.++ "9" (str.++ "0" (str.++ "9" ""))))(re.union (str.to_re (str.++ "9" (str.++ "5" (str.++ "1" ""))))(re.union (str.to_re (str.++ "8" (str.++ "1" (str.++ "8" ""))))(re.union (str.to_re (str.++ "3" (str.++ "1" (str.++ "0" ""))))(re.union (str.to_re (str.++ "3" (str.++ "2" (str.++ "3" ""))))(re.union (str.to_re (str.++ "2" (str.++ "1" (str.++ "3" ""))))(re.union (str.to_re (str.++ "3" (str.++ "2" (str.++ "3" ""))))(re.union (str.to_re (str.++ "5" (str.++ "6" (str.++ "2" "")))) (re.++ (str.to_re (str.++ "6" (str.++ "2" (str.++ "6" (str.++ "-" "")))))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9")))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

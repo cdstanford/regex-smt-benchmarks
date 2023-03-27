@@ -4,16 +4,16 @@
 ; regexA = ^([a-zA-Z]+(?:\.)?(?: [a-zA-Z]+(?:\.)?)*)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Mh E."
-(define-fun Witness1 () String (seq.++ "M" (seq.++ "h" (seq.++ " " (seq.++ "E" (seq.++ "." ""))))))
+(define-fun Witness1 () String (str.++ "M" (str.++ "h" (str.++ " " (str.++ "E" (str.++ "." ""))))))
 ;witness2: "v"
-(define-fun Witness2 () String (seq.++ "v" ""))
+(define-fun Witness2 () String (str.++ "v" ""))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.+ (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.opt (re.range "." ".")) (re.* (re.++ (re.range " " " ")(re.++ (re.+ (re.union (re.range "A" "Z") (re.range "a" "z"))) (re.opt (re.range "." "."))))))) (str.to_re "")))))
 

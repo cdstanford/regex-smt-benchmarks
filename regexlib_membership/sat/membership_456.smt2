@@ -4,18 +4,18 @@
 ; regexA = \[(?<name>[^\]]*)\](?<value>[^\[]*)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "[]"
-(define-fun Witness1 () String (seq.++ "[" (seq.++ "]" "")))
+(define-fun Witness1 () String (str.++ "[" (str.++ "]" "")))
 ;witness2: "[\u00C4]\x9\u00FA\u00DF\u00F9"
-(define-fun Witness2 () String (seq.++ "[" (seq.++ "\xc4" (seq.++ "]" (seq.++ "\x09" (seq.++ "\xfa" (seq.++ "\xdf" (seq.++ "\xf9" ""))))))))
+(define-fun Witness2 () String (str.++ "[" (str.++ "\u{c4}" (str.++ "]" (str.++ "\u{09}" (str.++ "\u{fa}" (str.++ "\u{df}" (str.++ "\u{f9}" ""))))))))
 
-(assert (= regexA (re.++ (re.range "[" "[")(re.++ (re.* (re.union (re.range "\x00" "\x5c") (re.range "^" "\xff")))(re.++ (re.range "]" "]") (re.* (re.union (re.range "\x00" "Z") (re.range "\x5c" "\xff"))))))))
+(assert (= regexA (re.++ (re.range "[" "[")(re.++ (re.* (re.union (re.range "\u{00}" "\u{5c}") (re.range "^" "\u{ff}")))(re.++ (re.range "]" "]") (re.* (re.union (re.range "\u{00}" "Z") (re.range "\u{5c}" "\u{ff}"))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

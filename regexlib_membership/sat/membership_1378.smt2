@@ -4,18 +4,18 @@
 ; regexA = X-Spam-Level:\s[*]{11}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "X-Spam-Level:\u0085***********"
-(define-fun Witness1 () String (seq.++ "X" (seq.++ "-" (seq.++ "S" (seq.++ "p" (seq.++ "a" (seq.++ "m" (seq.++ "-" (seq.++ "L" (seq.++ "e" (seq.++ "v" (seq.++ "e" (seq.++ "l" (seq.++ ":" (seq.++ "\x85" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" ""))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "X" (str.++ "-" (str.++ "S" (str.++ "p" (str.++ "a" (str.++ "m" (str.++ "-" (str.++ "L" (str.++ "e" (str.++ "v" (str.++ "e" (str.++ "l" (str.++ ":" (str.++ "\u{85}" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" ""))))))))))))))))))))))))))
 ;witness2: "X-Spam-Level:\u0085***********\u00DCv"
-(define-fun Witness2 () String (seq.++ "X" (seq.++ "-" (seq.++ "S" (seq.++ "p" (seq.++ "a" (seq.++ "m" (seq.++ "-" (seq.++ "L" (seq.++ "e" (seq.++ "v" (seq.++ "e" (seq.++ "l" (seq.++ ":" (seq.++ "\x85" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "*" (seq.++ "\xdc" (seq.++ "v" ""))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "X" (str.++ "-" (str.++ "S" (str.++ "p" (str.++ "a" (str.++ "m" (str.++ "-" (str.++ "L" (str.++ "e" (str.++ "v" (str.++ "e" (str.++ "l" (str.++ ":" (str.++ "\u{85}" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "*" (str.++ "\u{dc}" (str.++ "v" ""))))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "X" (seq.++ "-" (seq.++ "S" (seq.++ "p" (seq.++ "a" (seq.++ "m" (seq.++ "-" (seq.++ "L" (seq.++ "e" (seq.++ "v" (seq.++ "e" (seq.++ "l" (seq.++ ":" ""))))))))))))))(re.++ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))) ((_ re.loop 11 11) (re.range "*" "*"))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "X" (str.++ "-" (str.++ "S" (str.++ "p" (str.++ "a" (str.++ "m" (str.++ "-" (str.++ "L" (str.++ "e" (str.++ "v" (str.++ "e" (str.++ "l" (str.++ ":" ""))))))))))))))(re.++ (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))) ((_ re.loop 11 11) (re.range "*" "*"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

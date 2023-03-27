@@ -4,16 +4,16 @@
 ; regexA = ^[a-zA-Z][a-zA-Z0-9_\.\-]+@([a-zA-Z0-9-]{2,}\.)+([a-zA-Z]{2,4}|[a-zA-Z]{2}\.[a-zA-Z]{2})$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Di@-1.8-9.rUN.xc.LO.xY.zZc"
-(define-fun Witness1 () String (seq.++ "D" (seq.++ "i" (seq.++ "@" (seq.++ "-" (seq.++ "1" (seq.++ "." (seq.++ "8" (seq.++ "-" (seq.++ "9" (seq.++ "." (seq.++ "r" (seq.++ "U" (seq.++ "N" (seq.++ "." (seq.++ "x" (seq.++ "c" (seq.++ "." (seq.++ "L" (seq.++ "O" (seq.++ "." (seq.++ "x" (seq.++ "Y" (seq.++ "." (seq.++ "z" (seq.++ "Z" (seq.++ "c" "")))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "D" (str.++ "i" (str.++ "@" (str.++ "-" (str.++ "1" (str.++ "." (str.++ "8" (str.++ "-" (str.++ "9" (str.++ "." (str.++ "r" (str.++ "U" (str.++ "N" (str.++ "." (str.++ "x" (str.++ "c" (str.++ "." (str.++ "L" (str.++ "O" (str.++ "." (str.++ "x" (str.++ "Y" (str.++ "." (str.++ "z" (str.++ "Z" (str.++ "c" "")))))))))))))))))))))))))))
 ;witness2: "L-@01o82e.bE.Rd"
-(define-fun Witness2 () String (seq.++ "L" (seq.++ "-" (seq.++ "@" (seq.++ "0" (seq.++ "1" (seq.++ "o" (seq.++ "8" (seq.++ "2" (seq.++ "e" (seq.++ "." (seq.++ "b" (seq.++ "E" (seq.++ "." (seq.++ "R" (seq.++ "d" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "L" (str.++ "-" (str.++ "@" (str.++ "0" (str.++ "1" (str.++ "o" (str.++ "8" (str.++ "2" (str.++ "e" (str.++ "." (str.++ "b" (str.++ "E" (str.++ "." (str.++ "R" (str.++ "d" ""))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.range "A" "Z") (re.range "a" "z"))(re.++ (re.+ (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.++ (re.++ ((_ re.loop 2 2) (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))) (re.* (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))) (re.range "." ".")))(re.++ (re.union ((_ re.loop 2 4) (re.union (re.range "A" "Z") (re.range "a" "z"))) (re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.range "." ".") ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z")))))) (str.to_re "")))))))))
 

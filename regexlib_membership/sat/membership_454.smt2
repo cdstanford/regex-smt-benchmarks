@@ -4,16 +4,16 @@
 ; regexA = [-'a-zA-Z]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "q"
-(define-fun Witness1 () String (seq.++ "q" ""))
+(define-fun Witness1 () String (str.++ "q" ""))
 ;witness2: "y"
-(define-fun Witness2 () String (seq.++ "y" ""))
+(define-fun Witness2 () String (str.++ "y" ""))
 
 (assert (= regexA (re.union (re.range "'" "'")(re.union (re.range "-" "-")(re.union (re.range "A" "Z") (re.range "a" "z"))))))
 

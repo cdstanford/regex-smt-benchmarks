@@ -4,18 +4,18 @@
 ; regexA = [\w*|\W*]*<[[\w*|\W*]*|/[\w*|\W*]]>[\w*|\W*]*
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "/\u00D2]>"
-(define-fun Witness1 () String (seq.++ "/" (seq.++ "\xd2" (seq.++ "]" (seq.++ ">" "")))))
+(define-fun Witness1 () String (str.++ "/" (str.++ "\u{d2}" (str.++ "]" (str.++ ">" "")))))
 ;witness2: "<\u00D0"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "\xd0" "")))
+(define-fun Witness2 () String (str.++ "<" (str.++ "\u{d0}" "")))
 
-(assert (= regexA (re.union (re.++ (re.* (re.range "\x00" "\xff"))(re.++ (re.range "<" "<") (re.* (re.range "\x00" "\xff")))) (re.++ (re.range "/" "/")(re.++ (re.range "\x00" "\xff")(re.++ (str.to_re (seq.++ "]" (seq.++ ">" ""))) (re.* (re.range "\x00" "\xff"))))))))
+(assert (= regexA (re.union (re.++ (re.* (re.range "\u{00}" "\u{ff}"))(re.++ (re.range "<" "<") (re.* (re.range "\u{00}" "\u{ff}")))) (re.++ (re.range "/" "/")(re.++ (re.range "\u{00}" "\u{ff}")(re.++ (str.to_re (str.++ "]" (str.++ ">" ""))) (re.* (re.range "\u{00}" "\u{ff}"))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,16 +4,16 @@
 ; regexA = ^[A-Z]{4}[1-8](\d){2}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "YZPN878"
-(define-fun Witness1 () String (seq.++ "Y" (seq.++ "Z" (seq.++ "P" (seq.++ "N" (seq.++ "8" (seq.++ "7" (seq.++ "8" ""))))))))
+(define-fun Witness1 () String (str.++ "Y" (str.++ "Z" (str.++ "P" (str.++ "N" (str.++ "8" (str.++ "7" (str.++ "8" ""))))))))
 ;witness2: "UOQJ822"
-(define-fun Witness2 () String (seq.++ "U" (seq.++ "O" (seq.++ "Q" (seq.++ "J" (seq.++ "8" (seq.++ "2" (seq.++ "2" ""))))))))
+(define-fun Witness2 () String (str.++ "U" (str.++ "O" (str.++ "Q" (str.++ "J" (str.++ "8" (str.++ "2" (str.++ "2" ""))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 4 4) (re.range "A" "Z"))(re.++ (re.range "1" "8")(re.++ ((_ re.loop 2 2) (re.range "0" "9")) (str.to_re "")))))))
 

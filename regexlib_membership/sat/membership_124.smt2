@@ -4,16 +4,16 @@
 ; regexA = ^[SFTG]\d{7}[A-Z]$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "G8808878Y"
-(define-fun Witness1 () String (seq.++ "G" (seq.++ "8" (seq.++ "8" (seq.++ "0" (seq.++ "8" (seq.++ "8" (seq.++ "7" (seq.++ "8" (seq.++ "Y" ""))))))))))
+(define-fun Witness1 () String (str.++ "G" (str.++ "8" (str.++ "8" (str.++ "0" (str.++ "8" (str.++ "8" (str.++ "7" (str.++ "8" (str.++ "Y" ""))))))))))
 ;witness2: "G4069633E"
-(define-fun Witness2 () String (seq.++ "G" (seq.++ "4" (seq.++ "0" (seq.++ "6" (seq.++ "9" (seq.++ "6" (seq.++ "3" (seq.++ "3" (seq.++ "E" ""))))))))))
+(define-fun Witness2 () String (str.++ "G" (str.++ "4" (str.++ "0" (str.++ "6" (str.++ "9" (str.++ "6" (str.++ "3" (str.++ "3" (str.++ "E" ""))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.range "F" "G") (re.range "S" "T"))(re.++ ((_ re.loop 7 7) (re.range "0" "9"))(re.++ (re.range "A" "Z") (str.to_re "")))))))
 

@@ -4,16 +4,16 @@
 ; regexA = (?<value>([\+-]?((\d*\.\d+)|\d+))(E[\+-]?\d+)?)( (?<prefix>[PTGMkmunpf])?(?<unit>[a-zA-Z]+)?)?
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00E4,\u00D3-4.8898 "
-(define-fun Witness1 () String (seq.++ "\xe4" (seq.++ "," (seq.++ "\xd3" (seq.++ "-" (seq.++ "4" (seq.++ "." (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ " " ""))))))))))))
+(define-fun Witness1 () String (str.++ "\u{e4}" (str.++ "," (str.++ "\u{d3}" (str.++ "-" (str.++ "4" (str.++ "." (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "8" (str.++ " " ""))))))))))))
 ;witness2: "6E+37"
-(define-fun Witness2 () String (seq.++ "6" (seq.++ "E" (seq.++ "+" (seq.++ "3" (seq.++ "7" ""))))))
+(define-fun Witness2 () String (str.++ "6" (str.++ "E" (str.++ "+" (str.++ "3" (str.++ "7" ""))))))
 
 (assert (= regexA (re.++ (re.++ (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-"))) (re.union (re.++ (re.* (re.range "0" "9"))(re.++ (re.range "." ".") (re.+ (re.range "0" "9")))) (re.+ (re.range "0" "9")))) (re.opt (re.++ (re.range "E" "E")(re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-"))) (re.+ (re.range "0" "9")))))) (re.opt (re.++ (re.range " " " ")(re.++ (re.opt (re.union (re.range "G" "G")(re.union (re.range "M" "M")(re.union (re.range "P" "P")(re.union (re.range "T" "T")(re.union (re.range "f" "f")(re.union (re.range "k" "k")(re.union (re.range "m" "n")(re.union (re.range "p" "p") (re.range "u" "u")))))))))) (re.opt (re.+ (re.union (re.range "A" "Z") (re.range "a" "z"))))))))))
 

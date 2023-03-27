@@ -4,16 +4,16 @@
 ; regexA = ^[a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}[XXX0-9]{0,3}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "eYtZAA0I"
-(define-fun Witness1 () String (seq.++ "e" (seq.++ "Y" (seq.++ "t" (seq.++ "Z" (seq.++ "A" (seq.++ "A" (seq.++ "0" (seq.++ "I" "")))))))))
+(define-fun Witness1 () String (str.++ "e" (str.++ "Y" (str.++ "t" (str.++ "Z" (str.++ "A" (str.++ "A" (str.++ "0" (str.++ "I" "")))))))))
 ;witness2: "oILEkB2d"
-(define-fun Witness2 () String (seq.++ "o" (seq.++ "I" (seq.++ "L" (seq.++ "E" (seq.++ "k" (seq.++ "B" (seq.++ "2" (seq.++ "d" "")))))))))
+(define-fun Witness2 () String (str.++ "o" (str.++ "I" (str.++ "L" (str.++ "E" (str.++ "k" (str.++ "B" (str.++ "2" (str.++ "d" "")))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 4 4) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ ((_ re.loop 2 2) (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))) ((_ re.loop 0 3) (re.union (re.range "0" "9") (re.range "X" "X")))))))))
 

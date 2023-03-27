@@ -4,16 +4,16 @@
 ; regexA = ^(\$?)((\d{1,20})|(\d{1,2}((,?\d{3}){0,6}))|(\d{3}((,?\d{3}){0,5})))$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "18"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "8" "")))
+(define-fun Witness1 () String (str.++ "1" (str.++ "8" "")))
 ;witness2: "188418,899,480,984"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "8" (seq.++ "8" (seq.++ "4" (seq.++ "1" (seq.++ "8" (seq.++ "," (seq.++ "8" (seq.++ "9" (seq.++ "9" (seq.++ "," (seq.++ "4" (seq.++ "8" (seq.++ "0" (seq.++ "," (seq.++ "9" (seq.++ "8" (seq.++ "4" "")))))))))))))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "8" (str.++ "8" (str.++ "4" (str.++ "1" (str.++ "8" (str.++ "," (str.++ "8" (str.++ "9" (str.++ "9" (str.++ "," (str.++ "4" (str.++ "8" (str.++ "0" (str.++ "," (str.++ "9" (str.++ "8" (str.++ "4" "")))))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "$" "$"))(re.++ (re.union ((_ re.loop 1 20) (re.range "0" "9"))(re.union (re.++ ((_ re.loop 1 2) (re.range "0" "9")) ((_ re.loop 0 6) (re.++ (re.opt (re.range "," ",")) ((_ re.loop 3 3) (re.range "0" "9"))))) (re.++ ((_ re.loop 3 3) (re.range "0" "9")) ((_ re.loop 0 5) (re.++ (re.opt (re.range "," ",")) ((_ re.loop 3 3) (re.range "0" "9"))))))) (str.to_re ""))))))
 

@@ -4,18 +4,18 @@
 ; regexA = ^.*(yourdomain.com).*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "I\u00D3-\u00EB\x17yourdomain,com"
-(define-fun Witness1 () String (seq.++ "I" (seq.++ "\xd3" (seq.++ "-" (seq.++ "\xeb" (seq.++ "\x17" (seq.++ "y" (seq.++ "o" (seq.++ "u" (seq.++ "r" (seq.++ "d" (seq.++ "o" (seq.++ "m" (seq.++ "a" (seq.++ "i" (seq.++ "n" (seq.++ "," (seq.++ "c" (seq.++ "o" (seq.++ "m" ""))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "I" (str.++ "\u{d3}" (str.++ "-" (str.++ "\u{eb}" (str.++ "\u{17}" (str.++ "y" (str.++ "o" (str.++ "u" (str.++ "r" (str.++ "d" (str.++ "o" (str.++ "m" (str.++ "a" (str.++ "i" (str.++ "n" (str.++ "," (str.++ "c" (str.++ "o" (str.++ "m" ""))))))))))))))))))))
 ;witness2: "x\u00E1\x9yourdomain\u00ECcom"
-(define-fun Witness2 () String (seq.++ "x" (seq.++ "\xe1" (seq.++ "\x09" (seq.++ "y" (seq.++ "o" (seq.++ "u" (seq.++ "r" (seq.++ "d" (seq.++ "o" (seq.++ "m" (seq.++ "a" (seq.++ "i" (seq.++ "n" (seq.++ "\xec" (seq.++ "c" (seq.++ "o" (seq.++ "m" ""))))))))))))))))))
+(define-fun Witness2 () String (str.++ "x" (str.++ "\u{e1}" (str.++ "\u{09}" (str.++ "y" (str.++ "o" (str.++ "u" (str.++ "r" (str.++ "d" (str.++ "o" (str.++ "m" (str.++ "a" (str.++ "i" (str.++ "n" (str.++ "\u{ec}" (str.++ "c" (str.++ "o" (str.++ "m" ""))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.++ (str.to_re (seq.++ "y" (seq.++ "o" (seq.++ "u" (seq.++ "r" (seq.++ "d" (seq.++ "o" (seq.++ "m" (seq.++ "a" (seq.++ "i" (seq.++ "n" "")))))))))))(re.++ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")) (str.to_re (seq.++ "c" (seq.++ "o" (seq.++ "m" ""))))))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.++ (str.to_re (str.++ "y" (str.++ "o" (str.++ "u" (str.++ "r" (str.++ "d" (str.++ "o" (str.++ "m" (str.++ "a" (str.++ "i" (str.++ "n" "")))))))))))(re.++ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")) (str.to_re (str.++ "c" (str.++ "o" (str.++ "m" ""))))))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

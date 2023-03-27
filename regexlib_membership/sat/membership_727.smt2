@@ -4,18 +4,18 @@
 ; regexA = ^((Sir|Dr.|Mr.|Mrs.|Ms.|Rev.){1}[ ]?)?([A-Z]{1}[.]{1}([A-Z]{1}[.]{1})?|[A-Z]{1}[a-z]{1,}|[A-Z]{1}[a-z]{1,}[-]{1}[A-Z]{1}[a-z]{1,}|[A-Z]{1}[a-z]{0,}[ ]{1}[A-Z]{1}[a-z]{0,}){1}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Sir Fv"
-(define-fun Witness1 () String (seq.++ "S" (seq.++ "i" (seq.++ "r" (seq.++ " " (seq.++ "F" (seq.++ "v" "")))))))
+(define-fun Witness1 () String (str.++ "S" (str.++ "i" (str.++ "r" (str.++ " " (str.++ "F" (str.++ "v" "")))))))
 ;witness2: "Rev\x1FSzz-Gszb"
-(define-fun Witness2 () String (seq.++ "R" (seq.++ "e" (seq.++ "v" (seq.++ "\x1f" (seq.++ "S" (seq.++ "z" (seq.++ "z" (seq.++ "-" (seq.++ "G" (seq.++ "s" (seq.++ "z" (seq.++ "b" "")))))))))))))
+(define-fun Witness2 () String (str.++ "R" (str.++ "e" (str.++ "v" (str.++ "\u{1f}" (str.++ "S" (str.++ "z" (str.++ "z" (str.++ "-" (str.++ "G" (str.++ "s" (str.++ "z" (str.++ "b" "")))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.++ (re.union (str.to_re (seq.++ "S" (seq.++ "i" (seq.++ "r" ""))))(re.union (re.++ (str.to_re (seq.++ "D" (seq.++ "r" ""))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.union (re.++ (str.to_re (seq.++ "M" (seq.++ "r" ""))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.union (re.++ (str.to_re (seq.++ "M" (seq.++ "r" (seq.++ "s" "")))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.union (re.++ (str.to_re (seq.++ "M" (seq.++ "s" ""))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (re.++ (str.to_re (seq.++ "R" (seq.++ "e" (seq.++ "v" "")))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))))))) (re.opt (re.range " " " "))))(re.++ (re.union (re.++ (re.range "A" "Z")(re.++ (re.range "." ".") (re.opt (re.++ (re.range "A" "Z") (re.range "." ".")))))(re.union (re.++ (re.range "A" "Z") (re.+ (re.range "a" "z")))(re.union (re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.range "-" "-")(re.++ (re.range "A" "Z") (re.+ (re.range "a" "z")))))) (re.++ (re.range "A" "Z")(re.++ (re.* (re.range "a" "z"))(re.++ (re.range " " " ")(re.++ (re.range "A" "Z") (re.* (re.range "a" "z"))))))))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.++ (re.union (str.to_re (str.++ "S" (str.++ "i" (str.++ "r" ""))))(re.union (re.++ (str.to_re (str.++ "D" (str.++ "r" ""))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.union (re.++ (str.to_re (str.++ "M" (str.++ "r" ""))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.union (re.++ (str.to_re (str.++ "M" (str.++ "r" (str.++ "s" "")))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.union (re.++ (str.to_re (str.++ "M" (str.++ "s" ""))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (re.++ (str.to_re (str.++ "R" (str.++ "e" (str.++ "v" "")))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))))))) (re.opt (re.range " " " "))))(re.++ (re.union (re.++ (re.range "A" "Z")(re.++ (re.range "." ".") (re.opt (re.++ (re.range "A" "Z") (re.range "." ".")))))(re.union (re.++ (re.range "A" "Z") (re.+ (re.range "a" "z")))(re.union (re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.range "-" "-")(re.++ (re.range "A" "Z") (re.+ (re.range "a" "z")))))) (re.++ (re.range "A" "Z")(re.++ (re.* (re.range "a" "z"))(re.++ (re.range " " " ")(re.++ (re.range "A" "Z") (re.* (re.range "a" "z"))))))))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,18 +4,18 @@
 ; regexA = http://(www\.)?([^\.]+)\.com 
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "http://\u009F.com "
-(define-fun Witness1 () String (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" (seq.++ ":" (seq.++ "/" (seq.++ "/" (seq.++ "\x9f" (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ " " ""))))))))))))))
+(define-fun Witness1 () String (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" (str.++ ":" (str.++ "/" (str.++ "/" (str.++ "\u{9f}" (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ " " ""))))))))))))))
 ;witness2: "http://www.\u00FF{.com \u009Ae"
-(define-fun Witness2 () String (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" (seq.++ ":" (seq.++ "/" (seq.++ "/" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "." (seq.++ "\xff" (seq.++ "{" (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ " " (seq.++ "\x9a" (seq.++ "e" "")))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" (str.++ ":" (str.++ "/" (str.++ "/" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "." (str.++ "\u{ff}" (str.++ "{" (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ " " (str.++ "\u{9a}" (str.++ "e" "")))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" (seq.++ ":" (seq.++ "/" (seq.++ "/" ""))))))))(re.++ (re.opt (str.to_re (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "." ""))))))(re.++ (re.+ (re.union (re.range "\x00" "-") (re.range "/" "\xff"))) (str.to_re (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ " " "")))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" (str.++ ":" (str.++ "/" (str.++ "/" ""))))))))(re.++ (re.opt (str.to_re (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "." ""))))))(re.++ (re.+ (re.union (re.range "\u{00}" "-") (re.range "/" "\u{ff}"))) (str.to_re (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ " " "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,16 +4,16 @@
 ; regexA = (?:\+?1[ .*-]?)?(?:\(? ?)?\d{3}(?: ?\)?)? ?(?:\*|(?:\.|-){1,2})? ?\d{3} ?(?:\*|(?:\.|-){1,2})? ?\d{4} 
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "(594  - 972 * 6368 \u00D3\u00D8ac"
-(define-fun Witness1 () String (seq.++ "(" (seq.++ "5" (seq.++ "9" (seq.++ "4" (seq.++ " " (seq.++ " " (seq.++ "-" (seq.++ " " (seq.++ "9" (seq.++ "7" (seq.++ "2" (seq.++ " " (seq.++ "*" (seq.++ " " (seq.++ "6" (seq.++ "3" (seq.++ "6" (seq.++ "8" (seq.++ " " (seq.++ "\xd3" (seq.++ "\xd8" (seq.++ "a" (seq.++ "c" ""))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "(" (str.++ "5" (str.++ "9" (str.++ "4" (str.++ " " (str.++ " " (str.++ "-" (str.++ " " (str.++ "9" (str.++ "7" (str.++ "2" (str.++ " " (str.++ "*" (str.++ " " (str.++ "6" (str.++ "3" (str.++ "6" (str.++ "8" (str.++ " " (str.++ "\u{d3}" (str.++ "\u{d8}" (str.++ "a" (str.++ "c" ""))))))))))))))))))))))))
 ;witness2: "\u00DA?\u009A\x1A858922  5888 "
-(define-fun Witness2 () String (seq.++ "\xda" (seq.++ "?" (seq.++ "\x9a" (seq.++ "\x1a" (seq.++ "8" (seq.++ "5" (seq.++ "8" (seq.++ "9" (seq.++ "2" (seq.++ "2" (seq.++ " " (seq.++ " " (seq.++ "5" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ " " ""))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{da}" (str.++ "?" (str.++ "\u{9a}" (str.++ "\u{1a}" (str.++ "8" (str.++ "5" (str.++ "8" (str.++ "9" (str.++ "2" (str.++ "2" (str.++ " " (str.++ " " (str.++ "5" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ " " ""))))))))))))))))))
 
 (assert (= regexA (re.++ (re.opt (re.++ (re.opt (re.range "+" "+"))(re.++ (re.range "1" "1") (re.opt (re.union (re.range " " " ")(re.union (re.range "*" "*") (re.range "-" ".")))))))(re.++ (re.opt (re.++ (re.opt (re.range "(" "(")) (re.opt (re.range " " " "))))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.opt (re.++ (re.opt (re.range " " " ")) (re.opt (re.range ")" ")"))))(re.++ (re.opt (re.range " " " "))(re.++ (re.opt (re.union (re.range "*" "*") ((_ re.loop 1 2) (re.range "-" "."))))(re.++ (re.opt (re.range " " " "))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.opt (re.range " " " "))(re.++ (re.opt (re.union (re.range "*" "*") ((_ re.loop 1 2) (re.range "-" "."))))(re.++ (re.opt (re.range " " " "))(re.++ ((_ re.loop 4 4) (re.range "0" "9")) (re.range " " " ")))))))))))))))
 

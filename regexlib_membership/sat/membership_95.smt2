@@ -4,18 +4,18 @@
 ; regexA = ^-?\d+([^.,])?$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "195\u00FE"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "9" (seq.++ "5" (seq.++ "\xfe" "")))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "9" (str.++ "5" (str.++ "\u{fe}" "")))))
 ;witness2: "-90\xC"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "9" (seq.++ "0" (seq.++ "\x0c" "")))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "9" (str.++ "0" (str.++ "\u{0c}" "")))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\x00" "+")(re.union (re.range "-" "-") (re.range "/" "\xff")))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\u{00}" "+")(re.union (re.range "-" "-") (re.range "/" "\u{ff}")))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

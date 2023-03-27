@@ -4,18 +4,18 @@
 ; regexA = ^(BG){0,1}([0-9]{9}|[0-9]{10})$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9548181479"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "5" (seq.++ "4" (seq.++ "8" (seq.++ "1" (seq.++ "8" (seq.++ "1" (seq.++ "4" (seq.++ "7" (seq.++ "9" "")))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "5" (str.++ "4" (str.++ "8" (str.++ "1" (str.++ "8" (str.++ "1" (str.++ "4" (str.++ "7" (str.++ "9" "")))))))))))
 ;witness2: "384721369"
-(define-fun Witness2 () String (seq.++ "3" (seq.++ "8" (seq.++ "4" (seq.++ "7" (seq.++ "2" (seq.++ "1" (seq.++ "3" (seq.++ "6" (seq.++ "9" ""))))))))))
+(define-fun Witness2 () String (str.++ "3" (str.++ "8" (str.++ "4" (str.++ "7" (str.++ "2" (str.++ "1" (str.++ "3" (str.++ "6" (str.++ "9" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (seq.++ "B" (seq.++ "G" ""))))(re.++ (re.union ((_ re.loop 9 9) (re.range "0" "9")) ((_ re.loop 10 10) (re.range "0" "9"))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (str.++ "B" (str.++ "G" ""))))(re.++ (re.union ((_ re.loop 9 9) (re.range "0" "9")) ((_ re.loop 10 10) (re.range "0" "9"))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

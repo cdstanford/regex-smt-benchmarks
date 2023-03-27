@@ -4,18 +4,18 @@
 ; regexA = ^[1-9]{1}[0-9]{3}\s?[a-zA-Z]{2}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "8931 YX"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "9" (seq.++ "3" (seq.++ "1" (seq.++ " " (seq.++ "Y" (seq.++ "X" ""))))))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "9" (str.++ "3" (str.++ "1" (str.++ " " (str.++ "Y" (str.++ "X" ""))))))))
 ;witness2: "8948\u0085LW"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "9" (seq.++ "4" (seq.++ "8" (seq.++ "\x85" (seq.++ "L" (seq.++ "W" ""))))))))
+(define-fun Witness2 () String (str.++ "8" (str.++ "9" (str.++ "4" (str.++ "8" (str.++ "\u{85}" (str.++ "L" (str.++ "W" ""))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "1" "9")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re ""))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "1" "9")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))(re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

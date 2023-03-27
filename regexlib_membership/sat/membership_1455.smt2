@@ -4,18 +4,18 @@
 ; regexA = -Za-z]{1}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "J-Za-z]"
-(define-fun Witness1 () String (seq.++ "J" (seq.++ "-" (seq.++ "Z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "]" ""))))))))
+(define-fun Witness1 () String (str.++ "J" (str.++ "-" (str.++ "Z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "]" ""))))))))
 ;witness2: "-Za-z]"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "Z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "]" "")))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "Z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "]" "")))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "-" (seq.++ "Z" (seq.++ "a" (seq.++ "-" (seq.++ "z" (seq.++ "]" ""))))))) (str.to_re ""))))
+(assert (= regexA (re.++ (str.to_re (str.++ "-" (str.++ "Z" (str.++ "a" (str.++ "-" (str.++ "z" (str.++ "]" ""))))))) (str.to_re ""))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

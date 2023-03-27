@@ -4,18 +4,18 @@
 ; regexA = (.*\.jpe?g|.*\.JPE?G)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "w.JPEG\xB"
-(define-fun Witness1 () String (seq.++ "w" (seq.++ "." (seq.++ "J" (seq.++ "P" (seq.++ "E" (seq.++ "G" (seq.++ "\x0b" ""))))))))
+(define-fun Witness1 () String (str.++ "w" (str.++ "." (str.++ "J" (str.++ "P" (str.++ "E" (str.++ "G" (str.++ "\u{0b}" ""))))))))
 ;witness2: "\u00AA.JPEG\u00B2\u00F2"
-(define-fun Witness2 () String (seq.++ "\xaa" (seq.++ "." (seq.++ "J" (seq.++ "P" (seq.++ "E" (seq.++ "G" (seq.++ "\xb2" (seq.++ "\xf2" "")))))))))
+(define-fun Witness2 () String (str.++ "\u{aa}" (str.++ "." (str.++ "J" (str.++ "P" (str.++ "E" (str.++ "G" (str.++ "\u{b2}" (str.++ "\u{f2}" "")))))))))
 
-(assert (= regexA (re.union (re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (str.to_re (seq.++ "." (seq.++ "j" (seq.++ "p" ""))))(re.++ (re.opt (re.range "e" "e")) (re.range "g" "g")))) (re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (str.to_re (seq.++ "." (seq.++ "J" (seq.++ "P" ""))))(re.++ (re.opt (re.range "E" "E")) (re.range "G" "G")))))))
+(assert (= regexA (re.union (re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (str.to_re (str.++ "." (str.++ "j" (str.++ "p" ""))))(re.++ (re.opt (re.range "e" "e")) (re.range "g" "g")))) (re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (str.to_re (str.++ "." (str.++ "J" (str.++ "P" ""))))(re.++ (re.opt (re.range "E" "E")) (re.range "G" "G")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

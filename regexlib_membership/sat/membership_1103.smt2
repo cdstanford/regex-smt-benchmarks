@@ -4,18 +4,18 @@
 ; regexA = ^[H][R][\-][0-9]{5}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "HR-88886"
-(define-fun Witness1 () String (seq.++ "H" (seq.++ "R" (seq.++ "-" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ "6" "")))))))))
+(define-fun Witness1 () String (str.++ "H" (str.++ "R" (str.++ "-" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ "6" "")))))))))
 ;witness2: "HR-25499"
-(define-fun Witness2 () String (seq.++ "H" (seq.++ "R" (seq.++ "-" (seq.++ "2" (seq.++ "5" (seq.++ "4" (seq.++ "9" (seq.++ "9" "")))))))))
+(define-fun Witness2 () String (str.++ "H" (str.++ "R" (str.++ "-" (str.++ "2" (str.++ "5" (str.++ "4" (str.++ "9" (str.++ "9" "")))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "H" (seq.++ "R" (seq.++ "-" ""))))(re.++ ((_ re.loop 5 5) (re.range "0" "9")) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "H" (str.++ "R" (str.++ "-" ""))))(re.++ ((_ re.loop 5 5) (re.range "0" "9")) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

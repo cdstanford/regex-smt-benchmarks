@@ -4,18 +4,18 @@
 ; regexA = jhkjhk
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Vjhkjhk"
-(define-fun Witness1 () String (seq.++ "V" (seq.++ "j" (seq.++ "h" (seq.++ "k" (seq.++ "j" (seq.++ "h" (seq.++ "k" ""))))))))
+(define-fun Witness1 () String (str.++ "V" (str.++ "j" (str.++ "h" (str.++ "k" (str.++ "j" (str.++ "h" (str.++ "k" ""))))))))
 ;witness2: "\u00F8\u00EBjhkjhkl"
-(define-fun Witness2 () String (seq.++ "\xf8" (seq.++ "\xeb" (seq.++ "j" (seq.++ "h" (seq.++ "k" (seq.++ "j" (seq.++ "h" (seq.++ "k" (seq.++ "l" ""))))))))))
+(define-fun Witness2 () String (str.++ "\u{f8}" (str.++ "\u{eb}" (str.++ "j" (str.++ "h" (str.++ "k" (str.++ "j" (str.++ "h" (str.++ "k" (str.++ "l" ""))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "j" (seq.++ "h" (seq.++ "k" (seq.++ "j" (seq.++ "h" (seq.++ "k" "")))))))))
+(assert (= regexA (str.to_re (str.++ "j" (str.++ "h" (str.++ "k" (str.++ "j" (str.++ "h" (str.++ "k" "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

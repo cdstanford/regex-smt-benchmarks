@@ -5,11 +5,11 @@
 ; regexB = ^(\+|\-)?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)((e|E)(\+|\-)?[0-9]+)?\z
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
-(declare-const regexB (RegEx String))
+(declare-const regexA RegLan)
+(declare-const regexB RegLan)
 (declare-const x String)
 
 ;witness: ""

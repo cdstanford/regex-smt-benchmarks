@@ -4,16 +4,16 @@
 ; regexA = 3
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "3\x15"
-(define-fun Witness1 () String (seq.++ "3" (seq.++ "\x15" "")))
+(define-fun Witness1 () String (str.++ "3" (str.++ "\u{15}" "")))
 ;witness2: "3"
-(define-fun Witness2 () String (seq.++ "3" ""))
+(define-fun Witness2 () String (str.++ "3" ""))
 
 (assert (= regexA (re.range "3" "3")))
 

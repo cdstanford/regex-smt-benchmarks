@@ -4,18 +4,18 @@
 ; regexA = (vi(v))?d
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "vivd"
-(define-fun Witness1 () String (seq.++ "v" (seq.++ "i" (seq.++ "v" (seq.++ "d" "")))))
+(define-fun Witness1 () String (str.++ "v" (str.++ "i" (str.++ "v" (str.++ "d" "")))))
 ;witness2: "d\x4"
-(define-fun Witness2 () String (seq.++ "d" (seq.++ "\x04" "")))
+(define-fun Witness2 () String (str.++ "d" (str.++ "\u{04}" "")))
 
-(assert (= regexA (re.++ (re.opt (re.++ (str.to_re (seq.++ "v" (seq.++ "i" ""))) (re.range "v" "v"))) (re.range "d" "d"))))
+(assert (= regexA (re.++ (re.opt (re.++ (str.to_re (str.++ "v" (str.++ "i" ""))) (re.range "v" "v"))) (re.range "d" "d"))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

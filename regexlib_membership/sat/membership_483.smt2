@@ -4,16 +4,16 @@
 ; regexA = ^[:*:]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "*\u00EC"
-(define-fun Witness1 () String (seq.++ "*" (seq.++ "\xec" "")))
+(define-fun Witness1 () String (str.++ "*" (str.++ "\u{ec}" "")))
 ;witness2: ":"
-(define-fun Witness2 () String (seq.++ ":" ""))
+(define-fun Witness2 () String (str.++ ":" ""))
 
 (assert (= regexA (re.++ (str.to_re "") (re.union (re.range "*" "*") (re.range ":" ":")))))
 

@@ -4,16 +4,16 @@
 ; regexA = ^([1-9]|1[0-2]|0[1-9]){1}(:[0-5][0-9][aApP][mM]){1}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9:47am"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ ":" (seq.++ "4" (seq.++ "7" (seq.++ "a" (seq.++ "m" "")))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ ":" (str.++ "4" (str.++ "7" (str.++ "a" (str.++ "m" "")))))))
 ;witness2: "12:29Am"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "2" (seq.++ ":" (seq.++ "2" (seq.++ "9" (seq.++ "A" (seq.++ "m" ""))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "2" (str.++ ":" (str.++ "2" (str.++ "9" (str.++ "A" (str.++ "m" ""))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.range "1" "9")(re.union (re.++ (re.range "1" "1") (re.range "0" "2")) (re.++ (re.range "0" "0") (re.range "1" "9"))))(re.++ (re.++ (re.range ":" ":")(re.++ (re.range "0" "5")(re.++ (re.range "0" "9")(re.++ (re.union (re.range "A" "A")(re.union (re.range "P" "P")(re.union (re.range "a" "a") (re.range "p" "p")))) (re.union (re.range "M" "M") (re.range "m" "m")))))) (str.to_re ""))))))
 

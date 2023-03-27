@@ -4,18 +4,18 @@
 ; regexA = (\[url=?"?)([^\]"]*)("?\])([^\[]*)(\[/url\])
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "[url\"]\x14\u00A8[/url]"
-(define-fun Witness1 () String (seq.++ "[" (seq.++ "u" (seq.++ "r" (seq.++ "l" (seq.++ "\x22" (seq.++ "]" (seq.++ "\x14" (seq.++ "\xa8" (seq.++ "[" (seq.++ "/" (seq.++ "u" (seq.++ "r" (seq.++ "l" (seq.++ "]" "")))))))))))))))
+(define-fun Witness1 () String (str.++ "[" (str.++ "u" (str.++ "r" (str.++ "l" (str.++ "\u{22}" (str.++ "]" (str.++ "\u{14}" (str.++ "\u{a8}" (str.++ "[" (str.++ "/" (str.++ "u" (str.++ "r" (str.++ "l" (str.++ "]" "")))))))))))))))
 ;witness2: "cp[url\"][/url]"
-(define-fun Witness2 () String (seq.++ "c" (seq.++ "p" (seq.++ "[" (seq.++ "u" (seq.++ "r" (seq.++ "l" (seq.++ "\x22" (seq.++ "]" (seq.++ "[" (seq.++ "/" (seq.++ "u" (seq.++ "r" (seq.++ "l" (seq.++ "]" "")))))))))))))))
+(define-fun Witness2 () String (str.++ "c" (str.++ "p" (str.++ "[" (str.++ "u" (str.++ "r" (str.++ "l" (str.++ "\u{22}" (str.++ "]" (str.++ "[" (str.++ "/" (str.++ "u" (str.++ "r" (str.++ "l" (str.++ "]" "")))))))))))))))
 
-(assert (= regexA (re.++ (re.++ (str.to_re (seq.++ "[" (seq.++ "u" (seq.++ "r" (seq.++ "l" "")))))(re.++ (re.opt (re.range "=" "=")) (re.opt (re.range "\x22" "\x22"))))(re.++ (re.* (re.union (re.range "\x00" "!")(re.union (re.range "#" "\x5c") (re.range "^" "\xff"))))(re.++ (re.++ (re.opt (re.range "\x22" "\x22")) (re.range "]" "]"))(re.++ (re.* (re.union (re.range "\x00" "Z") (re.range "\x5c" "\xff"))) (str.to_re (seq.++ "[" (seq.++ "/" (seq.++ "u" (seq.++ "r" (seq.++ "l" (seq.++ "]" "")))))))))))))
+(assert (= regexA (re.++ (re.++ (str.to_re (str.++ "[" (str.++ "u" (str.++ "r" (str.++ "l" "")))))(re.++ (re.opt (re.range "=" "=")) (re.opt (re.range "\u{22}" "\u{22}"))))(re.++ (re.* (re.union (re.range "\u{00}" "!")(re.union (re.range "#" "\u{5c}") (re.range "^" "\u{ff}"))))(re.++ (re.++ (re.opt (re.range "\u{22}" "\u{22}")) (re.range "]" "]"))(re.++ (re.* (re.union (re.range "\u{00}" "Z") (re.range "\u{5c}" "\u{ff}"))) (str.to_re (str.++ "[" (str.++ "/" (str.++ "u" (str.++ "r" (str.++ "l" (str.++ "]" "")))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

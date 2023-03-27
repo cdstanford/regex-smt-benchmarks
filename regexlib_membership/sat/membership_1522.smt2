@@ -4,16 +4,16 @@
 ; regexA = [a-z0-9]{1,11}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "K1m"
-(define-fun Witness1 () String (seq.++ "K" (seq.++ "1" (seq.++ "m" ""))))
+(define-fun Witness1 () String (str.++ "K" (str.++ "1" (str.++ "m" ""))))
 ;witness2: "cs\x1E"
-(define-fun Witness2 () String (seq.++ "c" (seq.++ "s" (seq.++ "\x1e" ""))))
+(define-fun Witness2 () String (str.++ "c" (str.++ "s" (str.++ "\u{1e}" ""))))
 
 (assert (= regexA ((_ re.loop 1 11) (re.union (re.range "0" "9") (re.range "a" "z")))))
 

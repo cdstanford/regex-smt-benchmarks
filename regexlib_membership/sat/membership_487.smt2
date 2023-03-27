@@ -4,16 +4,16 @@
 ; regexA = ^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Y\'P g "
-(define-fun Witness1 () String (seq.++ "Y" (seq.++ "'" (seq.++ "P" (seq.++ " " (seq.++ "g" (seq.++ " " "")))))))
+(define-fun Witness1 () String (str.++ "Y" (str.++ "'" (str.++ "P" (str.++ " " (str.++ "g" (str.++ " " "")))))))
 ;witness2: "lq,sM\'Z YaizMD, WazEdl "
-(define-fun Witness2 () String (seq.++ "l" (seq.++ "q" (seq.++ "," (seq.++ "s" (seq.++ "M" (seq.++ "'" (seq.++ "Z" (seq.++ " " (seq.++ "Y" (seq.++ "a" (seq.++ "i" (seq.++ "z" (seq.++ "M" (seq.++ "D" (seq.++ "," (seq.++ " " (seq.++ "W" (seq.++ "a" (seq.++ "z" (seq.++ "E" (seq.++ "d" (seq.++ "l" (seq.++ " " ""))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "l" (str.++ "q" (str.++ "," (str.++ "s" (str.++ "M" (str.++ "'" (str.++ "Z" (str.++ " " (str.++ "Y" (str.++ "a" (str.++ "i" (str.++ "z" (str.++ "M" (str.++ "D" (str.++ "," (str.++ " " (str.++ "W" (str.++ "a" (str.++ "z" (str.++ "E" (str.++ "d" (str.++ "l" (str.++ " " ""))))))))))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.++ (re.+ (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.opt (re.union (re.range "'" "'") (re.range "," "."))) (re.* (re.union (re.range " " " ")(re.union (re.range "A" "Z") (re.range "a" "z")))))))(re.++ (re.range " " " ")(re.++ (re.+ (re.++ (re.+ (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.opt (re.union (re.range "'" "'") (re.range "," "."))) (re.+ (re.union (re.range " " " ")(re.union (re.range "A" "Z") (re.range "a" "z"))))))) (str.to_re "")))))))
 

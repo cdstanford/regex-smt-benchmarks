@@ -4,18 +4,18 @@
 ; regexA = .+\.([^.]+)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "w\x12.\u00FD\u00E0\u00F9\u00C5\u0083"
-(define-fun Witness1 () String (seq.++ "w" (seq.++ "\x12" (seq.++ "." (seq.++ "\xfd" (seq.++ "\xe0" (seq.++ "\xf9" (seq.++ "\xc5" (seq.++ "\x83" "")))))))))
+(define-fun Witness1 () String (str.++ "w" (str.++ "\u{12}" (str.++ "." (str.++ "\u{fd}" (str.++ "\u{e0}" (str.++ "\u{f9}" (str.++ "\u{c5}" (str.++ "\u{83}" "")))))))))
 ;witness2: "^\u00A3\u00E1\u00ED.U"
-(define-fun Witness2 () String (seq.++ "^" (seq.++ "\xa3" (seq.++ "\xe1" (seq.++ "\xed" (seq.++ "." (seq.++ "U" "")))))))
+(define-fun Witness2 () String (str.++ "^" (str.++ "\u{a3}" (str.++ "\u{e1}" (str.++ "\u{ed}" (str.++ "." (str.++ "U" "")))))))
 
-(assert (= regexA (re.++ (re.+ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "." ".")(re.++ (re.+ (re.union (re.range "\x00" "-") (re.range "/" "\xff"))) (str.to_re ""))))))
+(assert (= regexA (re.++ (re.+ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "." ".")(re.++ (re.+ (re.union (re.range "\u{00}" "-") (re.range "/" "\u{ff}"))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

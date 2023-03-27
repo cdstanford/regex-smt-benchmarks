@@ -4,18 +4,18 @@
 ; regexA = <img([^>]*[^/])>
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "o<img\u0083a>"
-(define-fun Witness1 () String (seq.++ "o" (seq.++ "<" (seq.++ "i" (seq.++ "m" (seq.++ "g" (seq.++ "\x83" (seq.++ "a" (seq.++ ">" "")))))))))
+(define-fun Witness1 () String (str.++ "o" (str.++ "<" (str.++ "i" (str.++ "m" (str.++ "g" (str.++ "\u{83}" (str.++ "a" (str.++ ">" "")))))))))
 ;witness2: "<img\xF\u00ED\u00BF>\u00C2"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "i" (seq.++ "m" (seq.++ "g" (seq.++ "\x0f" (seq.++ "\xed" (seq.++ "\xbf" (seq.++ ">" (seq.++ "\xc2" ""))))))))))
+(define-fun Witness2 () String (str.++ "<" (str.++ "i" (str.++ "m" (str.++ "g" (str.++ "\u{0f}" (str.++ "\u{ed}" (str.++ "\u{bf}" (str.++ ">" (str.++ "\u{c2}" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "<" (seq.++ "i" (seq.++ "m" (seq.++ "g" "")))))(re.++ (re.++ (re.* (re.union (re.range "\x00" "=") (re.range "?" "\xff"))) (re.union (re.range "\x00" ".") (re.range "0" "\xff"))) (re.range ">" ">")))))
+(assert (= regexA (re.++ (str.to_re (str.++ "<" (str.++ "i" (str.++ "m" (str.++ "g" "")))))(re.++ (re.++ (re.* (re.union (re.range "\u{00}" "=") (re.range "?" "\u{ff}"))) (re.union (re.range "\u{00}" ".") (re.range "0" "\u{ff}"))) (re.range ">" ">")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

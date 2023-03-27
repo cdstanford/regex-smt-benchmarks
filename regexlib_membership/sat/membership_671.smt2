@@ -4,16 +4,16 @@
 ; regexA = [-]?[1-9]\d{0,16}\.?\d{0,2}|[-]?[0]?\.[1-9]{1,2}|[-]?[0]?\.[0-9][1-9]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\x427.18\u00D1\u00B4"
-(define-fun Witness1 () String (seq.++ "\x04" (seq.++ "2" (seq.++ "7" (seq.++ "." (seq.++ "1" (seq.++ "8" (seq.++ "\xd1" (seq.++ "\xb4" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{04}" (str.++ "2" (str.++ "7" (str.++ "." (str.++ "1" (str.++ "8" (str.++ "\u{d1}" (str.++ "\u{b4}" "")))))))))
 ;witness2: "-0.03"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "0" (seq.++ "." (seq.++ "0" (seq.++ "3" ""))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "0" (str.++ "." (str.++ "0" (str.++ "3" ""))))))
 
 (assert (= regexA (re.union (re.++ (re.opt (re.range "-" "-"))(re.++ (re.range "1" "9")(re.++ ((_ re.loop 0 16) (re.range "0" "9"))(re.++ (re.opt (re.range "." ".")) ((_ re.loop 0 2) (re.range "0" "9"))))))(re.union (re.++ (re.opt (re.range "-" "-"))(re.++ (re.opt (re.range "0" "0"))(re.++ (re.range "." ".") ((_ re.loop 1 2) (re.range "1" "9"))))) (re.++ (re.opt (re.range "-" "-"))(re.++ (re.opt (re.range "0" "0"))(re.++ (re.range "." ".")(re.++ (re.range "0" "9") (re.range "1" "9")))))))))
 

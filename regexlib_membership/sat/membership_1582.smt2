@@ -4,18 +4,18 @@
 ; regexA = \.com/(\d+)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00B3.com/8"
-(define-fun Witness1 () String (seq.++ "\xb3" (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ "/" (seq.++ "8" ""))))))))
+(define-fun Witness1 () String (str.++ "\u{b3}" (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ "/" (str.++ "8" ""))))))))
 ;witness2: "\xC\u0093v.com/18"
-(define-fun Witness2 () String (seq.++ "\x0c" (seq.++ "\x93" (seq.++ "v" (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ "/" (seq.++ "1" (seq.++ "8" "")))))))))))
+(define-fun Witness2 () String (str.++ "\u{0c}" (str.++ "\u{93}" (str.++ "v" (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ "/" (str.++ "1" (str.++ "8" "")))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "." (seq.++ "c" (seq.++ "o" (seq.++ "m" (seq.++ "/" ""))))))(re.++ (re.+ (re.range "0" "9")) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re (str.++ "." (str.++ "c" (str.++ "o" (str.++ "m" (str.++ "/" ""))))))(re.++ (re.+ (re.range "0" "9")) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

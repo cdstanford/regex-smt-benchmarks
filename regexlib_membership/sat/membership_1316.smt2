@@ -4,16 +4,16 @@
 ; regexA = ^((\d(\x20)\d{2}(\x20)\d{2}(\x20)\d{2}(\x20)\d{3}(\x20)\d{3}((\x20)\d{2}|))|(\d\d{2}\d{2}\d{2}\d{3}\d{3}(\d{2}|)))$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "458895892839210"
-(define-fun Witness1 () String (seq.++ "4" (seq.++ "5" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "5" (seq.++ "8" (seq.++ "9" (seq.++ "2" (seq.++ "8" (seq.++ "3" (seq.++ "9" (seq.++ "2" (seq.++ "1" (seq.++ "0" ""))))))))))))))))
+(define-fun Witness1 () String (str.++ "4" (str.++ "5" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "5" (str.++ "8" (str.++ "9" (str.++ "2" (str.++ "8" (str.++ "3" (str.++ "9" (str.++ "2" (str.++ "1" (str.++ "0" ""))))))))))))))))
 ;witness2: "880675990769478"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "8" (seq.++ "0" (seq.++ "6" (seq.++ "7" (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "0" (seq.++ "7" (seq.++ "6" (seq.++ "9" (seq.++ "4" (seq.++ "7" (seq.++ "8" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "8" (str.++ "8" (str.++ "0" (str.++ "6" (str.++ "7" (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "0" (str.++ "7" (str.++ "6" (str.++ "9" (str.++ "4" (str.++ "7" (str.++ "8" ""))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.++ (re.range "0" "9")(re.++ (re.range " " " ")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.union (re.++ (re.range " " " ") ((_ re.loop 2 2) (re.range "0" "9"))) (str.to_re ""))))))))))))) (re.++ (re.range "0" "9")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.union ((_ re.loop 2 2) (re.range "0" "9")) (str.to_re ""))))))))) (str.to_re "")))))
 

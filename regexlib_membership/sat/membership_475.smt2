@@ -4,18 +4,18 @@
 ; regexA = ^((\.\./|[a-zA-Z0-9_/\-\\])*\.[a-zA-Z0-9]+)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "../.78Z"
-(define-fun Witness1 () String (seq.++ "." (seq.++ "." (seq.++ "/" (seq.++ "." (seq.++ "7" (seq.++ "8" (seq.++ "Z" ""))))))))
+(define-fun Witness1 () String (str.++ "." (str.++ "." (str.++ "/" (str.++ "." (str.++ "7" (str.++ "8" (str.++ "Z" ""))))))))
 ;witness2: "../.W"
-(define-fun Witness2 () String (seq.++ "." (seq.++ "." (seq.++ "/" (seq.++ "." (seq.++ "W" ""))))))
+(define-fun Witness2 () String (str.++ "." (str.++ "." (str.++ "/" (str.++ "." (str.++ "W" ""))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.* (re.union (str.to_re (seq.++ "." (seq.++ "." (seq.++ "/" "")))) (re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "A" "Z")(re.union (re.range "\x5c" "\x5c")(re.union (re.range "_" "_") (re.range "a" "z"))))))))(re.++ (re.range "." ".") (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.* (re.union (str.to_re (str.++ "." (str.++ "." (str.++ "/" "")))) (re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "A" "Z")(re.union (re.range "\u{5c}" "\u{5c}")(re.union (re.range "_" "_") (re.range "a" "z"))))))))(re.++ (re.range "." ".") (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

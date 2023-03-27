@@ -4,18 +4,18 @@
 ; regexA = wwwwwwww
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00C7wwwwwwwwW\u0093#"
-(define-fun Witness1 () String (seq.++ "\xc7" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "W" (seq.++ "\x93" (seq.++ "#" "")))))))))))))
+(define-fun Witness1 () String (str.++ "\u{c7}" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "W" (str.++ "\u{93}" (str.++ "#" "")))))))))))))
 ;witness2: "\u009B\u0091wwwwwwww\u00F3"
-(define-fun Witness2 () String (seq.++ "\x9b" (seq.++ "\x91" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "\xf3" ""))))))))))))
+(define-fun Witness2 () String (str.++ "\u{9b}" (str.++ "\u{91}" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "\u{f3}" ""))))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "w" "")))))))))))
+(assert (= regexA (str.to_re (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "w" "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

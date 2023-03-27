@@ -4,16 +4,16 @@
 ; regexA = ^[A-z]?\d{8}[A-z]$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "z96929778r"
-(define-fun Witness1 () String (seq.++ "z" (seq.++ "9" (seq.++ "6" (seq.++ "9" (seq.++ "2" (seq.++ "9" (seq.++ "7" (seq.++ "7" (seq.++ "8" (seq.++ "r" "")))))))))))
+(define-fun Witness1 () String (str.++ "z" (str.++ "9" (str.++ "6" (str.++ "9" (str.++ "2" (str.++ "9" (str.++ "7" (str.++ "7" (str.++ "8" (str.++ "r" "")))))))))))
 ;witness2: "P67001843V"
-(define-fun Witness2 () String (seq.++ "P" (seq.++ "6" (seq.++ "7" (seq.++ "0" (seq.++ "0" (seq.++ "1" (seq.++ "8" (seq.++ "4" (seq.++ "3" (seq.++ "V" "")))))))))))
+(define-fun Witness2 () String (str.++ "P" (str.++ "6" (str.++ "7" (str.++ "0" (str.++ "0" (str.++ "1" (str.++ "8" (str.++ "4" (str.++ "3" (str.++ "V" "")))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "A" "z"))(re.++ ((_ re.loop 8 8) (re.range "0" "9"))(re.++ (re.range "A" "z") (str.to_re "")))))))
 

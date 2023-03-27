@@ -4,16 +4,16 @@
 ; regexA = ^([a-zA-Z0-9][-a-zA-Z0-9]*[a-zA-Z0-9]\.)+([a-zA-Z0-9]{3,5})$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "8f.fVY"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "f" (seq.++ "." (seq.++ "f" (seq.++ "V" (seq.++ "Y" "")))))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "f" (str.++ "." (str.++ "f" (str.++ "V" (str.++ "Y" "")))))))
 ;witness2: "Rn.1x0"
-(define-fun Witness2 () String (seq.++ "R" (seq.++ "n" (seq.++ "." (seq.++ "1" (seq.++ "x" (seq.++ "0" "")))))))
+(define-fun Witness2 () String (str.++ "R" (str.++ "n" (str.++ "." (str.++ "1" (str.++ "x" (str.++ "0" "")))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.* (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))(re.++ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))) (re.range "." ".")))))(re.++ ((_ re.loop 3 5) (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))) (str.to_re ""))))))
 

@@ -4,18 +4,18 @@
 ; regexA = \.txt$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "}.txt"
-(define-fun Witness1 () String (seq.++ "}" (seq.++ "." (seq.++ "t" (seq.++ "x" (seq.++ "t" ""))))))
+(define-fun Witness1 () String (str.++ "}" (str.++ "." (str.++ "t" (str.++ "x" (str.++ "t" ""))))))
 ;witness2: "\u00AC\x16.txt"
-(define-fun Witness2 () String (seq.++ "\xac" (seq.++ "\x16" (seq.++ "." (seq.++ "t" (seq.++ "x" (seq.++ "t" "")))))))
+(define-fun Witness2 () String (str.++ "\u{ac}" (str.++ "\u{16}" (str.++ "." (str.++ "t" (str.++ "x" (str.++ "t" "")))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "." (seq.++ "t" (seq.++ "x" (seq.++ "t" ""))))) (str.to_re ""))))
+(assert (= regexA (re.++ (str.to_re (str.++ "." (str.++ "t" (str.++ "x" (str.++ "t" ""))))) (str.to_re ""))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

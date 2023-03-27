@@ -4,18 +4,18 @@
 ; regexA = wow gold 
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00F6wow gold @"
-(define-fun Witness1 () String (seq.++ "\xf6" (seq.++ "w" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "g" (seq.++ "o" (seq.++ "l" (seq.++ "d" (seq.++ " " (seq.++ "@" ""))))))))))))
+(define-fun Witness1 () String (str.++ "\u{f6}" (str.++ "w" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "g" (str.++ "o" (str.++ "l" (str.++ "d" (str.++ " " (str.++ "@" ""))))))))))))
 ;witness2: "wow gold "
-(define-fun Witness2 () String (seq.++ "w" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "g" (seq.++ "o" (seq.++ "l" (seq.++ "d" (seq.++ " " ""))))))))))
+(define-fun Witness2 () String (str.++ "w" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "g" (str.++ "o" (str.++ "l" (str.++ "d" (str.++ " " ""))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "w" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "g" (seq.++ "o" (seq.++ "l" (seq.++ "d" (seq.++ " " ""))))))))))))
+(assert (= regexA (str.to_re (str.++ "w" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "g" (str.++ "o" (str.++ "l" (str.++ "d" (str.++ " " ""))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

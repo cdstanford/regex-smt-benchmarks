@@ -4,10 +4,10 @@
 ; regexA = ^[^']*$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ""
@@ -15,7 +15,7 @@
 ;witness2: ""
 (define-fun Witness2 () String "")
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x00" "&") (re.range "(" "\xff"))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{00}" "&") (re.range "(" "\u{ff}"))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

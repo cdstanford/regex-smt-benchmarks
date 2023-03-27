@@ -4,18 +4,18 @@
 ; regexA = ^(?:m|M|male|Male|f|F|female|Female)$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "M"
-(define-fun Witness1 () String (seq.++ "M" ""))
+(define-fun Witness1 () String (str.++ "M" ""))
 ;witness2: "female"
-(define-fun Witness2 () String (seq.++ "f" (seq.++ "e" (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ "e" "")))))))
+(define-fun Witness2 () String (str.++ "f" (str.++ "e" (str.++ "m" (str.++ "a" (str.++ "l" (str.++ "e" "")))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.union (re.range "M" "M") (re.range "m" "m"))(re.union (str.to_re (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ "e" "")))))(re.union (str.to_re (seq.++ "M" (seq.++ "a" (seq.++ "l" (seq.++ "e" "")))))(re.union (re.union (re.range "F" "F") (re.range "f" "f"))(re.union (str.to_re (seq.++ "f" (seq.++ "e" (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ "e" ""))))))) (str.to_re (seq.++ "F" (seq.++ "e" (seq.++ "m" (seq.++ "a" (seq.++ "l" (seq.++ "e" "")))))))))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.union (re.range "M" "M") (re.range "m" "m"))(re.union (str.to_re (str.++ "m" (str.++ "a" (str.++ "l" (str.++ "e" "")))))(re.union (str.to_re (str.++ "M" (str.++ "a" (str.++ "l" (str.++ "e" "")))))(re.union (re.union (re.range "F" "F") (re.range "f" "f"))(re.union (str.to_re (str.++ "f" (str.++ "e" (str.++ "m" (str.++ "a" (str.++ "l" (str.++ "e" ""))))))) (str.to_re (str.++ "F" (str.++ "e" (str.++ "m" (str.++ "a" (str.++ "l" (str.++ "e" "")))))))))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

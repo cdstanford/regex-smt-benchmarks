@@ -4,16 +4,16 @@
 ; regexA = ^[0-9]{6}-[0-9pPtTfF][0-9]{3}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "868937-f898"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "6" (seq.++ "8" (seq.++ "9" (seq.++ "3" (seq.++ "7" (seq.++ "-" (seq.++ "f" (seq.++ "8" (seq.++ "9" (seq.++ "8" ""))))))))))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "6" (str.++ "8" (str.++ "9" (str.++ "3" (str.++ "7" (str.++ "-" (str.++ "f" (str.++ "8" (str.++ "9" (str.++ "8" ""))))))))))))
 ;witness2: "002717-9951"
-(define-fun Witness2 () String (seq.++ "0" (seq.++ "0" (seq.++ "2" (seq.++ "7" (seq.++ "1" (seq.++ "7" (seq.++ "-" (seq.++ "9" (seq.++ "9" (seq.++ "5" (seq.++ "1" ""))))))))))))
+(define-fun Witness2 () String (str.++ "0" (str.++ "0" (str.++ "2" (str.++ "7" (str.++ "1" (str.++ "7" (str.++ "-" (str.++ "9" (str.++ "9" (str.++ "5" (str.++ "1" ""))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 6 6) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ (re.union (re.range "0" "9")(re.union (re.range "F" "F")(re.union (re.range "P" "P")(re.union (re.range "T" "T")(re.union (re.range "f" "f")(re.union (re.range "p" "p") (re.range "t" "t")))))))(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (str.to_re ""))))))))
 

@@ -4,18 +4,18 @@
 ; regexA = (?i:(?:j(?:an(?:uary)?|u(?:ne?|ly?)))|a(?:pr(?:il)?|ug(?:ust)?)|ma(?:y|r(?:ch)?)|(?:nov|dec)(?:ember)?|feb(?:ruary)?|sep(?:tember)?|oct(?:ober)?)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "DEcEmBer"
-(define-fun Witness1 () String (seq.++ "D" (seq.++ "E" (seq.++ "c" (seq.++ "E" (seq.++ "m" (seq.++ "B" (seq.++ "e" (seq.++ "r" "")))))))))
+(define-fun Witness1 () String (str.++ "D" (str.++ "E" (str.++ "c" (str.++ "E" (str.++ "m" (str.++ "B" (str.++ "e" (str.++ "r" "")))))))))
 ;witness2: "\u009D(\u00D9sEp\x1E\u007F\u00AC\u00F9"
-(define-fun Witness2 () String (seq.++ "\x9d" (seq.++ "(" (seq.++ "\xd9" (seq.++ "s" (seq.++ "E" (seq.++ "p" (seq.++ "\x1e" (seq.++ "\x7f" (seq.++ "\xac" (seq.++ "\xf9" "")))))))))))
+(define-fun Witness2 () String (str.++ "\u{9d}" (str.++ "(" (str.++ "\u{d9}" (str.++ "s" (str.++ "E" (str.++ "p" (str.++ "\u{1e}" (str.++ "\u{7f}" (str.++ "\u{ac}" (str.++ "\u{f9}" "")))))))))))
 
-(assert (= regexA (re.union (re.++ (re.range "j" "j") (re.union (re.++ (str.to_re (seq.++ "a" (seq.++ "n" ""))) (re.opt (str.to_re (seq.++ "u" (seq.++ "a" (seq.++ "r" (seq.++ "y" ""))))))) (re.++ (re.range "u" "u") (re.union (re.++ (re.range "n" "n") (re.opt (re.range "e" "e"))) (re.++ (re.range "l" "l") (re.opt (re.range "y" "y")))))))(re.union (re.++ (re.range "a" "a") (re.union (re.++ (str.to_re (seq.++ "p" (seq.++ "r" ""))) (re.opt (str.to_re (seq.++ "i" (seq.++ "l" ""))))) (re.++ (str.to_re (seq.++ "u" (seq.++ "g" ""))) (re.opt (str.to_re (seq.++ "u" (seq.++ "s" (seq.++ "t" ""))))))))(re.union (re.++ (str.to_re (seq.++ "m" (seq.++ "a" ""))) (re.union (re.range "y" "y") (re.++ (re.range "r" "r") (re.opt (str.to_re (seq.++ "c" (seq.++ "h" "")))))))(re.union (re.++ (re.union (str.to_re (seq.++ "n" (seq.++ "o" (seq.++ "v" "")))) (str.to_re (seq.++ "d" (seq.++ "e" (seq.++ "c" ""))))) (re.opt (str.to_re (seq.++ "e" (seq.++ "m" (seq.++ "b" (seq.++ "e" (seq.++ "r" ""))))))))(re.union (re.++ (str.to_re (seq.++ "f" (seq.++ "e" (seq.++ "b" "")))) (re.opt (str.to_re (seq.++ "r" (seq.++ "u" (seq.++ "a" (seq.++ "r" (seq.++ "y" ""))))))))(re.union (re.++ (str.to_re (seq.++ "s" (seq.++ "e" (seq.++ "p" "")))) (re.opt (str.to_re (seq.++ "t" (seq.++ "e" (seq.++ "m" (seq.++ "b" (seq.++ "e" (seq.++ "r" ""))))))))) (re.++ (str.to_re (seq.++ "o" (seq.++ "c" (seq.++ "t" "")))) (re.opt (str.to_re (seq.++ "o" (seq.++ "b" (seq.++ "e" (seq.++ "r" "")))))))))))))))
+(assert (= regexA (re.union (re.++ (re.range "j" "j") (re.union (re.++ (str.to_re (str.++ "a" (str.++ "n" ""))) (re.opt (str.to_re (str.++ "u" (str.++ "a" (str.++ "r" (str.++ "y" ""))))))) (re.++ (re.range "u" "u") (re.union (re.++ (re.range "n" "n") (re.opt (re.range "e" "e"))) (re.++ (re.range "l" "l") (re.opt (re.range "y" "y")))))))(re.union (re.++ (re.range "a" "a") (re.union (re.++ (str.to_re (str.++ "p" (str.++ "r" ""))) (re.opt (str.to_re (str.++ "i" (str.++ "l" ""))))) (re.++ (str.to_re (str.++ "u" (str.++ "g" ""))) (re.opt (str.to_re (str.++ "u" (str.++ "s" (str.++ "t" ""))))))))(re.union (re.++ (str.to_re (str.++ "m" (str.++ "a" ""))) (re.union (re.range "y" "y") (re.++ (re.range "r" "r") (re.opt (str.to_re (str.++ "c" (str.++ "h" "")))))))(re.union (re.++ (re.union (str.to_re (str.++ "n" (str.++ "o" (str.++ "v" "")))) (str.to_re (str.++ "d" (str.++ "e" (str.++ "c" ""))))) (re.opt (str.to_re (str.++ "e" (str.++ "m" (str.++ "b" (str.++ "e" (str.++ "r" ""))))))))(re.union (re.++ (str.to_re (str.++ "f" (str.++ "e" (str.++ "b" "")))) (re.opt (str.to_re (str.++ "r" (str.++ "u" (str.++ "a" (str.++ "r" (str.++ "y" ""))))))))(re.union (re.++ (str.to_re (str.++ "s" (str.++ "e" (str.++ "p" "")))) (re.opt (str.to_re (str.++ "t" (str.++ "e" (str.++ "m" (str.++ "b" (str.++ "e" (str.++ "r" ""))))))))) (re.++ (str.to_re (str.++ "o" (str.++ "c" (str.++ "t" "")))) (re.opt (str.to_re (str.++ "o" (str.++ "b" (str.++ "e" (str.++ "r" "")))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

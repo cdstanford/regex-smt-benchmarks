@@ -4,18 +4,18 @@
 ; regexA = ^[\u0081-\uFFFF]{1,}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00CF"
-(define-fun Witness1 () String (seq.++ "\xcf" ""))
+(define-fun Witness1 () String (str.++ "\u{cf}" ""))
 ;witness2: "\u00FF\u00EE"
-(define-fun Witness2 () String (seq.++ "\xff" (seq.++ "\xee" "")))
+(define-fun Witness2 () String (str.++ "\u{ff}" (str.++ "\u{ee}" "")))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.range "\x81" "\xff")) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.range "\u{81}" "\u{ff}")) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

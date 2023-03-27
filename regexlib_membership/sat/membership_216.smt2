@@ -4,16 +4,16 @@
 ; regexA = @([_a-zA-Z]+)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "6@R"
-(define-fun Witness1 () String (seq.++ "6" (seq.++ "@" (seq.++ "R" ""))))
+(define-fun Witness1 () String (str.++ "6" (str.++ "@" (str.++ "R" ""))))
 ;witness2: "YA\u0091@up"
-(define-fun Witness2 () String (seq.++ "Y" (seq.++ "A" (seq.++ "\x91" (seq.++ "@" (seq.++ "u" (seq.++ "p" "")))))))
+(define-fun Witness2 () String (str.++ "Y" (str.++ "A" (str.++ "\u{91}" (str.++ "@" (str.++ "u" (str.++ "p" "")))))))
 
 (assert (= regexA (re.++ (re.range "@" "@") (re.+ (re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))))
 

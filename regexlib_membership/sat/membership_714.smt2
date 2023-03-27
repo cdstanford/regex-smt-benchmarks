@@ -4,16 +4,16 @@
 ; regexA = ^\${1}[a-z]{1}[a-z\d]{0,6}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "$nxc"
-(define-fun Witness1 () String (seq.++ "$" (seq.++ "n" (seq.++ "x" (seq.++ "c" "")))))
+(define-fun Witness1 () String (str.++ "$" (str.++ "n" (str.++ "x" (str.++ "c" "")))))
 ;witness2: "$zp"
-(define-fun Witness2 () String (seq.++ "$" (seq.++ "z" (seq.++ "p" ""))))
+(define-fun Witness2 () String (str.++ "$" (str.++ "z" (str.++ "p" ""))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "$" "$")(re.++ (re.range "a" "z")(re.++ ((_ re.loop 0 6) (re.union (re.range "0" "9") (re.range "a" "z"))) (str.to_re "")))))))
 

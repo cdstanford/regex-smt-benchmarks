@@ -4,18 +4,18 @@
 ; regexA = (((s*)(ftp)(s*)|(http)(s*)|mailto|news|file|webcal):(\S*))|((www.)(\S*))
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "www\x1Fq\u00CC\u00A6\u00B4"
-(define-fun Witness1 () String (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "\x1f" (seq.++ "q" (seq.++ "\xcc" (seq.++ "\xa6" (seq.++ "\xb4" "")))))))))
+(define-fun Witness1 () String (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "\u{1f}" (str.++ "q" (str.++ "\u{cc}" (str.++ "\u{a6}" (str.++ "\u{b4}" "")))))))))
 ;witness2: "www\x1ED\u00A6"
-(define-fun Witness2 () String (seq.++ "w" (seq.++ "w" (seq.++ "w" (seq.++ "\x1e" (seq.++ "D" (seq.++ "\xa6" "")))))))
+(define-fun Witness2 () String (str.++ "w" (str.++ "w" (str.++ "w" (str.++ "\u{1e}" (str.++ "D" (str.++ "\u{a6}" "")))))))
 
-(assert (= regexA (re.union (re.++ (re.union (re.++ (re.* (re.range "s" "s"))(re.++ (str.to_re (seq.++ "f" (seq.++ "t" (seq.++ "p" "")))) (re.* (re.range "s" "s"))))(re.union (re.++ (str.to_re (seq.++ "h" (seq.++ "t" (seq.++ "t" (seq.++ "p" ""))))) (re.* (re.range "s" "s")))(re.union (str.to_re (seq.++ "m" (seq.++ "a" (seq.++ "i" (seq.++ "l" (seq.++ "t" (seq.++ "o" "")))))))(re.union (str.to_re (seq.++ "n" (seq.++ "e" (seq.++ "w" (seq.++ "s" "")))))(re.union (str.to_re (seq.++ "f" (seq.++ "i" (seq.++ "l" (seq.++ "e" ""))))) (str.to_re (seq.++ "w" (seq.++ "e" (seq.++ "b" (seq.++ "c" (seq.++ "a" (seq.++ "l" ""))))))))))))(re.++ (re.range ":" ":") (re.* (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff")))))))) (re.++ (re.++ (str.to_re (seq.++ "w" (seq.++ "w" (seq.++ "w" "")))) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (re.* (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff"))))))))))
+(assert (= regexA (re.union (re.++ (re.union (re.++ (re.* (re.range "s" "s"))(re.++ (str.to_re (str.++ "f" (str.++ "t" (str.++ "p" "")))) (re.* (re.range "s" "s"))))(re.union (re.++ (str.to_re (str.++ "h" (str.++ "t" (str.++ "t" (str.++ "p" ""))))) (re.* (re.range "s" "s")))(re.union (str.to_re (str.++ "m" (str.++ "a" (str.++ "i" (str.++ "l" (str.++ "t" (str.++ "o" "")))))))(re.union (str.to_re (str.++ "n" (str.++ "e" (str.++ "w" (str.++ "s" "")))))(re.union (str.to_re (str.++ "f" (str.++ "i" (str.++ "l" (str.++ "e" ""))))) (str.to_re (str.++ "w" (str.++ "e" (str.++ "b" (str.++ "c" (str.++ "a" (str.++ "l" ""))))))))))))(re.++ (re.range ":" ":") (re.* (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}")))))))) (re.++ (re.++ (str.to_re (str.++ "w" (str.++ "w" (str.++ "w" "")))) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (re.* (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}"))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

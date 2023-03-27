@@ -4,18 +4,18 @@
 ; regexA = (^.+\|+[A-Za-z])
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ";\u0098\u00A2\u00B9\x6||Z"
-(define-fun Witness1 () String (seq.++ ";" (seq.++ "\x98" (seq.++ "\xa2" (seq.++ "\xb9" (seq.++ "\x06" (seq.++ "|" (seq.++ "|" (seq.++ "Z" "")))))))))
+(define-fun Witness1 () String (str.++ ";" (str.++ "\u{98}" (str.++ "\u{a2}" (str.++ "\u{b9}" (str.++ "\u{06}" (str.++ "|" (str.++ "|" (str.++ "Z" "")))))))))
 ;witness2: "X||z\xE\u00A8"
-(define-fun Witness2 () String (seq.++ "X" (seq.++ "|" (seq.++ "|" (seq.++ "z" (seq.++ "\x0e" (seq.++ "\xa8" "")))))))
+(define-fun Witness2 () String (str.++ "X" (str.++ "|" (str.++ "|" (str.++ "z" (str.++ "\u{0e}" (str.++ "\u{a8}" "")))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.+ (re.range "|" "|")) (re.union (re.range "A" "Z") (re.range "a" "z")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.+ (re.range "|" "|")) (re.union (re.range "A" "Z") (re.range "a" "z")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

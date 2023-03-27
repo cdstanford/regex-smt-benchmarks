@@ -4,18 +4,18 @@
 ; regexA = [\x80-\xFF]
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u009B\u00EA"
-(define-fun Witness1 () String (seq.++ "\x9b" (seq.++ "\xea" "")))
+(define-fun Witness1 () String (str.++ "\u{9b}" (str.++ "\u{ea}" "")))
 ;witness2: "\u00BF"
-(define-fun Witness2 () String (seq.++ "\xbf" ""))
+(define-fun Witness2 () String (str.++ "\u{bf}" ""))
 
-(assert (= regexA (re.range "\x80" "\xff")))
+(assert (= regexA (re.range "\u{80}" "\u{ff}")))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

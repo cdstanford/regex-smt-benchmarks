@@ -4,18 +4,18 @@
 ; regexA = (refs|references|re|closes|closed|close|see|fixes|fixed|fix|addresses) #(\d+)(( and |, | & | )#(\d+))*
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "+9closes #0\u00C0"
-(define-fun Witness1 () String (seq.++ "+" (seq.++ "9" (seq.++ "c" (seq.++ "l" (seq.++ "o" (seq.++ "s" (seq.++ "e" (seq.++ "s" (seq.++ " " (seq.++ "#" (seq.++ "0" (seq.++ "\xc0" "")))))))))))))
+(define-fun Witness1 () String (str.++ "+" (str.++ "9" (str.++ "c" (str.++ "l" (str.++ "o" (str.++ "s" (str.++ "e" (str.++ "s" (str.++ " " (str.++ "#" (str.++ "0" (str.++ "\u{c0}" "")))))))))))))
 ;witness2: "closes #88847\u00CB\u00D7"
-(define-fun Witness2 () String (seq.++ "c" (seq.++ "l" (seq.++ "o" (seq.++ "s" (seq.++ "e" (seq.++ "s" (seq.++ " " (seq.++ "#" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ "4" (seq.++ "7" (seq.++ "\xcb" (seq.++ "\xd7" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "c" (str.++ "l" (str.++ "o" (str.++ "s" (str.++ "e" (str.++ "s" (str.++ " " (str.++ "#" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ "4" (str.++ "7" (str.++ "\u{cb}" (str.++ "\u{d7}" ""))))))))))))))))
 
-(assert (= regexA (re.++ (re.union (str.to_re (seq.++ "r" (seq.++ "e" (seq.++ "f" (seq.++ "s" "")))))(re.union (str.to_re (seq.++ "r" (seq.++ "e" (seq.++ "f" (seq.++ "e" (seq.++ "r" (seq.++ "e" (seq.++ "n" (seq.++ "c" (seq.++ "e" (seq.++ "s" "")))))))))))(re.union (str.to_re (seq.++ "r" (seq.++ "e" "")))(re.union (str.to_re (seq.++ "c" (seq.++ "l" (seq.++ "o" (seq.++ "s" (seq.++ "e" (seq.++ "s" "")))))))(re.union (str.to_re (seq.++ "c" (seq.++ "l" (seq.++ "o" (seq.++ "s" (seq.++ "e" (seq.++ "d" "")))))))(re.union (str.to_re (seq.++ "c" (seq.++ "l" (seq.++ "o" (seq.++ "s" (seq.++ "e" ""))))))(re.union (str.to_re (seq.++ "s" (seq.++ "e" (seq.++ "e" ""))))(re.union (str.to_re (seq.++ "f" (seq.++ "i" (seq.++ "x" (seq.++ "e" (seq.++ "s" ""))))))(re.union (str.to_re (seq.++ "f" (seq.++ "i" (seq.++ "x" (seq.++ "e" (seq.++ "d" ""))))))(re.union (str.to_re (seq.++ "f" (seq.++ "i" (seq.++ "x" "")))) (str.to_re (seq.++ "a" (seq.++ "d" (seq.++ "d" (seq.++ "r" (seq.++ "e" (seq.++ "s" (seq.++ "s" (seq.++ "e" (seq.++ "s" ""))))))))))))))))))))(re.++ (str.to_re (seq.++ " " (seq.++ "#" "")))(re.++ (re.+ (re.range "0" "9")) (re.* (re.++ (re.union (str.to_re (seq.++ " " (seq.++ "a" (seq.++ "n" (seq.++ "d" (seq.++ " " ""))))))(re.union (str.to_re (seq.++ "," (seq.++ " " "")))(re.union (str.to_re (seq.++ " " (seq.++ "&" (seq.++ " " "")))) (re.range " " " "))))(re.++ (re.range "#" "#") (re.+ (re.range "0" "9"))))))))))
+(assert (= regexA (re.++ (re.union (str.to_re (str.++ "r" (str.++ "e" (str.++ "f" (str.++ "s" "")))))(re.union (str.to_re (str.++ "r" (str.++ "e" (str.++ "f" (str.++ "e" (str.++ "r" (str.++ "e" (str.++ "n" (str.++ "c" (str.++ "e" (str.++ "s" "")))))))))))(re.union (str.to_re (str.++ "r" (str.++ "e" "")))(re.union (str.to_re (str.++ "c" (str.++ "l" (str.++ "o" (str.++ "s" (str.++ "e" (str.++ "s" "")))))))(re.union (str.to_re (str.++ "c" (str.++ "l" (str.++ "o" (str.++ "s" (str.++ "e" (str.++ "d" "")))))))(re.union (str.to_re (str.++ "c" (str.++ "l" (str.++ "o" (str.++ "s" (str.++ "e" ""))))))(re.union (str.to_re (str.++ "s" (str.++ "e" (str.++ "e" ""))))(re.union (str.to_re (str.++ "f" (str.++ "i" (str.++ "x" (str.++ "e" (str.++ "s" ""))))))(re.union (str.to_re (str.++ "f" (str.++ "i" (str.++ "x" (str.++ "e" (str.++ "d" ""))))))(re.union (str.to_re (str.++ "f" (str.++ "i" (str.++ "x" "")))) (str.to_re (str.++ "a" (str.++ "d" (str.++ "d" (str.++ "r" (str.++ "e" (str.++ "s" (str.++ "s" (str.++ "e" (str.++ "s" ""))))))))))))))))))))(re.++ (str.to_re (str.++ " " (str.++ "#" "")))(re.++ (re.+ (re.range "0" "9")) (re.* (re.++ (re.union (str.to_re (str.++ " " (str.++ "a" (str.++ "n" (str.++ "d" (str.++ " " ""))))))(re.union (str.to_re (str.++ "," (str.++ " " "")))(re.union (str.to_re (str.++ " " (str.++ "&" (str.++ " " "")))) (re.range " " " "))))(re.++ (re.range "#" "#") (re.+ (re.range "0" "9"))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

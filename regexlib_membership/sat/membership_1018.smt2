@@ -4,18 +4,18 @@
 ; regexA = ^(IE){0,1}[0-9][0-9A-Z\+\*][0-9]{5}[A-Z]$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9980319O"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "9" (seq.++ "8" (seq.++ "0" (seq.++ "3" (seq.++ "1" (seq.++ "9" (seq.++ "O" "")))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "9" (str.++ "8" (str.++ "0" (str.++ "3" (str.++ "1" (str.++ "9" (str.++ "O" "")))))))))
 ;witness2: "IE6+99974J"
-(define-fun Witness2 () String (seq.++ "I" (seq.++ "E" (seq.++ "6" (seq.++ "+" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "7" (seq.++ "4" (seq.++ "J" "")))))))))))
+(define-fun Witness2 () String (str.++ "I" (str.++ "E" (str.++ "6" (str.++ "+" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "7" (str.++ "4" (str.++ "J" "")))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (seq.++ "I" (seq.++ "E" ""))))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "*" "+")(re.union (re.range "0" "9") (re.range "A" "Z")))(re.++ ((_ re.loop 5 5) (re.range "0" "9"))(re.++ (re.range "A" "Z") (str.to_re "")))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (str.++ "I" (str.++ "E" ""))))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "*" "+")(re.union (re.range "0" "9") (re.range "A" "Z")))(re.++ ((_ re.loop 5 5) (re.range "0" "9"))(re.++ (re.range "A" "Z") (str.to_re "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

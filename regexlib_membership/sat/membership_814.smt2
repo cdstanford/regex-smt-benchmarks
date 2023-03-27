@@ -4,16 +4,16 @@
 ; regexA = [cC]{1}[0-9]{0,7}
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ".u\x6C"
-(define-fun Witness1 () String (seq.++ "." (seq.++ "u" (seq.++ "\x06" (seq.++ "C" "")))))
+(define-fun Witness1 () String (str.++ "." (str.++ "u" (str.++ "\u{06}" (str.++ "C" "")))))
 ;witness2: "\x12\x12C3"
-(define-fun Witness2 () String (seq.++ "\x12" (seq.++ "\x12" (seq.++ "C" (seq.++ "3" "")))))
+(define-fun Witness2 () String (str.++ "\u{12}" (str.++ "\u{12}" (str.++ "C" (str.++ "3" "")))))
 
 (assert (= regexA (re.++ (re.union (re.range "C" "C") (re.range "c" "c")) ((_ re.loop 0 7) (re.range "0" "9")))))
 

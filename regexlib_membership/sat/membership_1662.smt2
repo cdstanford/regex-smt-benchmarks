@@ -4,18 +4,18 @@
 ; regexA = ^(([a-z])+.)+[A-Z]([a-z])+$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "pl\x19pyb\u00DDLtc"
-(define-fun Witness1 () String (seq.++ "p" (seq.++ "l" (seq.++ "\x19" (seq.++ "p" (seq.++ "y" (seq.++ "b" (seq.++ "\xdd" (seq.++ "L" (seq.++ "t" (seq.++ "c" "")))))))))))
+(define-fun Witness1 () String (str.++ "p" (str.++ "l" (str.++ "\u{19}" (str.++ "p" (str.++ "y" (str.++ "b" (str.++ "\u{dd}" (str.++ "L" (str.++ "t" (str.++ "c" "")))))))))))
 ;witness2: "znrcf\u00EFr\u00FCf Hns"
-(define-fun Witness2 () String (seq.++ "z" (seq.++ "n" (seq.++ "r" (seq.++ "c" (seq.++ "f" (seq.++ "\xef" (seq.++ "r" (seq.++ "\xfc" (seq.++ "f" (seq.++ " " (seq.++ "H" (seq.++ "n" (seq.++ "s" ""))))))))))))))
+(define-fun Witness2 () String (str.++ "z" (str.++ "n" (str.++ "r" (str.++ "c" (str.++ "f" (str.++ "\u{ef}" (str.++ "r" (str.++ "\u{fc}" (str.++ "f" (str.++ " " (str.++ "H" (str.++ "n" (str.++ "s" ""))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.++ (re.+ (re.range "a" "z")) (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))))(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z")) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.++ (re.+ (re.range "a" "z")) (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))))(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z")) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

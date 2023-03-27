@@ -4,18 +4,18 @@
 ; regexA = (\[b\])([^\[\]]+)(\[/b\])
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "[b]\u00CB\u00D3[/b]/"
-(define-fun Witness1 () String (seq.++ "[" (seq.++ "b" (seq.++ "]" (seq.++ "\xcb" (seq.++ "\xd3" (seq.++ "[" (seq.++ "/" (seq.++ "b" (seq.++ "]" (seq.++ "/" "")))))))))))
+(define-fun Witness1 () String (str.++ "[" (str.++ "b" (str.++ "]" (str.++ "\u{cb}" (str.++ "\u{d3}" (str.++ "[" (str.++ "/" (str.++ "b" (str.++ "]" (str.++ "/" "")))))))))))
 ;witness2: "[b]\x4[/b]"
-(define-fun Witness2 () String (seq.++ "[" (seq.++ "b" (seq.++ "]" (seq.++ "\x04" (seq.++ "[" (seq.++ "/" (seq.++ "b" (seq.++ "]" "")))))))))
+(define-fun Witness2 () String (str.++ "[" (str.++ "b" (str.++ "]" (str.++ "\u{04}" (str.++ "[" (str.++ "/" (str.++ "b" (str.++ "]" "")))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "[" (seq.++ "b" (seq.++ "]" ""))))(re.++ (re.+ (re.union (re.range "\x00" "Z")(re.union (re.range "\x5c" "\x5c") (re.range "^" "\xff")))) (str.to_re (seq.++ "[" (seq.++ "/" (seq.++ "b" (seq.++ "]" "")))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "[" (str.++ "b" (str.++ "]" ""))))(re.++ (re.+ (re.union (re.range "\u{00}" "Z")(re.union (re.range "\u{5c}" "\u{5c}") (re.range "^" "\u{ff}")))) (str.to_re (str.++ "[" (str.++ "/" (str.++ "b" (str.++ "]" "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

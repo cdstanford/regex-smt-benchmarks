@@ -4,16 +4,16 @@
 ; regexA = [+]?[\x20]*(?<int>\d+)?[-\x20]*[\(]?(?<area>[2-9]\d{2})[\)\-\x20]*(?<pbx>[0-9]{3})[-\x20]*(?<num>[0-9]{4})
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00F46838) 089--1197"
-(define-fun Witness1 () String (seq.++ "\xf4" (seq.++ "6" (seq.++ "8" (seq.++ "3" (seq.++ "8" (seq.++ ")" (seq.++ " " (seq.++ "0" (seq.++ "8" (seq.++ "9" (seq.++ "-" (seq.++ "-" (seq.++ "1" (seq.++ "1" (seq.++ "9" (seq.++ "7" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{f4}" (str.++ "6" (str.++ "8" (str.++ "3" (str.++ "8" (str.++ ")" (str.++ " " (str.++ "0" (str.++ "8" (str.++ "9" (str.++ "-" (str.++ "-" (str.++ "1" (str.++ "1" (str.++ "9" (str.++ "7" "")))))))))))))))))
 ;witness2: "\u00BC     415 006 - --2689\u00C7\u00A2"
-(define-fun Witness2 () String (seq.++ "\xbc" (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "4" (seq.++ "1" (seq.++ "5" (seq.++ " " (seq.++ "0" (seq.++ "0" (seq.++ "6" (seq.++ " " (seq.++ "-" (seq.++ " " (seq.++ "-" (seq.++ "-" (seq.++ "2" (seq.++ "6" (seq.++ "8" (seq.++ "9" (seq.++ "\xc7" (seq.++ "\xa2" "")))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{bc}" (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "4" (str.++ "1" (str.++ "5" (str.++ " " (str.++ "0" (str.++ "0" (str.++ "6" (str.++ " " (str.++ "-" (str.++ " " (str.++ "-" (str.++ "-" (str.++ "2" (str.++ "6" (str.++ "8" (str.++ "9" (str.++ "\u{c7}" (str.++ "\u{a2}" "")))))))))))))))))))))))))
 
 (assert (= regexA (re.++ (re.opt (re.range "+" "+"))(re.++ (re.* (re.range " " " "))(re.++ (re.opt (re.+ (re.range "0" "9")))(re.++ (re.* (re.union (re.range " " " ") (re.range "-" "-")))(re.++ (re.opt (re.range "(" "("))(re.++ (re.++ (re.range "2" "9") ((_ re.loop 2 2) (re.range "0" "9")))(re.++ (re.* (re.union (re.range " " " ")(re.union (re.range ")" ")") (re.range "-" "-"))))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.* (re.union (re.range " " " ") (re.range "-" "-"))) ((_ re.loop 4 4) (re.range "0" "9")))))))))))))
 

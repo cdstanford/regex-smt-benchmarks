@@ -4,16 +4,16 @@
 ; regexA = ^([a-zA-Z0-9]+[a-zA-Z0-9._%-]*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4})$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "N9u@8.DP"
-(define-fun Witness1 () String (seq.++ "N" (seq.++ "9" (seq.++ "u" (seq.++ "@" (seq.++ "8" (seq.++ "." (seq.++ "D" (seq.++ "P" "")))))))))
+(define-fun Witness1 () String (str.++ "N" (str.++ "9" (str.++ "u" (str.++ "@" (str.++ "8" (str.++ "." (str.++ "D" (str.++ "P" "")))))))))
 ;witness2: "x9_@M.-4-.9.nZ"
-(define-fun Witness2 () String (seq.++ "x" (seq.++ "9" (seq.++ "_" (seq.++ "@" (seq.++ "M" (seq.++ "." (seq.++ "-" (seq.++ "4" (seq.++ "-" (seq.++ "." (seq.++ "9" (seq.++ "." (seq.++ "n" (seq.++ "Z" "")))))))))))))))
+(define-fun Witness2 () String (str.++ "x" (str.++ "9" (str.++ "_" (str.++ "@" (str.++ "M" (str.++ "." (str.++ "-" (str.++ "4" (str.++ "-" (str.++ "." (str.++ "9" (str.++ "." (str.++ "n" (str.++ "Z" "")))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))(re.++ (re.* (re.union (re.range "%" "%")(re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))) (re.range "." "."))) ((_ re.loop 2 4) (re.union (re.range "A" "Z") (re.range "a" "z"))))))) (str.to_re "")))))
 

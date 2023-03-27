@@ -4,18 +4,18 @@
 ; regexA = /Dr[.]?|Phd[.]?|MBA/i
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00C8\u00F9MBA/i"
-(define-fun Witness1 () String (seq.++ "\xc8" (seq.++ "\xf9" (seq.++ "M" (seq.++ "B" (seq.++ "A" (seq.++ "/" (seq.++ "i" ""))))))))
+(define-fun Witness1 () String (str.++ "\u{c8}" (str.++ "\u{f9}" (str.++ "M" (str.++ "B" (str.++ "A" (str.++ "/" (str.++ "i" ""))))))))
 ;witness2: "\u00C4\u00C2\u00FFwPhd.\u00E3\u00E5"
-(define-fun Witness2 () String (seq.++ "\xc4" (seq.++ "\xc2" (seq.++ "\xff" (seq.++ "w" (seq.++ "P" (seq.++ "h" (seq.++ "d" (seq.++ "." (seq.++ "\xe3" (seq.++ "\xe5" "")))))))))))
+(define-fun Witness2 () String (str.++ "\u{c4}" (str.++ "\u{c2}" (str.++ "\u{ff}" (str.++ "w" (str.++ "P" (str.++ "h" (str.++ "d" (str.++ "." (str.++ "\u{e3}" (str.++ "\u{e5}" "")))))))))))
 
-(assert (= regexA (re.union (re.++ (str.to_re (seq.++ "/" (seq.++ "D" (seq.++ "r" "")))) (re.opt (re.range "." ".")))(re.union (re.++ (str.to_re (seq.++ "P" (seq.++ "h" (seq.++ "d" "")))) (re.opt (re.range "." "."))) (str.to_re (seq.++ "M" (seq.++ "B" (seq.++ "A" (seq.++ "/" (seq.++ "i" ""))))))))))
+(assert (= regexA (re.union (re.++ (str.to_re (str.++ "/" (str.++ "D" (str.++ "r" "")))) (re.opt (re.range "." ".")))(re.union (re.++ (str.to_re (str.++ "P" (str.++ "h" (str.++ "d" "")))) (re.opt (re.range "." "."))) (str.to_re (str.++ "M" (str.++ "B" (str.++ "A" (str.++ "/" (str.++ "i" ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

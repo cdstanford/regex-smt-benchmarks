@@ -4,18 +4,18 @@
 ; regexA = ^(EE|EL|DE|PT){0,1}[0-9]{9}$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "EE607366299"
-(define-fun Witness1 () String (seq.++ "E" (seq.++ "E" (seq.++ "6" (seq.++ "0" (seq.++ "7" (seq.++ "3" (seq.++ "6" (seq.++ "6" (seq.++ "2" (seq.++ "9" (seq.++ "9" ""))))))))))))
+(define-fun Witness1 () String (str.++ "E" (str.++ "E" (str.++ "6" (str.++ "0" (str.++ "7" (str.++ "3" (str.++ "6" (str.++ "6" (str.++ "2" (str.++ "9" (str.++ "9" ""))))))))))))
 ;witness2: "EL906983884"
-(define-fun Witness2 () String (seq.++ "E" (seq.++ "L" (seq.++ "9" (seq.++ "0" (seq.++ "6" (seq.++ "9" (seq.++ "8" (seq.++ "3" (seq.++ "8" (seq.++ "8" (seq.++ "4" ""))))))))))))
+(define-fun Witness2 () String (str.++ "E" (str.++ "L" (str.++ "9" (str.++ "0" (str.++ "6" (str.++ "9" (str.++ "8" (str.++ "3" (str.++ "8" (str.++ "8" (str.++ "4" ""))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.union (str.to_re (seq.++ "E" (seq.++ "E" "")))(re.union (str.to_re (seq.++ "E" (seq.++ "L" "")))(re.union (str.to_re (seq.++ "D" (seq.++ "E" ""))) (str.to_re (seq.++ "P" (seq.++ "T" "")))))))(re.++ ((_ re.loop 9 9) (re.range "0" "9")) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.union (str.to_re (str.++ "E" (str.++ "E" "")))(re.union (str.to_re (str.++ "E" (str.++ "L" "")))(re.union (str.to_re (str.++ "D" (str.++ "E" ""))) (str.to_re (str.++ "P" (str.++ "T" "")))))))(re.++ ((_ re.loop 9 9) (re.range "0" "9")) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -4,18 +4,18 @@
 ; regexA = Validation of Mexican RFC for tax payers (individuals)
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Validation of Mexican RFC for tax payers individuals"
-(define-fun Witness1 () String (seq.++ "V" (seq.++ "a" (seq.++ "l" (seq.++ "i" (seq.++ "d" (seq.++ "a" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "M" (seq.++ "e" (seq.++ "x" (seq.++ "i" (seq.++ "c" (seq.++ "a" (seq.++ "n" (seq.++ " " (seq.++ "R" (seq.++ "F" (seq.++ "C" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "t" (seq.++ "a" (seq.++ "x" (seq.++ " " (seq.++ "p" (seq.++ "a" (seq.++ "y" (seq.++ "e" (seq.++ "r" (seq.++ "s" (seq.++ " " (seq.++ "i" (seq.++ "n" (seq.++ "d" (seq.++ "i" (seq.++ "v" (seq.++ "i" (seq.++ "d" (seq.++ "u" (seq.++ "a" (seq.++ "l" (seq.++ "s" "")))))))))))))))))))))))))))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "V" (str.++ "a" (str.++ "l" (str.++ "i" (str.++ "d" (str.++ "a" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" (str.++ " " (str.++ "o" (str.++ "f" (str.++ " " (str.++ "M" (str.++ "e" (str.++ "x" (str.++ "i" (str.++ "c" (str.++ "a" (str.++ "n" (str.++ " " (str.++ "R" (str.++ "F" (str.++ "C" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "t" (str.++ "a" (str.++ "x" (str.++ " " (str.++ "p" (str.++ "a" (str.++ "y" (str.++ "e" (str.++ "r" (str.++ "s" (str.++ " " (str.++ "i" (str.++ "n" (str.++ "d" (str.++ "i" (str.++ "v" (str.++ "i" (str.++ "d" (str.++ "u" (str.++ "a" (str.++ "l" (str.++ "s" "")))))))))))))))))))))))))))))))))))))))))))))))))))))
 ;witness2: "L[\u00CEValidation of Mexican RFC for tax payers individualsY"
-(define-fun Witness2 () String (seq.++ "L" (seq.++ "[" (seq.++ "\xce" (seq.++ "V" (seq.++ "a" (seq.++ "l" (seq.++ "i" (seq.++ "d" (seq.++ "a" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "M" (seq.++ "e" (seq.++ "x" (seq.++ "i" (seq.++ "c" (seq.++ "a" (seq.++ "n" (seq.++ " " (seq.++ "R" (seq.++ "F" (seq.++ "C" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "t" (seq.++ "a" (seq.++ "x" (seq.++ " " (seq.++ "p" (seq.++ "a" (seq.++ "y" (seq.++ "e" (seq.++ "r" (seq.++ "s" (seq.++ " " (seq.++ "i" (seq.++ "n" (seq.++ "d" (seq.++ "i" (seq.++ "v" (seq.++ "i" (seq.++ "d" (seq.++ "u" (seq.++ "a" (seq.++ "l" (seq.++ "s" (seq.++ "Y" "")))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "L" (str.++ "[" (str.++ "\u{ce}" (str.++ "V" (str.++ "a" (str.++ "l" (str.++ "i" (str.++ "d" (str.++ "a" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" (str.++ " " (str.++ "o" (str.++ "f" (str.++ " " (str.++ "M" (str.++ "e" (str.++ "x" (str.++ "i" (str.++ "c" (str.++ "a" (str.++ "n" (str.++ " " (str.++ "R" (str.++ "F" (str.++ "C" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "t" (str.++ "a" (str.++ "x" (str.++ " " (str.++ "p" (str.++ "a" (str.++ "y" (str.++ "e" (str.++ "r" (str.++ "s" (str.++ " " (str.++ "i" (str.++ "n" (str.++ "d" (str.++ "i" (str.++ "v" (str.++ "i" (str.++ "d" (str.++ "u" (str.++ "a" (str.++ "l" (str.++ "s" (str.++ "Y" "")))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "V" (seq.++ "a" (seq.++ "l" (seq.++ "i" (seq.++ "d" (seq.++ "a" (seq.++ "t" (seq.++ "i" (seq.++ "o" (seq.++ "n" (seq.++ " " (seq.++ "o" (seq.++ "f" (seq.++ " " (seq.++ "M" (seq.++ "e" (seq.++ "x" (seq.++ "i" (seq.++ "c" (seq.++ "a" (seq.++ "n" (seq.++ " " (seq.++ "R" (seq.++ "F" (seq.++ "C" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "t" (seq.++ "a" (seq.++ "x" (seq.++ " " (seq.++ "p" (seq.++ "a" (seq.++ "y" (seq.++ "e" (seq.++ "r" (seq.++ "s" (seq.++ " " "")))))))))))))))))))))))))))))))))))))))))) (str.to_re (seq.++ "i" (seq.++ "n" (seq.++ "d" (seq.++ "i" (seq.++ "v" (seq.++ "i" (seq.++ "d" (seq.++ "u" (seq.++ "a" (seq.++ "l" (seq.++ "s" "")))))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "V" (str.++ "a" (str.++ "l" (str.++ "i" (str.++ "d" (str.++ "a" (str.++ "t" (str.++ "i" (str.++ "o" (str.++ "n" (str.++ " " (str.++ "o" (str.++ "f" (str.++ " " (str.++ "M" (str.++ "e" (str.++ "x" (str.++ "i" (str.++ "c" (str.++ "a" (str.++ "n" (str.++ " " (str.++ "R" (str.++ "F" (str.++ "C" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "t" (str.++ "a" (str.++ "x" (str.++ " " (str.++ "p" (str.++ "a" (str.++ "y" (str.++ "e" (str.++ "r" (str.++ "s" (str.++ " " "")))))))))))))))))))))))))))))))))))))))))) (str.to_re (str.++ "i" (str.++ "n" (str.++ "d" (str.++ "i" (str.++ "v" (str.++ "i" (str.++ "d" (str.++ "u" (str.++ "a" (str.++ "l" (str.++ "s" "")))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

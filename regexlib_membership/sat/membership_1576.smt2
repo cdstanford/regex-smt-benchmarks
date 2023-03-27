@@ -4,18 +4,18 @@
 ; regexA = <([^<>\s]*)(\s[^<>]*)?>
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "b<\u00BAL\u0084>"
-(define-fun Witness1 () String (seq.++ "b" (seq.++ "<" (seq.++ "\xba" (seq.++ "L" (seq.++ "\x84" (seq.++ ">" "")))))))
+(define-fun Witness1 () String (str.++ "b" (str.++ "<" (str.++ "\u{ba}" (str.++ "L" (str.++ "\u{84}" (str.++ ">" "")))))))
 ;witness2: "<\x0A:\u009AL\x9\u00BB\u009E>"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "\x00" (seq.++ "A" (seq.++ ":" (seq.++ "\x9a" (seq.++ "L" (seq.++ "\x09" (seq.++ "\xbb" (seq.++ "\x9e" (seq.++ ">" "")))))))))))
+(define-fun Witness2 () String (str.++ "<" (str.++ "\u{00}" (str.++ "A" (str.++ ":" (str.++ "\u{9a}" (str.++ "L" (str.++ "\u{09}" (str.++ "\u{bb}" (str.++ "\u{9e}" (str.++ ">" "")))))))))))
 
-(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" ";")(re.union (re.range "=" "=")(re.union (re.range "?" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff"))))))))(re.++ (re.opt (re.++ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))) (re.* (re.union (re.range "\x00" ";")(re.union (re.range "=" "=") (re.range "?" "\xff")))))) (re.range ">" ">"))))))
+(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" ";")(re.union (re.range "=" "=")(re.union (re.range "?" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}"))))))))(re.++ (re.opt (re.++ (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))) (re.* (re.union (re.range "\u{00}" ";")(re.union (re.range "=" "=") (re.range "?" "\u{ff}")))))) (re.range ">" ">"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

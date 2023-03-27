@@ -4,16 +4,16 @@
 ; regexA = ^([1-9]([0-9])?)(\.(([0])?|([1-9])?|[1]([0-1])?)?)?$
 ;---
 (set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "99."
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "9" (seq.++ "." ""))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "9" (str.++ "." ""))))
 ;witness2: "4.11"
-(define-fun Witness2 () String (seq.++ "4" (seq.++ "." (seq.++ "1" (seq.++ "1" "")))))
+(define-fun Witness2 () String (str.++ "4" (str.++ "." (str.++ "1" (str.++ "1" "")))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.range "1" "9") (re.opt (re.range "0" "9")))(re.++ (re.opt (re.++ (re.range "." ".") (re.opt (re.union (re.opt (re.range "0" "0"))(re.union (re.opt (re.range "1" "9")) (re.++ (re.range "1" "1") (re.opt (re.range "0" "1")))))))) (str.to_re ""))))))
 
