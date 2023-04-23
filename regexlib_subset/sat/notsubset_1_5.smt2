@@ -4,16 +4,16 @@
 ; regexA = ^\$?(\d{1,3},?(\d{3},?)*\d{3}(\.\d{0,2})?|\d{1,3}(\.\d{0,2})?|\.(\d{1,2})?)\z
 ; regexB = ^(\+|\-)?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)((e|E)(\+|\-)?[0-9]+)?\z
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
-(declare-const regexB (RegEx String))
+(declare-const regexA RegLan)
+(declare-const regexB RegLan)
 (declare-const x String)
 
 ;witness: "."
-(define-fun Witness () String (seq.++ "." ""))
+(define-fun Witness () String (str.++ "." ""))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "$" "$"))(re.++ (re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.opt (re.range "," ","))(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.range "," ","))))(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 0 2) (re.range "0" "9"))))))))(re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 0 2) (re.range "0" "9"))))) (re.++ (re.range "." ".") (re.opt ((_ re.loop 1 2) (re.range "0" "9")))))) (str.to_re ""))))))
 

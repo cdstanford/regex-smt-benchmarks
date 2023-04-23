@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^(\d{3}-\d{2}-\d{4})|(\d{3}\d{2}\d{4})$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "938-84-7698"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "3" (seq.++ "8" (seq.++ "-" (seq.++ "8" (seq.++ "4" (seq.++ "-" (seq.++ "7" (seq.++ "6" (seq.++ "9" (seq.++ "8" ""))))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "3" (str.++ "8" (str.++ "-" (str.++ "8" (str.++ "4" (str.++ "-" (str.++ "7" (str.++ "6" (str.++ "9" (str.++ "8" ""))))))))))))
 ;witness2: "\u00FD898133097"
-(define-fun Witness2 () String (seq.++ "\xfd" (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ "1" (seq.++ "3" (seq.++ "3" (seq.++ "0" (seq.++ "9" (seq.++ "7" "")))))))))))
+(define-fun Witness2 () String (str.++ "\u{fd}" (str.++ "8" (str.++ "9" (str.++ "8" (str.++ "1" (str.++ "3" (str.++ "3" (str.++ "0" (str.++ "9" (str.++ "7" "")))))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "") (re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9"))))))) (re.++ (re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ ((_ re.loop 2 2) (re.range "0" "9")) ((_ re.loop 4 4) (re.range "0" "9")))) (str.to_re "")))))
 

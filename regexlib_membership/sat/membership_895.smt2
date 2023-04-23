@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = \d[\d\,\.]+
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u009B\u009A928,9\u00E7"
-(define-fun Witness1 () String (seq.++ "\x9b" (seq.++ "\x9a" (seq.++ "9" (seq.++ "2" (seq.++ "8" (seq.++ "," (seq.++ "9" (seq.++ "\xe7" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{9b}" (str.++ "\u{9a}" (str.++ "9" (str.++ "2" (str.++ "8" (str.++ "," (str.++ "9" (str.++ "\u{e7}" "")))))))))
 ;witness2: "={09,"
-(define-fun Witness2 () String (seq.++ "=" (seq.++ "{" (seq.++ "0" (seq.++ "9" (seq.++ "," ""))))))
+(define-fun Witness2 () String (str.++ "=" (str.++ "{" (str.++ "0" (str.++ "9" (str.++ "," ""))))))
 
 (assert (= regexA (re.++ (re.range "0" "9") (re.+ (re.union (re.range "," ",")(re.union (re.range "." ".") (re.range "0" "9")))))))
 

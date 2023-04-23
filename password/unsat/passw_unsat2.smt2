@@ -1,6 +1,8 @@
-(echo "====== password constraint examples ======")
+(set-logic QF_S)
 
-(echo "==== unsat ====")
+;(echo "====== password constraint examples ======")
+
+;(echo "==== unsat ====")
 
 ;---
 ; .NET regular expressions restricted to 7-bit characters

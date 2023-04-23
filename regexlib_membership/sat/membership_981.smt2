@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*([\s-./\\])?([0-9]*)([\s-./\\])?([0-9]*)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "0959\u0085878"
-(define-fun Witness1 () String (seq.++ "0" (seq.++ "9" (seq.++ "5" (seq.++ "9" (seq.++ "\x85" (seq.++ "8" (seq.++ "7" (seq.++ "8" "")))))))))
+(define-fun Witness1 () String (str.++ "0" (str.++ "9" (str.++ "5" (str.++ "9" (str.++ "\u{85}" (str.++ "8" (str.++ "7" (str.++ "8" "")))))))))
 ;witness2: "(884)\u00A0"
-(define-fun Witness2 () String (seq.++ "(" (seq.++ "8" (seq.++ "8" (seq.++ "4" (seq.++ ")" (seq.++ "\xa0" "")))))))
+(define-fun Witness2 () String (str.++ "(" (str.++ "8" (str.++ "8" (str.++ "4" (str.++ ")" (str.++ "\u{a0}" "")))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.++ (re.range "1" "1")(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0"))))) (re.opt (re.range "-" "/")))))(re.++ (re.union (re.++ (re.range "(" "(")(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.range ")" ")"))) ((_ re.loop 3 3) (re.range "0" "9")))(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.opt (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "-" "/")(re.union (re.range "\x5c" "\x5c")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "-" "/")(re.union (re.range "\x5c" "\x5c")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))))(re.++ (re.* (re.range "0" "9")) (str.to_re "")))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.++ (re.range "1" "1")(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}"))))) (re.opt (re.range "-" "/")))))(re.++ (re.union (re.++ (re.range "(" "(")(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.range ")" ")"))) ((_ re.loop 3 3) (re.range "0" "9")))(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))(re.++ (re.opt (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "-" "/")(re.union (re.range "\u{5c}" "\u{5c}")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "-" "/")(re.union (re.range "\u{5c}" "\u{5c}")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))))(re.++ (re.* (re.range "0" "9")) (str.to_re "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

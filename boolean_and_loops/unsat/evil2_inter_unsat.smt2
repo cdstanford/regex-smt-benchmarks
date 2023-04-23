@@ -1,9 +1,10 @@
+(set-logic QF_S)
 ;---
 ; .NET regular expressions restricted to 7-bit characters
 ; membership in
 ; (([^\0])+.)+[\0]([^\0])+
 ;---
-(echo "==== unsat ====")
+;(echo "==== unsat ====")
 (declare-const x String)
 (assert (str.in_re x
     (re.inter

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = /(A|B|AB|O)[+-]/
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00BE/AB-/"
-(define-fun Witness1 () String (seq.++ "\xbe" (seq.++ "/" (seq.++ "A" (seq.++ "B" (seq.++ "-" (seq.++ "/" "")))))))
+(define-fun Witness1 () String (str.++ "\u{be}" (str.++ "/" (str.++ "A" (str.++ "B" (str.++ "-" (str.++ "/" "")))))))
 ;witness2: "/O+/"
-(define-fun Witness2 () String (seq.++ "/" (seq.++ "O" (seq.++ "+" (seq.++ "/" "")))))
+(define-fun Witness2 () String (str.++ "/" (str.++ "O" (str.++ "+" (str.++ "/" "")))))
 
-(assert (= regexA (re.++ (re.range "/" "/")(re.++ (re.union (re.range "A" "B")(re.union (str.to_re (seq.++ "A" (seq.++ "B" ""))) (re.range "O" "O")))(re.++ (re.union (re.range "+" "+") (re.range "-" "-")) (re.range "/" "/"))))))
+(assert (= regexA (re.++ (re.range "/" "/")(re.++ (re.union (re.range "A" "B")(re.union (str.to_re (str.++ "A" (str.++ "B" ""))) (re.range "O" "O")))(re.++ (re.union (re.range "+" "+") (re.range "-" "-")) (re.range "/" "/"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

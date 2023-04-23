@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [A-Z0-9]{5}\d[0156]\d([0][1-9]|[12]\d|3[01])\d[A-Z0-9]{3}[A-Z]{2}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9YO870043187XXKN\u00E3l"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "Y" (seq.++ "O" (seq.++ "8" (seq.++ "7" (seq.++ "0" (seq.++ "0" (seq.++ "4" (seq.++ "3" (seq.++ "1" (seq.++ "8" (seq.++ "7" (seq.++ "X" (seq.++ "X" (seq.++ "K" (seq.++ "N" (seq.++ "\xe3" (seq.++ "l" "")))))))))))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "Y" (str.++ "O" (str.++ "8" (str.++ "7" (str.++ "0" (str.++ "0" (str.++ "4" (str.++ "3" (str.++ "1" (str.++ "8" (str.++ "7" (str.++ "X" (str.++ "X" (str.++ "K" (str.++ "N" (str.++ "\u{e3}" (str.++ "l" "")))))))))))))))))))
 ;witness2: "99W88909314884WF"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "9" (seq.++ "W" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "0" (seq.++ "9" (seq.++ "3" (seq.++ "1" (seq.++ "4" (seq.++ "8" (seq.++ "8" (seq.++ "4" (seq.++ "W" (seq.++ "F" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "9" (str.++ "9" (str.++ "W" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "0" (str.++ "9" (str.++ "3" (str.++ "1" (str.++ "4" (str.++ "8" (str.++ "8" (str.++ "4" (str.++ "W" (str.++ "F" "")))))))))))))))))
 
 (assert (= regexA (re.++ ((_ re.loop 5 5) (re.union (re.range "0" "9") (re.range "A" "Z")))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "0" "1") (re.range "5" "6"))(re.++ (re.range "0" "9")(re.++ (re.union (re.++ (re.range "0" "0") (re.range "1" "9"))(re.union (re.++ (re.range "1" "2") (re.range "0" "9")) (re.++ (re.range "3" "3") (re.range "0" "1"))))(re.++ (re.range "0" "9")(re.++ ((_ re.loop 3 3) (re.union (re.range "0" "9") (re.range "A" "Z"))) ((_ re.loop 2 2) (re.range "A" "Z")))))))))))
 

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = <([^\s>]*)(\s[^<]*)>
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "<\u007F\u00DD\u0085j7\'\x1E\u00AF>\u00FD\u00D4\u00FC"
-(define-fun Witness1 () String (seq.++ "<" (seq.++ "\x7f" (seq.++ "\xdd" (seq.++ "\x85" (seq.++ "j" (seq.++ "7" (seq.++ "'" (seq.++ "\x1e" (seq.++ "\xaf" (seq.++ ">" (seq.++ "\xfd" (seq.++ "\xd4" (seq.++ "\xfc" ""))))))))))))))
+(define-fun Witness1 () String (str.++ "<" (str.++ "\u{7f}" (str.++ "\u{dd}" (str.++ "\u{85}" (str.++ "j" (str.++ "7" (str.++ "'" (str.++ "\u{1e}" (str.++ "\u{af}" (str.++ ">" (str.++ "\u{fd}" (str.++ "\u{d4}" (str.++ "\u{fc}" ""))))))))))))))
 ;witness2: "\u00C3<\u008E\xB>\x3\u00ACQ\u00BC"
-(define-fun Witness2 () String (seq.++ "\xc3" (seq.++ "<" (seq.++ "\x8e" (seq.++ "\x0b" (seq.++ ">" (seq.++ "\x03" (seq.++ "\xac" (seq.++ "Q" (seq.++ "\xbc" ""))))))))))
+(define-fun Witness2 () String (str.++ "\u{c3}" (str.++ "<" (str.++ "\u{8e}" (str.++ "\u{0b}" (str.++ ">" (str.++ "\u{03}" (str.++ "\u{ac}" (str.++ "Q" (str.++ "\u{bc}" ""))))))))))
 
-(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "=")(re.union (re.range "?" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff")))))))(re.++ (re.++ (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))) (re.* (re.union (re.range "\x00" ";") (re.range "=" "\xff")))) (re.range ">" ">"))))))
+(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "=")(re.union (re.range "?" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}")))))))(re.++ (re.++ (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))) (re.* (re.union (re.range "\u{00}" ";") (re.range "=" "\u{ff}")))) (re.range ">" ">"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

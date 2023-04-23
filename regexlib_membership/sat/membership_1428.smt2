@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = \p{IsBasicLatin}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Z"
-(define-fun Witness1 () String (seq.++ "Z" ""))
+(define-fun Witness1 () String (str.++ "Z" ""))
 ;witness2: "j\x7"
-(define-fun Witness2 () String (seq.++ "j" (seq.++ "\x07" "")))
+(define-fun Witness2 () String (str.++ "j" (str.++ "\u{07}" "")))
 
-(assert (= regexA (re.range "\x00" "\x7f")))
+(assert (= regexA (re.range "\u{00}" "\u{7f}")))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^\{?[a-fA-F\d]{32}\}?$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "{3f2D6d8CA7b15ffE89d9aF888F0Ea8ff"
-(define-fun Witness1 () String (seq.++ "{" (seq.++ "3" (seq.++ "f" (seq.++ "2" (seq.++ "D" (seq.++ "6" (seq.++ "d" (seq.++ "8" (seq.++ "C" (seq.++ "A" (seq.++ "7" (seq.++ "b" (seq.++ "1" (seq.++ "5" (seq.++ "f" (seq.++ "f" (seq.++ "E" (seq.++ "8" (seq.++ "9" (seq.++ "d" (seq.++ "9" (seq.++ "a" (seq.++ "F" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ "F" (seq.++ "0" (seq.++ "E" (seq.++ "a" (seq.++ "8" (seq.++ "f" (seq.++ "f" ""))))))))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "{" (str.++ "3" (str.++ "f" (str.++ "2" (str.++ "D" (str.++ "6" (str.++ "d" (str.++ "8" (str.++ "C" (str.++ "A" (str.++ "7" (str.++ "b" (str.++ "1" (str.++ "5" (str.++ "f" (str.++ "f" (str.++ "E" (str.++ "8" (str.++ "9" (str.++ "d" (str.++ "9" (str.++ "a" (str.++ "F" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ "F" (str.++ "0" (str.++ "E" (str.++ "a" (str.++ "8" (str.++ "f" (str.++ "f" ""))))))))))))))))))))))))))))))))))
 ;witness2: "{f835BeF40BC8abAFAF2fCAF4999eE5fC"
-(define-fun Witness2 () String (seq.++ "{" (seq.++ "f" (seq.++ "8" (seq.++ "3" (seq.++ "5" (seq.++ "B" (seq.++ "e" (seq.++ "F" (seq.++ "4" (seq.++ "0" (seq.++ "B" (seq.++ "C" (seq.++ "8" (seq.++ "a" (seq.++ "b" (seq.++ "A" (seq.++ "F" (seq.++ "A" (seq.++ "F" (seq.++ "2" (seq.++ "f" (seq.++ "C" (seq.++ "A" (seq.++ "F" (seq.++ "4" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "e" (seq.++ "E" (seq.++ "5" (seq.++ "f" (seq.++ "C" ""))))))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "{" (str.++ "f" (str.++ "8" (str.++ "3" (str.++ "5" (str.++ "B" (str.++ "e" (str.++ "F" (str.++ "4" (str.++ "0" (str.++ "B" (str.++ "C" (str.++ "8" (str.++ "a" (str.++ "b" (str.++ "A" (str.++ "F" (str.++ "A" (str.++ "F" (str.++ "2" (str.++ "f" (str.++ "C" (str.++ "A" (str.++ "F" (str.++ "4" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "e" (str.++ "E" (str.++ "5" (str.++ "f" (str.++ "C" ""))))))))))))))))))))))))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "{" "{"))(re.++ ((_ re.loop 32 32) (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f"))))(re.++ (re.opt (re.range "}" "}")) (str.to_re "")))))))
 

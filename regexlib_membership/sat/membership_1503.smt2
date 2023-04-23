@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[A-Za-z]{1,2}[\d]{1,2}([A-Za-z])?\s?[\d][A-Za-z]{2}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "RC2N9Mq"
-(define-fun Witness1 () String (seq.++ "R" (seq.++ "C" (seq.++ "2" (seq.++ "N" (seq.++ "9" (seq.++ "M" (seq.++ "q" ""))))))))
+(define-fun Witness1 () String (str.++ "R" (str.++ "C" (str.++ "2" (str.++ "N" (str.++ "9" (str.++ "M" (str.++ "q" ""))))))))
 ;witness2: "K60Y8pd"
-(define-fun Witness2 () String (seq.++ "K" (seq.++ "6" (seq.++ "0" (seq.++ "Y" (seq.++ "8" (seq.++ "p" (seq.++ "d" ""))))))))
+(define-fun Witness2 () String (str.++ "K" (str.++ "6" (str.++ "0" (str.++ "Y" (str.++ "8" (str.++ "p" (str.++ "d" ""))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 1 2) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ ((_ re.loop 1 2) (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.opt (re.union (re.range "\x09" "\x0d")(re.union (re.range " " " ")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))(re.++ (re.range "0" "9")(re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re ""))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 1 2) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ ((_ re.loop 1 2) (re.range "0" "9"))(re.++ (re.opt (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.opt (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " " ")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))(re.++ (re.range "0" "9")(re.++ ((_ re.loop 2 2) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (^\d{1,3}([,]\d{3})*$)|(^\d{1,16}$)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "8"
-(define-fun Witness1 () String (seq.++ "8" ""))
+(define-fun Witness1 () String (str.++ "8" ""))
 ;witness2: "9919514"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "9" (seq.++ "1" (seq.++ "9" (seq.++ "5" (seq.++ "1" (seq.++ "4" ""))))))))
+(define-fun Witness2 () String (str.++ "9" (str.++ "9" (str.++ "1" (str.++ "9" (str.++ "5" (str.++ "1" (str.++ "4" ""))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "")(re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.* (re.++ (re.range "," ",") ((_ re.loop 3 3) (re.range "0" "9")))) (str.to_re "")))) (re.++ (str.to_re "")(re.++ ((_ re.loop 1 16) (re.range "0" "9")) (str.to_re ""))))))
 

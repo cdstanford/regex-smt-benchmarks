@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = (^[a-zA-Z0-9]+://)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "P://"
-(define-fun Witness1 () String (seq.++ "P" (seq.++ ":" (seq.++ "/" (seq.++ "/" "")))))
+(define-fun Witness1 () String (str.++ "P" (str.++ ":" (str.++ "/" (str.++ "/" "")))))
 ;witness2: "8://\u00F4\u00FC\u00A7\u00ED"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ ":" (seq.++ "/" (seq.++ "/" (seq.++ "\xf4" (seq.++ "\xfc" (seq.++ "\xa7" (seq.++ "\xed" "")))))))))
+(define-fun Witness2 () String (str.++ "8" (str.++ ":" (str.++ "/" (str.++ "/" (str.++ "\u{f4}" (str.++ "\u{fc}" (str.++ "\u{a7}" (str.++ "\u{ed}" "")))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))) (str.to_re (seq.++ ":" (seq.++ "/" (seq.++ "/" ""))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))) (str.to_re (str.++ ":" (str.++ "/" (str.++ "/" ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

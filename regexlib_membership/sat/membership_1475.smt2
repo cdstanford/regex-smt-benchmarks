@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = \d{5}\-\d{3}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "05938-892"
-(define-fun Witness1 () String (seq.++ "0" (seq.++ "5" (seq.++ "9" (seq.++ "3" (seq.++ "8" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "2" ""))))))))))
+(define-fun Witness1 () String (str.++ "0" (str.++ "5" (str.++ "9" (str.++ "3" (str.++ "8" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "2" ""))))))))))
 ;witness2: "rA=16139-973"
-(define-fun Witness2 () String (seq.++ "r" (seq.++ "A" (seq.++ "=" (seq.++ "1" (seq.++ "6" (seq.++ "1" (seq.++ "3" (seq.++ "9" (seq.++ "-" (seq.++ "9" (seq.++ "7" (seq.++ "3" "")))))))))))))
+(define-fun Witness2 () String (str.++ "r" (str.++ "A" (str.++ "=" (str.++ "1" (str.++ "6" (str.++ "1" (str.++ "3" (str.++ "9" (str.++ "-" (str.++ "9" (str.++ "7" (str.++ "3" "")))))))))))))
 
 (assert (= regexA (re.++ ((_ re.loop 5 5) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 3 3) (re.range "0" "9"))))))
 

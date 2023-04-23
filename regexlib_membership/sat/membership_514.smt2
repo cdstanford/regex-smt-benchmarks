@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = Write modules for Drupal
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "d|Write modules for Drupal\u00DC"
-(define-fun Witness1 () String (seq.++ "d" (seq.++ "|" (seq.++ "W" (seq.++ "r" (seq.++ "i" (seq.++ "t" (seq.++ "e" (seq.++ " " (seq.++ "m" (seq.++ "o" (seq.++ "d" (seq.++ "u" (seq.++ "l" (seq.++ "e" (seq.++ "s" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "D" (seq.++ "r" (seq.++ "u" (seq.++ "p" (seq.++ "a" (seq.++ "l" (seq.++ "\xdc" ""))))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "d" (str.++ "|" (str.++ "W" (str.++ "r" (str.++ "i" (str.++ "t" (str.++ "e" (str.++ " " (str.++ "m" (str.++ "o" (str.++ "d" (str.++ "u" (str.++ "l" (str.++ "e" (str.++ "s" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "D" (str.++ "r" (str.++ "u" (str.++ "p" (str.++ "a" (str.++ "l" (str.++ "\u{dc}" ""))))))))))))))))))))))))))))
 ;witness2: "\"\u00ECWrite modules for Drupal\u00ABnr"
-(define-fun Witness2 () String (seq.++ "\x22" (seq.++ "\xec" (seq.++ "W" (seq.++ "r" (seq.++ "i" (seq.++ "t" (seq.++ "e" (seq.++ " " (seq.++ "m" (seq.++ "o" (seq.++ "d" (seq.++ "u" (seq.++ "l" (seq.++ "e" (seq.++ "s" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "D" (seq.++ "r" (seq.++ "u" (seq.++ "p" (seq.++ "a" (seq.++ "l" (seq.++ "\xab" (seq.++ "n" (seq.++ "r" ""))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{22}" (str.++ "\u{ec}" (str.++ "W" (str.++ "r" (str.++ "i" (str.++ "t" (str.++ "e" (str.++ " " (str.++ "m" (str.++ "o" (str.++ "d" (str.++ "u" (str.++ "l" (str.++ "e" (str.++ "s" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "D" (str.++ "r" (str.++ "u" (str.++ "p" (str.++ "a" (str.++ "l" (str.++ "\u{ab}" (str.++ "n" (str.++ "r" ""))))))))))))))))))))))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "W" (seq.++ "r" (seq.++ "i" (seq.++ "t" (seq.++ "e" (seq.++ " " (seq.++ "m" (seq.++ "o" (seq.++ "d" (seq.++ "u" (seq.++ "l" (seq.++ "e" (seq.++ "s" (seq.++ " " (seq.++ "f" (seq.++ "o" (seq.++ "r" (seq.++ " " (seq.++ "D" (seq.++ "r" (seq.++ "u" (seq.++ "p" (seq.++ "a" (seq.++ "l" "")))))))))))))))))))))))))))
+(assert (= regexA (str.to_re (str.++ "W" (str.++ "r" (str.++ "i" (str.++ "t" (str.++ "e" (str.++ " " (str.++ "m" (str.++ "o" (str.++ "d" (str.++ "u" (str.++ "l" (str.++ "e" (str.++ "s" (str.++ " " (str.++ "f" (str.++ "o" (str.++ "r" (str.++ " " (str.++ "D" (str.++ "r" (str.++ "u" (str.++ "p" (str.++ "a" (str.++ "l" "")))))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

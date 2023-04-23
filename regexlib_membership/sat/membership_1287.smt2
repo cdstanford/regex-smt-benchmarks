@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[9]9\d{10}|^[5]\d{10}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "57989892898\u00C8"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "7" (seq.++ "9" (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ "9" (seq.++ "2" (seq.++ "8" (seq.++ "9" (seq.++ "8" (seq.++ "\xc8" "")))))))))))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "7" (str.++ "9" (str.++ "8" (str.++ "9" (str.++ "8" (str.++ "9" (str.++ "2" (str.++ "8" (str.++ "9" (str.++ "8" (str.++ "\u{c8}" "")))))))))))))
 ;witness2: "59999838979W"
-(define-fun Witness2 () String (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "9" (seq.++ "8" (seq.++ "3" (seq.++ "8" (seq.++ "9" (seq.++ "7" (seq.++ "9" (seq.++ "W" "")))))))))))))
+(define-fun Witness2 () String (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "9" (str.++ "8" (str.++ "3" (str.++ "8" (str.++ "9" (str.++ "7" (str.++ "9" (str.++ "W" "")))))))))))))
 
-(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "9" (seq.++ "9" ""))) ((_ re.loop 10 10) (re.range "0" "9")))) (re.++ (str.to_re "")(re.++ (re.range "5" "5") ((_ re.loop 10 10) (re.range "0" "9")))))))
+(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "9" (str.++ "9" ""))) ((_ re.loop 10 10) (re.range "0" "9")))) (re.++ (str.to_re "")(re.++ (re.range "5" "5") ((_ re.loop 10 10) (re.range "0" "9")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

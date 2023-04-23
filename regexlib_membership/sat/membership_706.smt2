@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (\d+)?-?(\d+)-(\d+)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "46-2jo \u00E8\u0089"
-(define-fun Witness1 () String (seq.++ "4" (seq.++ "6" (seq.++ "-" (seq.++ "2" (seq.++ "j" (seq.++ "o" (seq.++ " " (seq.++ "\xe8" (seq.++ "\x89" ""))))))))))
+(define-fun Witness1 () String (str.++ "4" (str.++ "6" (str.++ "-" (str.++ "2" (str.++ "j" (str.++ "o" (str.++ " " (str.++ "\u{e8}" (str.++ "\u{89}" ""))))))))))
 ;witness2: "-349-2\xCd"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "3" (seq.++ "4" (seq.++ "9" (seq.++ "-" (seq.++ "2" (seq.++ "\x0c" (seq.++ "d" "")))))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "3" (str.++ "4" (str.++ "9" (str.++ "-" (str.++ "2" (str.++ "\u{0c}" (str.++ "d" "")))))))))
 
 (assert (= regexA (re.++ (re.opt (re.+ (re.range "0" "9")))(re.++ (re.opt (re.range "-" "-"))(re.++ (re.+ (re.range "0" "9"))(re.++ (re.range "-" "-") (re.+ (re.range "0" "9"))))))))
 

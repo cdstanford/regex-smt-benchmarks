@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^[^\x00-\x1f\x21-\x26\x28-\x2d\x2f-\x40\x5b-\x60\x7b-\xff]+$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "L"
-(define-fun Witness1 () String (seq.++ "L" ""))
+(define-fun Witness1 () String (str.++ "L" ""))
 ;witness2: "M.j ."
-(define-fun Witness2 () String (seq.++ "M" (seq.++ "." (seq.++ "j" (seq.++ " " (seq.++ "." ""))))))
+(define-fun Witness2 () String (str.++ "M" (str.++ "." (str.++ "j" (str.++ " " (str.++ "." ""))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range " " " ")(re.union (re.range "'" "'")(re.union (re.range "." ".")(re.union (re.range "A" "Z") (re.range "a" "z")))))) (str.to_re "")))))
 

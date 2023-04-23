@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = Password=(?<Password>.*);.*=(?<Info>.*);.*=(?<User>.*);.*=(?<Catalog>.*);.*=(?<Data>.*)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "D\u00CFPassword=~t;=6;\u00F3=;=;=}"
-(define-fun Witness1 () String (seq.++ "D" (seq.++ "\xcf" (seq.++ "P" (seq.++ "a" (seq.++ "s" (seq.++ "s" (seq.++ "w" (seq.++ "o" (seq.++ "r" (seq.++ "d" (seq.++ "=" (seq.++ "~" (seq.++ "t" (seq.++ ";" (seq.++ "=" (seq.++ "6" (seq.++ ";" (seq.++ "\xf3" (seq.++ "=" (seq.++ ";" (seq.++ "=" (seq.++ ";" (seq.++ "=" (seq.++ "}" "")))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "D" (str.++ "\u{cf}" (str.++ "P" (str.++ "a" (str.++ "s" (str.++ "s" (str.++ "w" (str.++ "o" (str.++ "r" (str.++ "d" (str.++ "=" (str.++ "~" (str.++ "t" (str.++ ";" (str.++ "=" (str.++ "6" (str.++ ";" (str.++ "\u{f3}" (str.++ "=" (str.++ ";" (str.++ "=" (str.++ ";" (str.++ "=" (str.++ "}" "")))))))))))))))))))))))))
 ;witness2: "\x10Password=;=;=;52=;=D-"
-(define-fun Witness2 () String (seq.++ "\x10" (seq.++ "P" (seq.++ "a" (seq.++ "s" (seq.++ "s" (seq.++ "w" (seq.++ "o" (seq.++ "r" (seq.++ "d" (seq.++ "=" (seq.++ ";" (seq.++ "=" (seq.++ ";" (seq.++ "=" (seq.++ ";" (seq.++ "5" (seq.++ "2" (seq.++ "=" (seq.++ ";" (seq.++ "=" (seq.++ "D" (seq.++ "-" "")))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{10}" (str.++ "P" (str.++ "a" (str.++ "s" (str.++ "s" (str.++ "w" (str.++ "o" (str.++ "r" (str.++ "d" (str.++ "=" (str.++ ";" (str.++ "=" (str.++ ";" (str.++ "=" (str.++ ";" (str.++ "5" (str.++ "2" (str.++ "=" (str.++ ";" (str.++ "=" (str.++ "D" (str.++ "-" "")))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "P" (seq.++ "a" (seq.++ "s" (seq.++ "s" (seq.++ "w" (seq.++ "o" (seq.++ "r" (seq.++ "d" (seq.++ "=" ""))))))))))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "=" "=") (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))))))))))))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "P" (str.++ "a" (str.++ "s" (str.++ "s" (str.++ "w" (str.++ "o" (str.++ "r" (str.++ "d" (str.++ "=" ""))))))))))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "=" "=")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range ";" ";")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "=" "=") (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

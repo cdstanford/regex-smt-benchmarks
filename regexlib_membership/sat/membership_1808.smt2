@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "-.zz.99@z-.-.9"
-(define-fun Witness1 () String (seq.++ "-" (seq.++ "." (seq.++ "z" (seq.++ "z" (seq.++ "." (seq.++ "9" (seq.++ "9" (seq.++ "@" (seq.++ "z" (seq.++ "-" (seq.++ "." (seq.++ "-" (seq.++ "." (seq.++ "9" "")))))))))))))))
+(define-fun Witness1 () String (str.++ "-" (str.++ "." (str.++ "z" (str.++ "z" (str.++ "." (str.++ "9" (str.++ "9" (str.++ "@" (str.++ "z" (str.++ "-" (str.++ "." (str.++ "-" (str.++ "." (str.++ "9" "")))))))))))))))
 ;witness2: "b.U@Y.Vf.-.-.or-b.CRy2.9Kk.name"
-(define-fun Witness2 () String (seq.++ "b" (seq.++ "." (seq.++ "U" (seq.++ "@" (seq.++ "Y" (seq.++ "." (seq.++ "V" (seq.++ "f" (seq.++ "." (seq.++ "-" (seq.++ "." (seq.++ "-" (seq.++ "." (seq.++ "o" (seq.++ "r" (seq.++ "-" (seq.++ "b" (seq.++ "." (seq.++ "C" (seq.++ "R" (seq.++ "y" (seq.++ "2" (seq.++ "." (seq.++ "9" (seq.++ "K" (seq.++ "k" (seq.++ "." (seq.++ "n" (seq.++ "a" (seq.++ "m" (seq.++ "e" ""))))))))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "b" (str.++ "." (str.++ "U" (str.++ "@" (str.++ "Y" (str.++ "." (str.++ "V" (str.++ "f" (str.++ "." (str.++ "-" (str.++ "." (str.++ "-" (str.++ "." (str.++ "o" (str.++ "r" (str.++ "-" (str.++ "b" (str.++ "." (str.++ "C" (str.++ "R" (str.++ "y" (str.++ "2" (str.++ "." (str.++ "9" (str.++ "K" (str.++ "k" (str.++ "." (str.++ "n" (str.++ "a" (str.++ "m" (str.++ "e" ""))))))))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))))(re.++ (re.range "." ".")(re.++ (re.union ((_ re.loop 1 3) (re.range "0" "9"))(re.union ((_ re.loop 2 3) (re.union (re.range "A" "Z") (re.range "a" "z"))) (re.union (str.to_re (seq.++ "a" (seq.++ "e" (seq.++ "r" (seq.++ "o" "")))))(re.union (str.to_re (seq.++ "c" (seq.++ "o" (seq.++ "o" (seq.++ "p" "")))))(re.union (str.to_re (seq.++ "i" (seq.++ "n" (seq.++ "f" (seq.++ "o" "")))))(re.union (str.to_re (seq.++ "m" (seq.++ "u" (seq.++ "s" (seq.++ "e" (seq.++ "u" (seq.++ "m" ""))))))) (str.to_re (seq.++ "n" (seq.++ "a" (seq.++ "m" (seq.++ "e" ""))))))))))) (str.to_re "")))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z"))))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))))(re.++ (re.range "." ".")(re.++ (re.union ((_ re.loop 1 3) (re.range "0" "9"))(re.union ((_ re.loop 2 3) (re.union (re.range "A" "Z") (re.range "a" "z"))) (re.union (str.to_re (str.++ "a" (str.++ "e" (str.++ "r" (str.++ "o" "")))))(re.union (str.to_re (str.++ "c" (str.++ "o" (str.++ "o" (str.++ "p" "")))))(re.union (str.to_re (str.++ "i" (str.++ "n" (str.++ "f" (str.++ "o" "")))))(re.union (str.to_re (str.++ "m" (str.++ "u" (str.++ "s" (str.++ "e" (str.++ "u" (str.++ "m" ""))))))) (str.to_re (str.++ "n" (str.++ "a" (str.++ "m" (str.++ "e" ""))))))))))) (str.to_re "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

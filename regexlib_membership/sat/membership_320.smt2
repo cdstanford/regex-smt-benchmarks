@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[^\*]{0,}[\*]{0,1}[^\*]{0,}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "g\u00A2\u00C5\u00C6\u00EF*}0"
-(define-fun Witness1 () String (seq.++ "g" (seq.++ "\xa2" (seq.++ "\xc5" (seq.++ "\xc6" (seq.++ "\xef" (seq.++ "*" (seq.++ "}" (seq.++ "0" "")))))))))
+(define-fun Witness1 () String (str.++ "g" (str.++ "\u{a2}" (str.++ "\u{c5}" (str.++ "\u{c6}" (str.++ "\u{ef}" (str.++ "*" (str.++ "}" (str.++ "0" "")))))))))
 ;witness2: "\u00F4\u0084\u00AE\u009A\u00DF"
-(define-fun Witness2 () String (seq.++ "\xf4" (seq.++ "\x84" (seq.++ "\xae" (seq.++ "\x9a" (seq.++ "\xdf" ""))))))
+(define-fun Witness2 () String (str.++ "\u{f4}" (str.++ "\u{84}" (str.++ "\u{ae}" (str.++ "\u{9a}" (str.++ "\u{df}" ""))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\x00" ")") (re.range "+" "\xff")))(re.++ (re.opt (re.range "*" "*"))(re.++ (re.* (re.union (re.range "\x00" ")") (re.range "+" "\xff"))) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.union (re.range "\u{00}" ")") (re.range "+" "\u{ff}")))(re.++ (re.opt (re.range "*" "*"))(re.++ (re.* (re.union (re.range "\u{00}" ")") (re.range "+" "\u{ff}"))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = "(""|[^"])*"
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u009A\"\""
-(define-fun Witness1 () String (seq.++ "\x9a" (seq.++ "\x22" (seq.++ "\x22" ""))))
+(define-fun Witness1 () String (str.++ "\u{9a}" (str.++ "\u{22}" (str.++ "\u{22}" ""))))
 ;witness2: "$\"\"\"\u00FF \""
-(define-fun Witness2 () String (seq.++ "$" (seq.++ "\x22" (seq.++ "\x22" (seq.++ "\x22" (seq.++ "\xff" (seq.++ " " (seq.++ "\x22" ""))))))))
+(define-fun Witness2 () String (str.++ "$" (str.++ "\u{22}" (str.++ "\u{22}" (str.++ "\u{22}" (str.++ "\u{ff}" (str.++ " " (str.++ "\u{22}" ""))))))))
 
-(assert (= regexA (re.++ (re.range "\x22" "\x22")(re.++ (re.* (re.union (str.to_re (seq.++ "\x22" (seq.++ "\x22" ""))) (re.union (re.range "\x00" "!") (re.range "#" "\xff")))) (re.range "\x22" "\x22")))))
+(assert (= regexA (re.++ (re.range "\u{22}" "\u{22}")(re.++ (re.* (re.union (str.to_re (str.++ "\u{22}" (str.++ "\u{22}" ""))) (re.union (re.range "\u{00}" "!") (re.range "#" "\u{ff}")))) (re.range "\u{22}" "\u{22}")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = '&quot;
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00AB\'&quot;"
-(define-fun Witness1 () String (seq.++ "\xab" (seq.++ "'" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{ab}" (str.++ "'" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" "")))))))))
 ;witness2: "b\'&quot;"
-(define-fun Witness2 () String (seq.++ "b" (seq.++ "'" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" "")))))))))
+(define-fun Witness2 () String (str.++ "b" (str.++ "'" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" "")))))))))
 
-(assert (= regexA (str.to_re (seq.++ "'" (seq.++ "&" (seq.++ "q" (seq.++ "u" (seq.++ "o" (seq.++ "t" (seq.++ ";" ""))))))))))
+(assert (= regexA (str.to_re (str.++ "'" (str.++ "&" (str.++ "q" (str.++ "u" (str.++ "o" (str.++ "t" (str.++ ";" ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

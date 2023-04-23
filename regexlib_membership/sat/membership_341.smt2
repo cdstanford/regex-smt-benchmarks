@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+(\.[a-z0-9,!#\$%&'\*\+/=\?\^_`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "}@8.spr"
-(define-fun Witness1 () String (seq.++ "}" (seq.++ "@" (seq.++ "8" (seq.++ "." (seq.++ "s" (seq.++ "p" (seq.++ "r" ""))))))))
+(define-fun Witness1 () String (str.++ "}" (str.++ "@" (str.++ "8" (str.++ "." (str.++ "s" (str.++ "p" (str.++ "r" ""))))))))
 ;witness2: "&@8o.ct"
-(define-fun Witness2 () String (seq.++ "&" (seq.++ "@" (seq.++ "8" (seq.++ "o" (seq.++ "." (seq.++ "c" (seq.++ "t" ""))))))))
+(define-fun Witness2 () String (str.++ "&" (str.++ "@" (str.++ "8" (str.++ "o" (str.++ "." (str.++ "c" (str.++ "t" ""))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "!" "!")(re.union (re.range "#" "'")(re.union (re.range "*" "-")(re.union (re.range "/" "9")(re.union (re.range "=" "=")(re.union (re.range "?" "?") (re.range "^" "~"))))))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "!" "!")(re.union (re.range "#" "'")(re.union (re.range "*" "-")(re.union (re.range "/" "9")(re.union (re.range "=" "=")(re.union (re.range "?" "?") (re.range "^" "~"))))))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9") (re.range "a" "z"))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9") (re.range "a" "z"))))))(re.++ (re.range "." ".")(re.++ (re.++ ((_ re.loop 2 2) (re.range "a" "z")) (re.* (re.range "a" "z"))) (str.to_re "")))))))))))
 

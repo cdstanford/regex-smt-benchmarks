@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[A-Z][a-z]+((e(m|ng)|str)a)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Ktema"
-(define-fun Witness1 () String (seq.++ "K" (seq.++ "t" (seq.++ "e" (seq.++ "m" (seq.++ "a" ""))))))
+(define-fun Witness1 () String (str.++ "K" (str.++ "t" (str.++ "e" (str.++ "m" (str.++ "a" ""))))))
 ;witness2: "Mqenga"
-(define-fun Witness2 () String (seq.++ "M" (seq.++ "q" (seq.++ "e" (seq.++ "n" (seq.++ "g" (seq.++ "a" "")))))))
+(define-fun Witness2 () String (str.++ "M" (str.++ "q" (str.++ "e" (str.++ "n" (str.++ "g" (str.++ "a" "")))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.++ (re.union (re.++ (re.range "e" "e") (re.union (re.range "m" "m") (str.to_re (seq.++ "n" (seq.++ "g" ""))))) (str.to_re (seq.++ "s" (seq.++ "t" (seq.++ "r" ""))))) (re.range "a" "a")) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "Z")(re.++ (re.+ (re.range "a" "z"))(re.++ (re.++ (re.union (re.++ (re.range "e" "e") (re.union (re.range "m" "m") (str.to_re (str.++ "n" (str.++ "g" ""))))) (str.to_re (str.++ "s" (str.++ "t" (str.++ "r" ""))))) (re.range "a" "a")) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

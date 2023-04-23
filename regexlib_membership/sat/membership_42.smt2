@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = sdgsdf
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00EA\u00B1tfsdgsdf\u00FA"
-(define-fun Witness1 () String (seq.++ "\xea" (seq.++ "\xb1" (seq.++ "t" (seq.++ "f" (seq.++ "s" (seq.++ "d" (seq.++ "g" (seq.++ "s" (seq.++ "d" (seq.++ "f" (seq.++ "\xfa" ""))))))))))))
+(define-fun Witness1 () String (str.++ "\u{ea}" (str.++ "\u{b1}" (str.++ "t" (str.++ "f" (str.++ "s" (str.++ "d" (str.++ "g" (str.++ "s" (str.++ "d" (str.++ "f" (str.++ "\u{fa}" ""))))))))))))
 ;witness2: "sdgsdf"
-(define-fun Witness2 () String (seq.++ "s" (seq.++ "d" (seq.++ "g" (seq.++ "s" (seq.++ "d" (seq.++ "f" "")))))))
+(define-fun Witness2 () String (str.++ "s" (str.++ "d" (str.++ "g" (str.++ "s" (str.++ "d" (str.++ "f" "")))))))
 
-(assert (= regexA (str.to_re (seq.++ "s" (seq.++ "d" (seq.++ "g" (seq.++ "s" (seq.++ "d" (seq.++ "f" "")))))))))
+(assert (= regexA (str.to_re (str.++ "s" (str.++ "d" (str.++ "g" (str.++ "s" (str.++ "d" (str.++ "f" "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

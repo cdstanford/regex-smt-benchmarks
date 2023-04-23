@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = style="[^"]*"|'[^']*'
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "style=\"\x12\u00E3\u00F18\u0082\"D"
-(define-fun Witness1 () String (seq.++ "s" (seq.++ "t" (seq.++ "y" (seq.++ "l" (seq.++ "e" (seq.++ "=" (seq.++ "\x22" (seq.++ "\x12" (seq.++ "\xe3" (seq.++ "\xf1" (seq.++ "8" (seq.++ "\x82" (seq.++ "\x22" (seq.++ "D" "")))))))))))))))
+(define-fun Witness1 () String (str.++ "s" (str.++ "t" (str.++ "y" (str.++ "l" (str.++ "e" (str.++ "=" (str.++ "\u{22}" (str.++ "\u{12}" (str.++ "\u{e3}" (str.++ "\u{f1}" (str.++ "8" (str.++ "\u{82}" (str.++ "\u{22}" (str.++ "D" "")))))))))))))))
 ;witness2: "\'\'"
-(define-fun Witness2 () String (seq.++ "'" (seq.++ "'" "")))
+(define-fun Witness2 () String (str.++ "'" (str.++ "'" "")))
 
-(assert (= regexA (re.union (re.++ (str.to_re (seq.++ "s" (seq.++ "t" (seq.++ "y" (seq.++ "l" (seq.++ "e" (seq.++ "=" (seq.++ "\x22" ""))))))))(re.++ (re.* (re.union (re.range "\x00" "!") (re.range "#" "\xff"))) (re.range "\x22" "\x22"))) (re.++ (re.range "'" "'")(re.++ (re.* (re.union (re.range "\x00" "&") (re.range "(" "\xff"))) (re.range "'" "'"))))))
+(assert (= regexA (re.union (re.++ (str.to_re (str.++ "s" (str.++ "t" (str.++ "y" (str.++ "l" (str.++ "e" (str.++ "=" (str.++ "\u{22}" ""))))))))(re.++ (re.* (re.union (re.range "\u{00}" "!") (re.range "#" "\u{ff}"))) (re.range "\u{22}" "\u{22}"))) (re.++ (re.range "'" "'")(re.++ (re.* (re.union (re.range "\u{00}" "&") (re.range "(" "\u{ff}"))) (re.range "'" "'"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

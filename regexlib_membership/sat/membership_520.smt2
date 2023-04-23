@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^[a-zA-Z_:]+[a-zA-Z_:\-\.\d]*$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "::_-"
-(define-fun Witness1 () String (seq.++ ":" (seq.++ ":" (seq.++ "_" (seq.++ "-" "")))))
+(define-fun Witness1 () String (str.++ ":" (str.++ ":" (str.++ "_" (str.++ "-" "")))))
 ;witness2: "gz4"
-(define-fun Witness2 () String (seq.++ "g" (seq.++ "z" (seq.++ "4" ""))))
+(define-fun Witness2 () String (str.++ "g" (str.++ "z" (str.++ "4" ""))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range ":" ":")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))(re.++ (re.* (re.union (re.range "-" ".")(re.union (re.range "0" ":")(re.union (re.range "A" "Z")(re.union (re.range "_" "_") (re.range "a" "z")))))) (str.to_re ""))))))
 

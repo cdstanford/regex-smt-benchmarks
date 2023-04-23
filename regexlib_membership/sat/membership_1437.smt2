@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^\d+$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "6"
-(define-fun Witness1 () String (seq.++ "6" ""))
+(define-fun Witness1 () String (str.++ "6" ""))
 ;witness2: "5"
-(define-fun Witness2 () String (seq.++ "5" ""))
+(define-fun Witness2 () String (str.++ "5" ""))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.range "0" "9")) (str.to_re "")))))
 

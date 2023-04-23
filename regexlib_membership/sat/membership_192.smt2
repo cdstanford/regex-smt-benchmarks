@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(?<hours>\d{2}):(?<minutes>\d{2}):(?<seconds>\d{2}) (?<month>[a-zA-Z]{3}) (?<day>\d{1,}), (?<year>\d{4}) (?<timezone>[a-zA-Z]{3})$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "88:59:88 lKr 899, 9697 amH"
-(define-fun Witness1 () String (seq.++ "8" (seq.++ "8" (seq.++ ":" (seq.++ "5" (seq.++ "9" (seq.++ ":" (seq.++ "8" (seq.++ "8" (seq.++ " " (seq.++ "l" (seq.++ "K" (seq.++ "r" (seq.++ " " (seq.++ "8" (seq.++ "9" (seq.++ "9" (seq.++ "," (seq.++ " " (seq.++ "9" (seq.++ "6" (seq.++ "9" (seq.++ "7" (seq.++ " " (seq.++ "a" (seq.++ "m" (seq.++ "H" "")))))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "8" (str.++ "8" (str.++ ":" (str.++ "5" (str.++ "9" (str.++ ":" (str.++ "8" (str.++ "8" (str.++ " " (str.++ "l" (str.++ "K" (str.++ "r" (str.++ " " (str.++ "8" (str.++ "9" (str.++ "9" (str.++ "," (str.++ " " (str.++ "9" (str.++ "6" (str.++ "9" (str.++ "7" (str.++ " " (str.++ "a" (str.++ "m" (str.++ "H" "")))))))))))))))))))))))))))
 ;witness2: "88:72:48 keJ 98, 7449 xmR"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "8" (seq.++ ":" (seq.++ "7" (seq.++ "2" (seq.++ ":" (seq.++ "4" (seq.++ "8" (seq.++ " " (seq.++ "k" (seq.++ "e" (seq.++ "J" (seq.++ " " (seq.++ "9" (seq.++ "8" (seq.++ "," (seq.++ " " (seq.++ "7" (seq.++ "4" (seq.++ "4" (seq.++ "9" (seq.++ " " (seq.++ "x" (seq.++ "m" (seq.++ "R" ""))))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "8" (str.++ "8" (str.++ ":" (str.++ "7" (str.++ "2" (str.++ ":" (str.++ "4" (str.++ "8" (str.++ " " (str.++ "k" (str.++ "e" (str.++ "J" (str.++ " " (str.++ "9" (str.++ "8" (str.++ "," (str.++ " " (str.++ "7" (str.++ "4" (str.++ "4" (str.++ "9" (str.++ " " (str.++ "x" (str.++ "m" (str.++ "R" ""))))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range ":" ":")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range ":" ":")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.range " " " ")(re.++ (re.+ (re.range "0" "9"))(re.++ (str.to_re (seq.++ "," (seq.++ " " "")))(re.++ ((_ re.loop 4 4) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re "")))))))))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range ":" ":")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range ":" ":")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.range " " " ")(re.++ (re.+ (re.range "0" "9"))(re.++ (str.to_re (str.++ "," (str.++ " " "")))(re.++ ((_ re.loop 4 4) (re.range "0" "9"))(re.++ (re.range " " " ")(re.++ ((_ re.loop 3 3) (re.union (re.range "A" "Z") (re.range "a" "z"))) (str.to_re "")))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

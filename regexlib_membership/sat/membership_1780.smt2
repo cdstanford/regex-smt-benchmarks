@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [A-Z][a-z]+
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00D0Aeh"
-(define-fun Witness1 () String (seq.++ "\xd0" (seq.++ "A" (seq.++ "e" (seq.++ "h" "")))))
+(define-fun Witness1 () String (str.++ "\u{d0}" (str.++ "A" (str.++ "e" (str.++ "h" "")))))
 ;witness2: "\u00C8V\u00E3Jja="
-(define-fun Witness2 () String (seq.++ "\xc8" (seq.++ "V" (seq.++ "\xe3" (seq.++ "J" (seq.++ "j" (seq.++ "a" (seq.++ "=" ""))))))))
+(define-fun Witness2 () String (str.++ "\u{c8}" (str.++ "V" (str.++ "\u{e3}" (str.++ "J" (str.++ "j" (str.++ "a" (str.++ "=" ""))))))))
 
 (assert (= regexA (re.++ (re.range "A" "Z") (re.+ (re.range "a" "z")))))
 

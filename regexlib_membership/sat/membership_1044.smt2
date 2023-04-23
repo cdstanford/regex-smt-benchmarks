@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = e(vi?)?
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "e"
-(define-fun Witness1 () String (seq.++ "e" ""))
+(define-fun Witness1 () String (str.++ "e" ""))
 ;witness2: "eviO^}c?"
-(define-fun Witness2 () String (seq.++ "e" (seq.++ "v" (seq.++ "i" (seq.++ "O" (seq.++ "^" (seq.++ "}" (seq.++ "c" (seq.++ "?" "")))))))))
+(define-fun Witness2 () String (str.++ "e" (str.++ "v" (str.++ "i" (str.++ "O" (str.++ "^" (str.++ "}" (str.++ "c" (str.++ "?" "")))))))))
 
 (assert (= regexA (re.++ (re.range "e" "e") (re.opt (re.++ (re.range "v" "v") (re.opt (re.range "i" "i")))))))
 

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^.+@[^\.].*\.[a-z]{2,}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "C\u00D1\u00D1@<\u00AE.vu"
-(define-fun Witness1 () String (seq.++ "C" (seq.++ "\xd1" (seq.++ "\xd1" (seq.++ "@" (seq.++ "<" (seq.++ "\xae" (seq.++ "." (seq.++ "v" (seq.++ "u" ""))))))))))
+(define-fun Witness1 () String (str.++ "C" (str.++ "\u{d1}" (str.++ "\u{d1}" (str.++ "@" (str.++ "<" (str.++ "\u{ae}" (str.++ "." (str.++ "v" (str.++ "u" ""))))))))))
 ;witness2: "a/\u00D4\xD@\u00BC\u00E6.szu"
-(define-fun Witness2 () String (seq.++ "a" (seq.++ "/" (seq.++ "\xd4" (seq.++ "\x0d" (seq.++ "@" (seq.++ "\xbc" (seq.++ "\xe6" (seq.++ "." (seq.++ "s" (seq.++ "z" (seq.++ "u" ""))))))))))))
+(define-fun Witness2 () String (str.++ "a" (str.++ "/" (str.++ "\u{d4}" (str.++ "\u{0d}" (str.++ "@" (str.++ "\u{bc}" (str.++ "\u{e6}" (str.++ "." (str.++ "s" (str.++ "z" (str.++ "u" ""))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "@" "@")(re.++ (re.union (re.range "\x00" "-") (re.range "/" "\xff"))(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))(re.++ (re.range "." ".")(re.++ (re.++ ((_ re.loop 2 2) (re.range "a" "z")) (re.* (re.range "a" "z"))) (str.to_re ""))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "@" "@")(re.++ (re.union (re.range "\u{00}" "-") (re.range "/" "\u{ff}"))(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))(re.++ (re.range "." ".")(re.++ (re.++ ((_ re.loop 2 2) (re.range "a" "z")) (re.* (re.range "a" "z"))) (str.to_re ""))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

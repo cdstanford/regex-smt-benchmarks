@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(CY){0,1}[0-9]{8}[A-Z]$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "CY81367419N"
-(define-fun Witness1 () String (seq.++ "C" (seq.++ "Y" (seq.++ "8" (seq.++ "1" (seq.++ "3" (seq.++ "6" (seq.++ "7" (seq.++ "4" (seq.++ "1" (seq.++ "9" (seq.++ "N" ""))))))))))))
+(define-fun Witness1 () String (str.++ "C" (str.++ "Y" (str.++ "8" (str.++ "1" (str.++ "3" (str.++ "6" (str.++ "7" (str.++ "4" (str.++ "1" (str.++ "9" (str.++ "N" ""))))))))))))
 ;witness2: "19485996Z"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "9" (seq.++ "4" (seq.++ "8" (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "6" (seq.++ "Z" ""))))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "9" (str.++ "4" (str.++ "8" (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "6" (str.++ "Z" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (seq.++ "C" (seq.++ "Y" ""))))(re.++ ((_ re.loop 8 8) (re.range "0" "9"))(re.++ (re.range "A" "Z") (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (str.++ "C" (str.++ "Y" ""))))(re.++ ((_ re.loop 8 8) (re.range "0" "9"))(re.++ (re.range "A" "Z") (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

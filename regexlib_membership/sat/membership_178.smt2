@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^([a-z]{1}[a-z0-9\-_\.]{2,24})@tlen\.pl$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "z1pa_@tlen.pl"
-(define-fun Witness1 () String (seq.++ "z" (seq.++ "1" (seq.++ "p" (seq.++ "a" (seq.++ "_" (seq.++ "@" (seq.++ "t" (seq.++ "l" (seq.++ "e" (seq.++ "n" (seq.++ "." (seq.++ "p" (seq.++ "l" ""))))))))))))))
+(define-fun Witness1 () String (str.++ "z" (str.++ "1" (str.++ "p" (str.++ "a" (str.++ "_" (str.++ "@" (str.++ "t" (str.++ "l" (str.++ "e" (str.++ "n" (str.++ "." (str.++ "p" (str.++ "l" ""))))))))))))))
 ;witness2: "s____yz@tlen.pl"
-(define-fun Witness2 () String (seq.++ "s" (seq.++ "_" (seq.++ "_" (seq.++ "_" (seq.++ "_" (seq.++ "y" (seq.++ "z" (seq.++ "@" (seq.++ "t" (seq.++ "l" (seq.++ "e" (seq.++ "n" (seq.++ "." (seq.++ "p" (seq.++ "l" ""))))))))))))))))
+(define-fun Witness2 () String (str.++ "s" (str.++ "_" (str.++ "_" (str.++ "_" (str.++ "_" (str.++ "y" (str.++ "z" (str.++ "@" (str.++ "t" (str.++ "l" (str.++ "e" (str.++ "n" (str.++ "." (str.++ "p" (str.++ "l" ""))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.range "a" "z") ((_ re.loop 2 24) (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (str.to_re (seq.++ "@" (seq.++ "t" (seq.++ "l" (seq.++ "e" (seq.++ "n" (seq.++ "." (seq.++ "p" (seq.++ "l" ""))))))))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.range "a" "z") ((_ re.loop 2 24) (re.union (re.range "-" ".")(re.union (re.range "0" "9")(re.union (re.range "_" "_") (re.range "a" "z"))))))(re.++ (str.to_re (str.++ "@" (str.++ "t" (str.++ "l" (str.++ "e" (str.++ "n" (str.++ "." (str.++ "p" (str.++ "l" ""))))))))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

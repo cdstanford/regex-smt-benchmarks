@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "94f"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "4" (seq.++ "f" ""))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "4" (str.++ "f" ""))))
 ;witness2: "#9F69d9"
-(define-fun Witness2 () String (seq.++ "#" (seq.++ "9" (seq.++ "F" (seq.++ "6" (seq.++ "9" (seq.++ "d" (seq.++ "9" ""))))))))
+(define-fun Witness2 () String (str.++ "#" (str.++ "9" (str.++ "F" (str.++ "6" (str.++ "9" (str.++ "d" (str.++ "9" ""))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "#" "#"))(re.++ ((_ re.loop 3 3) (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f"))))(re.++ (re.opt ((_ re.loop 3 3) (re.union (re.range "0" "9")(re.union (re.range "A" "F") (re.range "a" "f"))))) (str.to_re "")))))))
 

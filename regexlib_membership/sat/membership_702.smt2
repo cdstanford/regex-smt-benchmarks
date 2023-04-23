@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = how to block pdf spam
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "how to block pdf spam\u00C2."
-(define-fun Witness1 () String (seq.++ "h" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "t" (seq.++ "o" (seq.++ " " (seq.++ "b" (seq.++ "l" (seq.++ "o" (seq.++ "c" (seq.++ "k" (seq.++ " " (seq.++ "p" (seq.++ "d" (seq.++ "f" (seq.++ " " (seq.++ "s" (seq.++ "p" (seq.++ "a" (seq.++ "m" (seq.++ "\xc2" (seq.++ "." ""))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "h" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "t" (str.++ "o" (str.++ " " (str.++ "b" (str.++ "l" (str.++ "o" (str.++ "c" (str.++ "k" (str.++ " " (str.++ "p" (str.++ "d" (str.++ "f" (str.++ " " (str.++ "s" (str.++ "p" (str.++ "a" (str.++ "m" (str.++ "\u{c2}" (str.++ "." ""))))))))))))))))))))))))
 ;witness2: "\u00DBhow to block pdf spam\u00CC\xB"
-(define-fun Witness2 () String (seq.++ "\xdb" (seq.++ "h" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "t" (seq.++ "o" (seq.++ " " (seq.++ "b" (seq.++ "l" (seq.++ "o" (seq.++ "c" (seq.++ "k" (seq.++ " " (seq.++ "p" (seq.++ "d" (seq.++ "f" (seq.++ " " (seq.++ "s" (seq.++ "p" (seq.++ "a" (seq.++ "m" (seq.++ "\xcc" (seq.++ "\x0b" "")))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{db}" (str.++ "h" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "t" (str.++ "o" (str.++ " " (str.++ "b" (str.++ "l" (str.++ "o" (str.++ "c" (str.++ "k" (str.++ " " (str.++ "p" (str.++ "d" (str.++ "f" (str.++ " " (str.++ "s" (str.++ "p" (str.++ "a" (str.++ "m" (str.++ "\u{cc}" (str.++ "\u{0b}" "")))))))))))))))))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "h" (seq.++ "o" (seq.++ "w" (seq.++ " " (seq.++ "t" (seq.++ "o" (seq.++ " " (seq.++ "b" (seq.++ "l" (seq.++ "o" (seq.++ "c" (seq.++ "k" (seq.++ " " (seq.++ "p" (seq.++ "d" (seq.++ "f" (seq.++ " " (seq.++ "s" (seq.++ "p" (seq.++ "a" (seq.++ "m" ""))))))))))))))))))))))))
+(assert (= regexA (str.to_re (str.++ "h" (str.++ "o" (str.++ "w" (str.++ " " (str.++ "t" (str.++ "o" (str.++ " " (str.++ "b" (str.++ "l" (str.++ "o" (str.++ "c" (str.++ "k" (str.++ " " (str.++ "p" (str.++ "d" (str.++ "f" (str.++ " " (str.++ "s" (str.++ "p" (str.++ "a" (str.++ "m" ""))))))))))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

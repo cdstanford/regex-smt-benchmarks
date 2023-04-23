@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^([0-9A-Za-z@.]{1,255})$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "2"
-(define-fun Witness1 () String (seq.++ "2" ""))
+(define-fun Witness1 () String (str.++ "2" ""))
 ;witness2: "P"
-(define-fun Witness2 () String (seq.++ "P" ""))
+(define-fun Witness2 () String (str.++ "P" ""))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 1 255) (re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "@" "Z") (re.range "a" "z"))))) (str.to_re "")))))
 

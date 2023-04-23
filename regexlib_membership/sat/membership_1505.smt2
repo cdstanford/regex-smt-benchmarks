@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = (^\$(\d{1,3},?(\d{3},?)*\d{3}(\.\d{1,3})?|\d{1,3}(\.\d{2})?)$|^\d{1,2}(\.\d{1,2})? *%$|^100%$)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "$4"
-(define-fun Witness1 () String (seq.++ "$" (seq.++ "4" "")))
+(define-fun Witness1 () String (str.++ "$" (str.++ "4" "")))
 ;witness2: "8 %"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ " " (seq.++ "%" ""))))
+(define-fun Witness2 () String (str.++ "8" (str.++ " " (str.++ "%" ""))))
 
-(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.range "$" "$")(re.++ (re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.opt (re.range "," ","))(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.range "," ","))))(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 1 3) (re.range "0" "9")))))))) (re.++ ((_ re.loop 1 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 2 2) (re.range "0" "9")))))) (str.to_re ""))))(re.union (re.++ (str.to_re "")(re.++ ((_ re.loop 1 2) (re.range "0" "9"))(re.++ (re.opt (re.++ (re.range "." ".") ((_ re.loop 1 2) (re.range "0" "9"))))(re.++ (re.* (re.range " " " "))(re.++ (re.range "%" "%") (str.to_re "")))))) (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "1" (seq.++ "0" (seq.++ "0" (seq.++ "%" ""))))) (str.to_re "")))))))
+(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.range "$" "$")(re.++ (re.union (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.opt (re.range "," ","))(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.range "," ","))))(re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 1 3) (re.range "0" "9")))))))) (re.++ ((_ re.loop 1 3) (re.range "0" "9")) (re.opt (re.++ (re.range "." ".") ((_ re.loop 2 2) (re.range "0" "9")))))) (str.to_re ""))))(re.union (re.++ (str.to_re "")(re.++ ((_ re.loop 1 2) (re.range "0" "9"))(re.++ (re.opt (re.++ (re.range "." ".") ((_ re.loop 1 2) (re.range "0" "9"))))(re.++ (re.* (re.range " " " "))(re.++ (re.range "%" "%") (str.to_re "")))))) (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "1" (str.++ "0" (str.++ "0" (str.++ "%" ""))))) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

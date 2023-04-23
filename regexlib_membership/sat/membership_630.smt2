@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^\$YYYY\$\$MM\$\$DD\$$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "$YYYY$$MM$$DD$"
-(define-fun Witness1 () String (seq.++ "$" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "$" (seq.++ "$" (seq.++ "M" (seq.++ "M" (seq.++ "$" (seq.++ "$" (seq.++ "D" (seq.++ "D" (seq.++ "$" "")))))))))))))))
+(define-fun Witness1 () String (str.++ "$" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "$" (str.++ "$" (str.++ "M" (str.++ "M" (str.++ "$" (str.++ "$" (str.++ "D" (str.++ "D" (str.++ "$" "")))))))))))))))
 ;witness2: "$YYYY$$MM$$DD$"
-(define-fun Witness2 () String (seq.++ "$" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "$" (seq.++ "$" (seq.++ "M" (seq.++ "M" (seq.++ "$" (seq.++ "$" (seq.++ "D" (seq.++ "D" (seq.++ "$" "")))))))))))))))
+(define-fun Witness2 () String (str.++ "$" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "$" (str.++ "$" (str.++ "M" (str.++ "M" (str.++ "$" (str.++ "$" (str.++ "D" (str.++ "D" (str.++ "$" "")))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "$" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "Y" (seq.++ "$" (seq.++ "$" (seq.++ "M" (seq.++ "M" (seq.++ "$" (seq.++ "$" (seq.++ "D" (seq.++ "D" (seq.++ "$" ""))))))))))))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "$" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "Y" (str.++ "$" (str.++ "$" (str.++ "M" (str.++ "M" (str.++ "$" (str.++ "$" (str.++ "D" (str.++ "D" (str.++ "$" ""))))))))))))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

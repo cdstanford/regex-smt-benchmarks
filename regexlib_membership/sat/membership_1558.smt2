@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = .*\$AVE|\$ave.*
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "$aveQ#S\u00E9+"
-(define-fun Witness1 () String (seq.++ "$" (seq.++ "a" (seq.++ "v" (seq.++ "e" (seq.++ "Q" (seq.++ "#" (seq.++ "S" (seq.++ "\xe9" (seq.++ "+" ""))))))))))
+(define-fun Witness1 () String (str.++ "$" (str.++ "a" (str.++ "v" (str.++ "e" (str.++ "Q" (str.++ "#" (str.++ "S" (str.++ "\u{e9}" (str.++ "+" ""))))))))))
 ;witness2: "$ave"
-(define-fun Witness2 () String (seq.++ "$" (seq.++ "a" (seq.++ "v" (seq.++ "e" "")))))
+(define-fun Witness2 () String (str.++ "$" (str.++ "a" (str.++ "v" (str.++ "e" "")))))
 
-(assert (= regexA (re.union (re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (str.to_re (seq.++ "$" (seq.++ "A" (seq.++ "V" (seq.++ "E" "")))))) (re.++ (str.to_re (seq.++ "$" (seq.++ "a" (seq.++ "v" (seq.++ "e" ""))))) (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff")))))))
+(assert (= regexA (re.union (re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (str.to_re (str.++ "$" (str.++ "A" (str.++ "V" (str.++ "E" "")))))) (re.++ (str.to_re (str.++ "$" (str.++ "a" (str.++ "v" (str.++ "e" ""))))) (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

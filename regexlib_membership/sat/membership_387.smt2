@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = Buy WoW Gold
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Buy WoW Gold"
-(define-fun Witness1 () String (seq.++ "B" (seq.++ "u" (seq.++ "y" (seq.++ " " (seq.++ "W" (seq.++ "o" (seq.++ "W" (seq.++ " " (seq.++ "G" (seq.++ "o" (seq.++ "l" (seq.++ "d" "")))))))))))))
+(define-fun Witness1 () String (str.++ "B" (str.++ "u" (str.++ "y" (str.++ " " (str.++ "W" (str.++ "o" (str.++ "W" (str.++ " " (str.++ "G" (str.++ "o" (str.++ "l" (str.++ "d" "")))))))))))))
 ;witness2: "Buy WoW Gold:"
-(define-fun Witness2 () String (seq.++ "B" (seq.++ "u" (seq.++ "y" (seq.++ " " (seq.++ "W" (seq.++ "o" (seq.++ "W" (seq.++ " " (seq.++ "G" (seq.++ "o" (seq.++ "l" (seq.++ "d" (seq.++ ":" ""))))))))))))))
+(define-fun Witness2 () String (str.++ "B" (str.++ "u" (str.++ "y" (str.++ " " (str.++ "W" (str.++ "o" (str.++ "W" (str.++ " " (str.++ "G" (str.++ "o" (str.++ "l" (str.++ "d" (str.++ ":" ""))))))))))))))
 
-(assert (= regexA (str.to_re (seq.++ "B" (seq.++ "u" (seq.++ "y" (seq.++ " " (seq.++ "W" (seq.++ "o" (seq.++ "W" (seq.++ " " (seq.++ "G" (seq.++ "o" (seq.++ "l" (seq.++ "d" "")))))))))))))))
+(assert (= regexA (str.to_re (str.++ "B" (str.++ "u" (str.++ "y" (str.++ " " (str.++ "W" (str.++ "o" (str.++ "W" (str.++ " " (str.++ "G" (str.++ "o" (str.++ "l" (str.++ "d" "")))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

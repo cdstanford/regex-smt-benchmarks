@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^(([A-Z])([a-zA-Z0-9]+)?)(\:)(\d+)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Zr:6"
-(define-fun Witness1 () String (seq.++ "Z" (seq.++ "r" (seq.++ ":" (seq.++ "6" "")))))
+(define-fun Witness1 () String (str.++ "Z" (str.++ "r" (str.++ ":" (str.++ "6" "")))))
 ;witness2: "AE:54048"
-(define-fun Witness2 () String (seq.++ "A" (seq.++ "E" (seq.++ ":" (seq.++ "5" (seq.++ "4" (seq.++ "0" (seq.++ "4" (seq.++ "8" "")))))))))
+(define-fun Witness2 () String (str.++ "A" (str.++ "E" (str.++ ":" (str.++ "5" (str.++ "4" (str.++ "0" (str.++ "4" (str.++ "8" "")))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.++ (re.range "A" "Z") (re.opt (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))))(re.++ (re.range ":" ":")(re.++ (re.+ (re.range "0" "9")) (str.to_re "")))))))
 

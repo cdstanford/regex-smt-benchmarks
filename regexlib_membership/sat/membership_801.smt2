@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^([0-9][,]?)*([0-9][0-9])$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9,82"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "," (seq.++ "8" (seq.++ "2" "")))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "," (str.++ "8" (str.++ "2" "")))))
 ;witness2: "88"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "8" "")))
+(define-fun Witness2 () String (str.++ "8" (str.++ "8" "")))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.* (re.++ (re.range "0" "9") (re.opt (re.range "," ","))))(re.++ (re.++ (re.range "0" "9") (re.range "0" "9")) (str.to_re ""))))))
 

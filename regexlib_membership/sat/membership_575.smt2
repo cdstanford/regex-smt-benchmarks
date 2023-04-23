@@ -3,11 +3,11 @@
 ; check membership of .Net regex
 ; regexA = (\"(?<word>[^\"]+|\"\")*\"|(?<word>[^,]*))
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ""
@@ -15,7 +15,7 @@
 ;witness2: ""
 (define-fun Witness2 () String "")
 
-(assert (= regexA (re.union (re.++ (re.range "\x22" "\x22")(re.++ (re.* (re.union (re.+ (re.union (re.range "\x00" "!") (re.range "#" "\xff"))) (str.to_re (seq.++ "\x22" (seq.++ "\x22" ""))))) (re.range "\x22" "\x22"))) (re.* (re.union (re.range "\x00" "+") (re.range "-" "\xff"))))))
+(assert (= regexA (re.union (re.++ (re.range "\u{22}" "\u{22}")(re.++ (re.* (re.union (re.+ (re.union (re.range "\u{00}" "!") (re.range "#" "\u{ff}"))) (str.to_re (str.++ "\u{22}" (str.++ "\u{22}" ""))))) (re.range "\u{22}" "\u{22}"))) (re.* (re.union (re.range "\u{00}" "+") (re.range "-" "\u{ff}"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

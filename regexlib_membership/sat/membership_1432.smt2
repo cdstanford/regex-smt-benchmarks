@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = \u00A3
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00CBt\u00A3\u008E\"
-(define-fun Witness1 () String (seq.++ "\xcb" (seq.++ "t" (seq.++ "\xa3" (seq.++ "\x8e" (seq.++ "\x5c" ""))))))
+(define-fun Witness1 () String (str.++ "\u{cb}" (str.++ "t" (str.++ "\u{a3}" (str.++ "\u{8e}" (str.++ "\u{5c}" ""))))))
 ;witness2: "x\u00A3\u00E5\u009D\x4"
-(define-fun Witness2 () String (seq.++ "x" (seq.++ "\xa3" (seq.++ "\xe5" (seq.++ "\x9d" (seq.++ "\x04" ""))))))
+(define-fun Witness2 () String (str.++ "x" (str.++ "\u{a3}" (str.++ "\u{e5}" (str.++ "\u{9d}" (str.++ "\u{04}" ""))))))
 
-(assert (= regexA (re.range "\xa3" "\xa3")))
+(assert (= regexA (re.range "\u{a3}" "\u{a3}")))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

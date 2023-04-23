@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "C4g 4c9"
-(define-fun Witness1 () String (seq.++ "C" (seq.++ "4" (seq.++ "g" (seq.++ " " (seq.++ "4" (seq.++ "c" (seq.++ "9" ""))))))))
+(define-fun Witness1 () String (str.++ "C" (str.++ "4" (str.++ "g" (str.++ " " (str.++ "4" (str.++ "c" (str.++ "9" ""))))))))
 ;witness2: "778869494"
-(define-fun Witness2 () String (seq.++ "7" (seq.++ "7" (seq.++ "8" (seq.++ "8" (seq.++ "6" (seq.++ "9" (seq.++ "4" (seq.++ "9" (seq.++ "4" ""))))))))))
+(define-fun Witness2 () String (str.++ "7" (str.++ "7" (str.++ "8" (str.++ "8" (str.++ "6" (str.++ "9" (str.++ "4" (str.++ "9" (str.++ "4" ""))))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.union (re.++ ((_ re.loop 5 5) (re.range "0" "9"))(re.++ (re.range "-" "-") ((_ re.loop 4 4) (re.range "0" "9"))))(re.union ((_ re.loop 5 5) (re.range "0" "9")) ((_ re.loop 9 9) (re.range "0" "9")))) (str.to_re ""))) (re.++ (str.to_re "")(re.++ (re.++ (re.union (re.range "A" "Z") (re.range "a" "z"))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "A" "Z") (re.range "a" "z"))(re.++ (re.opt (re.range " " " "))(re.++ (re.range "0" "9")(re.++ (re.union (re.range "A" "Z") (re.range "a" "z")) (re.range "0" "9"))))))) (str.to_re ""))))))
 

@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (:[a-z]{1}[a-z1-9\$#_]*){1,31}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "e:r9J"
-(define-fun Witness1 () String (seq.++ "e" (seq.++ ":" (seq.++ "r" (seq.++ "9" (seq.++ "J" ""))))))
+(define-fun Witness1 () String (str.++ "e" (str.++ ":" (str.++ "r" (str.++ "9" (str.++ "J" ""))))))
 ;witness2: ":f:x:y"
-(define-fun Witness2 () String (seq.++ ":" (seq.++ "f" (seq.++ ":" (seq.++ "x" (seq.++ ":" (seq.++ "y" "")))))))
+(define-fun Witness2 () String (str.++ ":" (str.++ "f" (str.++ ":" (str.++ "x" (str.++ ":" (str.++ "y" "")))))))
 
 (assert (= regexA ((_ re.loop 1 31) (re.++ (re.range ":" ":")(re.++ (re.range "a" "z") (re.* (re.union (re.range "#" "$")(re.union (re.range "1" "9")(re.union (re.range "_" "_") (re.range "a" "z"))))))))))
 

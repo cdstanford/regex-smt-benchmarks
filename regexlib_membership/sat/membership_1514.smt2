@@ -3,15 +3,15 @@
 ; check membership of .Net regex
 ; regexA = ^(\d|,)*\d*$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "51,,"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "1" (seq.++ "," (seq.++ "," "")))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "1" (str.++ "," (str.++ "," "")))))
 ;witness2: ""
 (define-fun Witness2 () String "")
 

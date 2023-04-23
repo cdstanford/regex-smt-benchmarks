@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (^[1]$)|(^[1]+\d*\.+\d*[1-5]$)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "1"
-(define-fun Witness1 () String (seq.++ "1" ""))
+(define-fun Witness1 () String (str.++ "1" ""))
 ;witness2: "111199.4"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "1" (seq.++ "1" (seq.++ "1" (seq.++ "9" (seq.++ "9" (seq.++ "." (seq.++ "4" "")))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "1" (str.++ "1" (str.++ "1" (str.++ "9" (str.++ "9" (str.++ "." (str.++ "4" "")))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.range "1" "1") (str.to_re ""))) (re.++ (str.to_re "")(re.++ (re.+ (re.range "1" "1"))(re.++ (re.* (re.range "0" "9"))(re.++ (re.+ (re.range "." "."))(re.++ (re.* (re.range "0" "9"))(re.++ (re.range "1" "5") (str.to_re ""))))))))))
 

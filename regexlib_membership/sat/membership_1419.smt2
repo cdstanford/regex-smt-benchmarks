@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (?<Day>[0-3][0-9]|[1-9])/(?<Month>[1-9]|1[0-2]|0[1-9])/(?<Year>[12]\d{3}|\d{2})
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "1/10/73"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "/" (seq.++ "1" (seq.++ "0" (seq.++ "/" (seq.++ "7" (seq.++ "3" ""))))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "/" (str.++ "1" (str.++ "0" (str.++ "/" (str.++ "7" (str.++ "3" ""))))))))
 ;witness2: "1/01/89"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "/" (seq.++ "0" (seq.++ "1" (seq.++ "/" (seq.++ "8" (seq.++ "9" ""))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "/" (str.++ "0" (str.++ "1" (str.++ "/" (str.++ "8" (str.++ "9" ""))))))))
 
 (assert (= regexA (re.++ (re.union (re.++ (re.range "0" "3") (re.range "0" "9")) (re.range "1" "9"))(re.++ (re.range "/" "/")(re.++ (re.union (re.range "1" "9")(re.union (re.++ (re.range "1" "1") (re.range "0" "2")) (re.++ (re.range "0" "0") (re.range "1" "9"))))(re.++ (re.range "/" "/") (re.union (re.++ (re.range "1" "2") ((_ re.loop 3 3) (re.range "0" "9"))) ((_ re.loop 2 2) (re.range "0" "9")))))))))
 

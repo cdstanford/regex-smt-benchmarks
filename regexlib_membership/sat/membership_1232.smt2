@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = (^0.*[1-9]*)|(^860+)|(^8613)|(\D)|([0-9])
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "0"
-(define-fun Witness1 () String (seq.++ "0" ""))
+(define-fun Witness1 () String (str.++ "0" ""))
 ;witness2: "}2"
-(define-fun Witness2 () String (seq.++ "}" (seq.++ "2" "")))
+(define-fun Witness2 () String (str.++ "}" (str.++ "2" "")))
 
-(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.range "0" "0")(re.++ (re.* (re.union (re.range "\x00" "\x09") (re.range "\x0b" "\xff"))) (re.* (re.range "1" "9")))))(re.union (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "8" (seq.++ "6" ""))) (re.+ (re.range "0" "0"))))(re.union (re.++ (str.to_re "") (str.to_re (seq.++ "8" (seq.++ "6" (seq.++ "1" (seq.++ "3" ""))))))(re.union (re.union (re.range "\x00" "/") (re.range ":" "\xff")) (re.range "0" "9")))))))
+(assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.range "0" "0")(re.++ (re.* (re.union (re.range "\u{00}" "\u{09}") (re.range "\u{0b}" "\u{ff}"))) (re.* (re.range "1" "9")))))(re.union (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "8" (str.++ "6" ""))) (re.+ (re.range "0" "0"))))(re.union (re.++ (str.to_re "") (str.to_re (str.++ "8" (str.++ "6" (str.++ "1" (str.++ "3" ""))))))(re.union (re.union (re.range "\u{00}" "/") (re.range ":" "\u{ff}")) (re.range "0" "9")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

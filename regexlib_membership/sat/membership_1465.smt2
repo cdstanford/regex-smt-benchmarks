@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA =       ([\dA-F]){1,5}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u008A      A"
-(define-fun Witness1 () String (seq.++ "\x8a" (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "A" "")))))))))
+(define-fun Witness1 () String (str.++ "\u{8a}" (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "A" "")))))))))
 ;witness2: "      2\u00CB"
-(define-fun Witness2 () String (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ "2" (seq.++ "\xcb" "")))))))))
+(define-fun Witness2 () String (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ "2" (str.++ "\u{cb}" "")))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " (seq.++ " " ""))))))) ((_ re.loop 1 5) (re.union (re.range "0" "9") (re.range "A" "F"))))))
+(assert (= regexA (re.++ (str.to_re (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " (str.++ " " ""))))))) ((_ re.loop 1 5) (re.union (re.range "0" "9") (re.range "A" "F"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

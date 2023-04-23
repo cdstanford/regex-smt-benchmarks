@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = clipvn
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00B2q\u00B3\u00E5xB\u009A\u00A6\'\u0086vclipvn"
-(define-fun Witness1 () String (seq.++ "\xb2" (seq.++ "q" (seq.++ "\xb3" (seq.++ "\xe5" (seq.++ "x" (seq.++ "B" (seq.++ "\x9a" (seq.++ "\xa6" (seq.++ "'" (seq.++ "\x86" (seq.++ "v" (seq.++ "c" (seq.++ "l" (seq.++ "i" (seq.++ "p" (seq.++ "v" (seq.++ "n" ""))))))))))))))))))
+(define-fun Witness1 () String (str.++ "\u{b2}" (str.++ "q" (str.++ "\u{b3}" (str.++ "\u{e5}" (str.++ "x" (str.++ "B" (str.++ "\u{9a}" (str.++ "\u{a6}" (str.++ "'" (str.++ "\u{86}" (str.++ "v" (str.++ "c" (str.++ "l" (str.++ "i" (str.++ "p" (str.++ "v" (str.++ "n" ""))))))))))))))))))
 ;witness2: "clipvn\"
-(define-fun Witness2 () String (seq.++ "c" (seq.++ "l" (seq.++ "i" (seq.++ "p" (seq.++ "v" (seq.++ "n" (seq.++ "\x5c" ""))))))))
+(define-fun Witness2 () String (str.++ "c" (str.++ "l" (str.++ "i" (str.++ "p" (str.++ "v" (str.++ "n" (str.++ "\u{5c}" ""))))))))
 
-(assert (= regexA (str.to_re (seq.++ "c" (seq.++ "l" (seq.++ "i" (seq.++ "p" (seq.++ "v" (seq.++ "n" "")))))))))
+(assert (= regexA (str.to_re (str.++ "c" (str.++ "l" (str.++ "i" (str.++ "p" (str.++ "v" (str.++ "n" "")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

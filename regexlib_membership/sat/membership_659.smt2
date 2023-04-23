@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[A-G](b|#)?((m(aj)?|M|aug|dim|sus)([2-7]|9|13)?)?(\/[A-G](b|#)?)?$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Gbdim13/F"
-(define-fun Witness1 () String (seq.++ "G" (seq.++ "b" (seq.++ "d" (seq.++ "i" (seq.++ "m" (seq.++ "1" (seq.++ "3" (seq.++ "/" (seq.++ "F" ""))))))))))
+(define-fun Witness1 () String (str.++ "G" (str.++ "b" (str.++ "d" (str.++ "i" (str.++ "m" (str.++ "1" (str.++ "3" (str.++ "/" (str.++ "F" ""))))))))))
 ;witness2: "Ebaug9/C#"
-(define-fun Witness2 () String (seq.++ "E" (seq.++ "b" (seq.++ "a" (seq.++ "u" (seq.++ "g" (seq.++ "9" (seq.++ "/" (seq.++ "C" (seq.++ "#" ""))))))))))
+(define-fun Witness2 () String (str.++ "E" (str.++ "b" (str.++ "a" (str.++ "u" (str.++ "g" (str.++ "9" (str.++ "/" (str.++ "C" (str.++ "#" ""))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "G")(re.++ (re.opt (re.union (re.range "#" "#") (re.range "b" "b")))(re.++ (re.opt (re.++ (re.union (re.++ (re.range "m" "m") (re.opt (str.to_re (seq.++ "a" (seq.++ "j" "")))))(re.union (re.range "M" "M")(re.union (str.to_re (seq.++ "a" (seq.++ "u" (seq.++ "g" ""))))(re.union (str.to_re (seq.++ "d" (seq.++ "i" (seq.++ "m" "")))) (str.to_re (seq.++ "s" (seq.++ "u" (seq.++ "s" "")))))))) (re.opt (re.union (re.union (re.range "2" "7") (re.range "9" "9")) (str.to_re (seq.++ "1" (seq.++ "3" "")))))))(re.++ (re.opt (re.++ (re.range "/" "/")(re.++ (re.range "A" "G") (re.opt (re.union (re.range "#" "#") (re.range "b" "b")))))) (str.to_re ""))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.range "A" "G")(re.++ (re.opt (re.union (re.range "#" "#") (re.range "b" "b")))(re.++ (re.opt (re.++ (re.union (re.++ (re.range "m" "m") (re.opt (str.to_re (str.++ "a" (str.++ "j" "")))))(re.union (re.range "M" "M")(re.union (str.to_re (str.++ "a" (str.++ "u" (str.++ "g" ""))))(re.union (str.to_re (str.++ "d" (str.++ "i" (str.++ "m" "")))) (str.to_re (str.++ "s" (str.++ "u" (str.++ "s" "")))))))) (re.opt (re.union (re.union (re.range "2" "7") (re.range "9" "9")) (str.to_re (str.++ "1" (str.++ "3" "")))))))(re.++ (re.opt (re.++ (re.range "/" "/")(re.++ (re.range "A" "G") (re.opt (re.union (re.range "#" "#") (re.range "b" "b")))))) (str.to_re ""))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

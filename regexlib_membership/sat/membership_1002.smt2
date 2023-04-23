@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = \A-?(\d{4,})-(\d{2})-(\d{2})([Z]|(?:[+-]?(?:[01]\d)|(?:[2][0123])):(?:[012345]\d))\Z
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "61425-85-9009:44"
-(define-fun Witness1 () String (seq.++ "6" (seq.++ "1" (seq.++ "4" (seq.++ "2" (seq.++ "5" (seq.++ "-" (seq.++ "8" (seq.++ "5" (seq.++ "-" (seq.++ "9" (seq.++ "0" (seq.++ "0" (seq.++ "9" (seq.++ ":" (seq.++ "4" (seq.++ "4" "")))))))))))))))))
+(define-fun Witness1 () String (str.++ "6" (str.++ "1" (str.++ "4" (str.++ "2" (str.++ "5" (str.++ "-" (str.++ "8" (str.++ "5" (str.++ "-" (str.++ "9" (str.++ "0" (str.++ "0" (str.++ "9" (str.++ ":" (str.++ "4" (str.++ "4" "")))))))))))))))))
 ;witness2: "9148-89-91Z"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "1" (seq.++ "4" (seq.++ "8" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "-" (seq.++ "9" (seq.++ "1" (seq.++ "Z" ""))))))))))))
+(define-fun Witness2 () String (str.++ "9" (str.++ "1" (str.++ "4" (str.++ "8" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "-" (str.++ "9" (str.++ "1" (str.++ "Z" ""))))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ (re.++ ((_ re.loop 4 4) (re.range "0" "9")) (re.* (re.range "0" "9")))(re.++ (re.range "-" "-")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ ((_ re.loop 2 2) (re.range "0" "9"))(re.++ (re.union (re.range "Z" "Z") (re.++ (re.union (re.++ (re.opt (re.union (re.range "+" "+") (re.range "-" "-")))(re.++ (re.range "0" "1") (re.range "0" "9"))) (re.++ (re.range "2" "2") (re.range "0" "3")))(re.++ (re.range ":" ":")(re.++ (re.range "0" "5") (re.range "0" "9"))))) (str.to_re "")))))))))))
 

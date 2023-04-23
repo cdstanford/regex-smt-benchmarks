@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(AT){0,1}[U]{0,1}[0-9]{8}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "65992889"
-(define-fun Witness1 () String (seq.++ "6" (seq.++ "5" (seq.++ "9" (seq.++ "9" (seq.++ "2" (seq.++ "8" (seq.++ "8" (seq.++ "9" "")))))))))
+(define-fun Witness1 () String (str.++ "6" (str.++ "5" (str.++ "9" (str.++ "9" (str.++ "2" (str.++ "8" (str.++ "8" (str.++ "9" "")))))))))
 ;witness2: "AT83187446"
-(define-fun Witness2 () String (seq.++ "A" (seq.++ "T" (seq.++ "8" (seq.++ "3" (seq.++ "1" (seq.++ "8" (seq.++ "7" (seq.++ "4" (seq.++ "4" (seq.++ "6" "")))))))))))
+(define-fun Witness2 () String (str.++ "A" (str.++ "T" (str.++ "8" (str.++ "3" (str.++ "1" (str.++ "8" (str.++ "7" (str.++ "4" (str.++ "4" (str.++ "6" "")))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (seq.++ "A" (seq.++ "T" ""))))(re.++ (re.opt (re.range "U" "U"))(re.++ ((_ re.loop 8 8) (re.range "0" "9")) (str.to_re "")))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (str.to_re (str.++ "A" (str.++ "T" ""))))(re.++ (re.opt (re.range "U" "U"))(re.++ ((_ re.loop 8 8) (re.range "0" "9")) (str.to_re "")))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

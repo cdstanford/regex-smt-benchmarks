@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^[a-zA-Z0-9\-]+\.cn$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Q-B.cn"
-(define-fun Witness1 () String (seq.++ "Q" (seq.++ "-" (seq.++ "B" (seq.++ "." (seq.++ "c" (seq.++ "n" "")))))))
+(define-fun Witness1 () String (str.++ "Q" (str.++ "-" (str.++ "B" (str.++ "." (str.++ "c" (str.++ "n" "")))))))
 ;witness2: "8.cn"
-(define-fun Witness2 () String (seq.++ "8" (seq.++ "." (seq.++ "c" (seq.++ "n" "")))))
+(define-fun Witness2 () String (str.++ "8" (str.++ "." (str.++ "c" (str.++ "n" "")))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))(re.++ (str.to_re (seq.++ "." (seq.++ "c" (seq.++ "n" "")))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (re.range "-" "-")(re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))(re.++ (str.to_re (str.++ "." (str.++ "c" (str.++ "n" "")))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

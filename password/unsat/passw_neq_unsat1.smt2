@@ -1,3 +1,4 @@
+(set-logic QF_S)
 (assert (not (=
     re.none
     (re.inter

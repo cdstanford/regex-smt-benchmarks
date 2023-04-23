@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [A-Za-z0-9!#$%&'*+\-/=?^_`{|}~]+(?:\.[A-Za-z0-9!#$%&'*+\-/=?^_`{|}~]+)*@[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*(?:\.[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*)*
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "D\u00EAD6.vY#@H0352.N39aIk-0"
-(define-fun Witness1 () String (seq.++ "D" (seq.++ "\xea" (seq.++ "D" (seq.++ "6" (seq.++ "." (seq.++ "v" (seq.++ "Y" (seq.++ "#" (seq.++ "@" (seq.++ "H" (seq.++ "0" (seq.++ "3" (seq.++ "5" (seq.++ "2" (seq.++ "." (seq.++ "N" (seq.++ "3" (seq.++ "9" (seq.++ "a" (seq.++ "I" (seq.++ "k" (seq.++ "-" (seq.++ "0" ""))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "D" (str.++ "\u{ea}" (str.++ "D" (str.++ "6" (str.++ "." (str.++ "v" (str.++ "Y" (str.++ "#" (str.++ "@" (str.++ "H" (str.++ "0" (str.++ "3" (str.++ "5" (str.++ "2" (str.++ "." (str.++ "N" (str.++ "3" (str.++ "9" (str.++ "a" (str.++ "I" (str.++ "k" (str.++ "-" (str.++ "0" ""))))))))))))))))))))))))
 ;witness2: "1.^@99g"
-(define-fun Witness2 () String (seq.++ "1" (seq.++ "." (seq.++ "^" (seq.++ "@" (seq.++ "9" (seq.++ "9" (seq.++ "g" ""))))))))
+(define-fun Witness2 () String (str.++ "1" (str.++ "." (str.++ "^" (str.++ "@" (str.++ "9" (str.++ "9" (str.++ "g" ""))))))))
 
 (assert (= regexA (re.++ (re.+ (re.union (re.range "!" "!")(re.union (re.range "#" "'")(re.union (re.range "*" "+")(re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "=" "=")(re.union (re.range "?" "?")(re.union (re.range "A" "Z") (re.range "^" "~"))))))))))(re.++ (re.* (re.++ (re.range "." ".") (re.+ (re.union (re.range "!" "!")(re.union (re.range "#" "'")(re.union (re.range "*" "+")(re.union (re.range "-" "-")(re.union (re.range "/" "9")(re.union (re.range "=" "=")(re.union (re.range "?" "?")(re.union (re.range "A" "Z") (re.range "^" "~"))))))))))))(re.++ (re.range "@" "@")(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))(re.++ (re.* (re.++ (re.range "-" "-") (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))))) (re.* (re.++ (re.range "." ".")(re.++ (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z")))) (re.* (re.++ (re.range "-" "-") (re.+ (re.union (re.range "0" "9")(re.union (re.range "A" "Z") (re.range "a" "z"))))))))))))))))
 

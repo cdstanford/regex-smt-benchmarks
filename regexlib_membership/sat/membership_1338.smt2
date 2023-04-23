@@ -3,15 +3,15 @@
 ; check membership of .Net regex
 ; regexA = ^([1-9]{1}[\d]{0,2}(\,[\d]{3})*(\.[\d]{0,2})?|[1-9]{1}[\d]{0,}(\.[\d]{0,2})?|0(\.[\d]{0,2})?|(\.[\d]{1,2})?)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "0.4"
-(define-fun Witness1 () String (seq.++ "0" (seq.++ "." (seq.++ "4" ""))))
+(define-fun Witness1 () String (str.++ "0" (str.++ "." (str.++ "4" ""))))
 ;witness2: ""
 (define-fun Witness2 () String "")
 

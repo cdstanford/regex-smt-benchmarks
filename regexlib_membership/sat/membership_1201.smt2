@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = (^\([0]\d{2}\))(\d{6,7}$)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "(086)9989397"
-(define-fun Witness1 () String (seq.++ "(" (seq.++ "0" (seq.++ "8" (seq.++ "6" (seq.++ ")" (seq.++ "9" (seq.++ "9" (seq.++ "8" (seq.++ "9" (seq.++ "3" (seq.++ "9" (seq.++ "7" "")))))))))))))
+(define-fun Witness1 () String (str.++ "(" (str.++ "0" (str.++ "8" (str.++ "6" (str.++ ")" (str.++ "9" (str.++ "9" (str.++ "8" (str.++ "9" (str.++ "3" (str.++ "9" (str.++ "7" "")))))))))))))
 ;witness2: "(058)0885869"
-(define-fun Witness2 () String (seq.++ "(" (seq.++ "0" (seq.++ "5" (seq.++ "8" (seq.++ ")" (seq.++ "0" (seq.++ "8" (seq.++ "8" (seq.++ "5" (seq.++ "8" (seq.++ "6" (seq.++ "9" "")))))))))))))
+(define-fun Witness2 () String (str.++ "(" (str.++ "0" (str.++ "5" (str.++ "8" (str.++ ")" (str.++ "0" (str.++ "8" (str.++ "8" (str.++ "5" (str.++ "8" (str.++ "6" (str.++ "9" "")))))))))))))
 
-(assert (= regexA (re.++ (re.++ (str.to_re "")(re.++ (str.to_re (seq.++ "(" (seq.++ "0" "")))(re.++ ((_ re.loop 2 2) (re.range "0" "9")) (re.range ")" ")")))) (re.++ ((_ re.loop 6 7) (re.range "0" "9")) (str.to_re "")))))
+(assert (= regexA (re.++ (re.++ (str.to_re "")(re.++ (str.to_re (str.++ "(" (str.++ "0" "")))(re.++ ((_ re.loop 2 2) (re.range "0" "9")) (re.range ")" ")")))) (re.++ ((_ re.loop 6 7) (re.range "0" "9")) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

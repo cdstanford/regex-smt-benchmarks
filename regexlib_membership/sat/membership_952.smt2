@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = <h([1-6])>([^<]*)</h([1-6])>
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "<h6>\"</h3>"
-(define-fun Witness1 () String (seq.++ "<" (seq.++ "h" (seq.++ "6" (seq.++ ">" (seq.++ "\x22" (seq.++ "<" (seq.++ "/" (seq.++ "h" (seq.++ "3" (seq.++ ">" "")))))))))))
+(define-fun Witness1 () String (str.++ "<" (str.++ "h" (str.++ "6" (str.++ ">" (str.++ "\u{22}" (str.++ "<" (str.++ "/" (str.++ "h" (str.++ "3" (str.++ ">" "")))))))))))
 ;witness2: "N\u00D9<h5>l</h6>\u00FB"
-(define-fun Witness2 () String (seq.++ "N" (seq.++ "\xd9" (seq.++ "<" (seq.++ "h" (seq.++ "5" (seq.++ ">" (seq.++ "l" (seq.++ "<" (seq.++ "/" (seq.++ "h" (seq.++ "6" (seq.++ ">" (seq.++ "\xfb" ""))))))))))))))
+(define-fun Witness2 () String (str.++ "N" (str.++ "\u{d9}" (str.++ "<" (str.++ "h" (str.++ "5" (str.++ ">" (str.++ "l" (str.++ "<" (str.++ "/" (str.++ "h" (str.++ "6" (str.++ ">" (str.++ "\u{fb}" ""))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "<" (seq.++ "h" "")))(re.++ (re.range "1" "6")(re.++ (re.range ">" ">")(re.++ (re.* (re.union (re.range "\x00" ";") (re.range "=" "\xff")))(re.++ (str.to_re (seq.++ "<" (seq.++ "/" (seq.++ "h" ""))))(re.++ (re.range "1" "6") (re.range ">" ">")))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "<" (str.++ "h" "")))(re.++ (re.range "1" "6")(re.++ (re.range ">" ">")(re.++ (re.* (re.union (re.range "\u{00}" ";") (re.range "=" "\u{ff}")))(re.++ (str.to_re (str.++ "<" (str.++ "/" (str.++ "h" ""))))(re.++ (re.range "1" "6") (re.range ">" ">")))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

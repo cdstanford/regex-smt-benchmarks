@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(Randal (?:L\.)? Schwartz|merlyn)$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "Randal L. Schwartz"
-(define-fun Witness1 () String (seq.++ "R" (seq.++ "a" (seq.++ "n" (seq.++ "d" (seq.++ "a" (seq.++ "l" (seq.++ " " (seq.++ "L" (seq.++ "." (seq.++ " " (seq.++ "S" (seq.++ "c" (seq.++ "h" (seq.++ "w" (seq.++ "a" (seq.++ "r" (seq.++ "t" (seq.++ "z" "")))))))))))))))))))
+(define-fun Witness1 () String (str.++ "R" (str.++ "a" (str.++ "n" (str.++ "d" (str.++ "a" (str.++ "l" (str.++ " " (str.++ "L" (str.++ "." (str.++ " " (str.++ "S" (str.++ "c" (str.++ "h" (str.++ "w" (str.++ "a" (str.++ "r" (str.++ "t" (str.++ "z" "")))))))))))))))))))
 ;witness2: "Randal  Schwartz"
-(define-fun Witness2 () String (seq.++ "R" (seq.++ "a" (seq.++ "n" (seq.++ "d" (seq.++ "a" (seq.++ "l" (seq.++ " " (seq.++ " " (seq.++ "S" (seq.++ "c" (seq.++ "h" (seq.++ "w" (seq.++ "a" (seq.++ "r" (seq.++ "t" (seq.++ "z" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "R" (str.++ "a" (str.++ "n" (str.++ "d" (str.++ "a" (str.++ "l" (str.++ " " (str.++ " " (str.++ "S" (str.++ "c" (str.++ "h" (str.++ "w" (str.++ "a" (str.++ "r" (str.++ "t" (str.++ "z" "")))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.++ (str.to_re (seq.++ "R" (seq.++ "a" (seq.++ "n" (seq.++ "d" (seq.++ "a" (seq.++ "l" (seq.++ " " ""))))))))(re.++ (re.opt (str.to_re (seq.++ "L" (seq.++ "." "")))) (str.to_re (seq.++ " " (seq.++ "S" (seq.++ "c" (seq.++ "h" (seq.++ "w" (seq.++ "a" (seq.++ "r" (seq.++ "t" (seq.++ "z" "")))))))))))) (str.to_re (seq.++ "m" (seq.++ "e" (seq.++ "r" (seq.++ "l" (seq.++ "y" (seq.++ "n" "")))))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.union (re.++ (str.to_re (str.++ "R" (str.++ "a" (str.++ "n" (str.++ "d" (str.++ "a" (str.++ "l" (str.++ " " ""))))))))(re.++ (re.opt (str.to_re (str.++ "L" (str.++ "." "")))) (str.to_re (str.++ " " (str.++ "S" (str.++ "c" (str.++ "h" (str.++ "w" (str.++ "a" (str.++ "r" (str.++ "t" (str.++ "z" "")))))))))))) (str.to_re (str.++ "m" (str.++ "e" (str.++ "r" (str.++ "l" (str.++ "y" (str.++ "n" "")))))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

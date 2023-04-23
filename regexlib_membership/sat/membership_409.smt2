@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^[0-9]{5}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "50687"
-(define-fun Witness1 () String (seq.++ "5" (seq.++ "0" (seq.++ "6" (seq.++ "8" (seq.++ "7" ""))))))
+(define-fun Witness1 () String (str.++ "5" (str.++ "0" (str.++ "6" (str.++ "8" (str.++ "7" ""))))))
 ;witness2: "62799"
-(define-fun Witness2 () String (seq.++ "6" (seq.++ "2" (seq.++ "7" (seq.++ "9" (seq.++ "9" ""))))))
+(define-fun Witness2 () String (str.++ "6" (str.++ "2" (str.++ "7" (str.++ "9" (str.++ "9" ""))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 5 5) (re.range "0" "9")) (str.to_re "")))))
 

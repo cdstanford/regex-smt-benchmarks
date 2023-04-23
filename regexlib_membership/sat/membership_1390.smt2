@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [:;]{1}[-~+o]?[(&lt;\[]+
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\";[C4\u00D8"
-(define-fun Witness1 () String (seq.++ "\x22" (seq.++ ";" (seq.++ "[" (seq.++ "C" (seq.++ "4" (seq.++ "\xd8" "")))))))
+(define-fun Witness1 () String (str.++ "\u{22}" (str.++ ";" (str.++ "[" (str.++ "C" (str.++ "4" (str.++ "\u{d8}" "")))))))
 ;witness2: "\x9G;t&\u00BFv"
-(define-fun Witness2 () String (seq.++ "\x09" (seq.++ "G" (seq.++ ";" (seq.++ "t" (seq.++ "&" (seq.++ "\xbf" (seq.++ "v" ""))))))))
+(define-fun Witness2 () String (str.++ "\u{09}" (str.++ "G" (str.++ ";" (str.++ "t" (str.++ "&" (str.++ "\u{bf}" (str.++ "v" ""))))))))
 
 (assert (= regexA (re.++ (re.range ":" ";")(re.++ (re.opt (re.union (re.range "+" "+")(re.union (re.range "-" "-")(re.union (re.range "o" "o") (re.range "~" "~"))))) (re.+ (re.union (re.range "&" "&")(re.union (re.range "(" "(")(re.union (re.range ";" ";")(re.union (re.range "[" "[")(re.union (re.range "l" "l") (re.range "t" "t")))))))))))
 

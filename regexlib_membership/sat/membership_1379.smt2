@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^(\(\d{3}\)[- ]?|\d{3}[- ])?\d{3}[- ]\d{4}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "129-8968"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "2" (seq.++ "9" (seq.++ "-" (seq.++ "8" (seq.++ "9" (seq.++ "6" (seq.++ "8" "")))))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "2" (str.++ "9" (str.++ "-" (str.++ "8" (str.++ "9" (str.++ "6" (str.++ "8" "")))))))))
 ;witness2: "786 2289"
-(define-fun Witness2 () String (seq.++ "7" (seq.++ "8" (seq.++ "6" (seq.++ " " (seq.++ "2" (seq.++ "2" (seq.++ "8" (seq.++ "9" "")))))))))
+(define-fun Witness2 () String (str.++ "7" (str.++ "8" (str.++ "6" (str.++ " " (str.++ "2" (str.++ "2" (str.++ "8" (str.++ "9" "")))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.union (re.++ (re.range "(" "(")(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.range ")" ")") (re.opt (re.union (re.range " " " ") (re.range "-" "-")))))) (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.union (re.range " " " ") (re.range "-" "-")))))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.union (re.range " " " ") (re.range "-" "-"))(re.++ ((_ re.loop 4 4) (re.range "0" "9")) (str.to_re ""))))))))
 

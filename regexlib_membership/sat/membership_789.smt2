@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [0-9]{4}-([0][0-9]|[1][0-2])-([0][0-9]|[1][0-9]|[2][0-9]|[3][0-1])
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "K8430-11-06"
-(define-fun Witness1 () String (seq.++ "K" (seq.++ "8" (seq.++ "4" (seq.++ "3" (seq.++ "0" (seq.++ "-" (seq.++ "1" (seq.++ "1" (seq.++ "-" (seq.++ "0" (seq.++ "6" ""))))))))))))
+(define-fun Witness1 () String (str.++ "K" (str.++ "8" (str.++ "4" (str.++ "3" (str.++ "0" (str.++ "-" (str.++ "1" (str.++ "1" (str.++ "-" (str.++ "0" (str.++ "6" ""))))))))))))
 ;witness2: "3536-01-29)\u00AC"
-(define-fun Witness2 () String (seq.++ "3" (seq.++ "5" (seq.++ "3" (seq.++ "6" (seq.++ "-" (seq.++ "0" (seq.++ "1" (seq.++ "-" (seq.++ "2" (seq.++ "9" (seq.++ ")" (seq.++ "\xac" "")))))))))))))
+(define-fun Witness2 () String (str.++ "3" (str.++ "5" (str.++ "3" (str.++ "6" (str.++ "-" (str.++ "0" (str.++ "1" (str.++ "-" (str.++ "2" (str.++ "9" (str.++ ")" (str.++ "\u{ac}" "")))))))))))))
 
 (assert (= regexA (re.++ ((_ re.loop 4 4) (re.range "0" "9"))(re.++ (re.range "-" "-")(re.++ (re.union (re.++ (re.range "0" "0") (re.range "0" "9")) (re.++ (re.range "1" "1") (re.range "0" "2")))(re.++ (re.range "-" "-") (re.union (re.++ (re.range "0" "0") (re.range "0" "9"))(re.union (re.++ (re.range "1" "1") (re.range "0" "9"))(re.union (re.++ (re.range "2" "2") (re.range "0" "9")) (re.++ (re.range "3" "3") (re.range "0" "1")))))))))))
 

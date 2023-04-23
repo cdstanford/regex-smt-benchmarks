@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = @{2}((\S)+)@{2}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "\u00B1_\u00AD@@\u00C2\u00AC@@"
-(define-fun Witness1 () String (seq.++ "\xb1" (seq.++ "_" (seq.++ "\xad" (seq.++ "@" (seq.++ "@" (seq.++ "\xc2" (seq.++ "\xac" (seq.++ "@" (seq.++ "@" ""))))))))))
+(define-fun Witness1 () String (str.++ "\u{b1}" (str.++ "_" (str.++ "\u{ad}" (str.++ "@" (str.++ "@" (str.++ "\u{c2}" (str.++ "\u{ac}" (str.++ "@" (str.++ "@" ""))))))))))
 ;witness2: "\x2\x13@@J\u00EA@@"
-(define-fun Witness2 () String (seq.++ "\x02" (seq.++ "\x13" (seq.++ "@" (seq.++ "@" (seq.++ "J" (seq.++ "\xea" (seq.++ "@" (seq.++ "@" "")))))))))
+(define-fun Witness2 () String (str.++ "\u{02}" (str.++ "\u{13}" (str.++ "@" (str.++ "@" (str.++ "J" (str.++ "\u{ea}" (str.++ "@" (str.++ "@" "")))))))))
 
-(assert (= regexA (re.++ ((_ re.loop 2 2) (re.range "@" "@"))(re.++ (re.+ (re.union (re.range "\x00" "\x08")(re.union (re.range "\x0e" "\x1f")(re.union (re.range "!" "\x84")(re.union (re.range "\x86" "\x9f") (re.range "\xa1" "\xff")))))) ((_ re.loop 2 2) (re.range "@" "@"))))))
+(assert (= regexA (re.++ ((_ re.loop 2 2) (re.range "@" "@"))(re.++ (re.+ (re.union (re.range "\u{00}" "\u{08}")(re.union (re.range "\u{0e}" "\u{1f}")(re.union (re.range "!" "\u{84}")(re.union (re.range "\u{86}" "\u{9f}") (re.range "\u{a1}" "\u{ff}")))))) ((_ re.loop 2 2) (re.range "@" "@"))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

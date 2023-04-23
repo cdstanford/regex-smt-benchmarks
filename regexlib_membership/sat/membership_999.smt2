@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^[a-zA-Z]{1,3}\[([0-9]{1,3})\]
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "S[9]\xA\"
-(define-fun Witness1 () String (seq.++ "S" (seq.++ "[" (seq.++ "9" (seq.++ "]" (seq.++ "\x0a" (seq.++ "\x5c" "")))))))
+(define-fun Witness1 () String (str.++ "S" (str.++ "[" (str.++ "9" (str.++ "]" (str.++ "\u{0a}" (str.++ "\u{5c}" "")))))))
 ;witness2: "O[8]\x5\u00E6\u00C3\u00F9\x1\u0087"
-(define-fun Witness2 () String (seq.++ "O" (seq.++ "[" (seq.++ "8" (seq.++ "]" (seq.++ "\x05" (seq.++ "\xe6" (seq.++ "\xc3" (seq.++ "\xf9" (seq.++ "\x01" (seq.++ "\x87" "")))))))))))
+(define-fun Witness2 () String (str.++ "O" (str.++ "[" (str.++ "8" (str.++ "]" (str.++ "\u{05}" (str.++ "\u{e6}" (str.++ "\u{c3}" (str.++ "\u{f9}" (str.++ "\u{01}" (str.++ "\u{87}" "")))))))))))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 1 3) (re.union (re.range "A" "Z") (re.range "a" "z")))(re.++ (re.range "[" "[")(re.++ ((_ re.loop 1 3) (re.range "0" "9")) (re.range "]" "]")))))))
 

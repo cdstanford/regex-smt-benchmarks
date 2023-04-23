@@ -1,3 +1,4 @@
+(set-logic QF_S)
 (assert (=
     (re.inter
         (re.++ re.all (re.range "a" "z") re.all)

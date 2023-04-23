@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = <[^>]*>
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "<>"
-(define-fun Witness1 () String (seq.++ "<" (seq.++ ">" "")))
+(define-fun Witness1 () String (str.++ "<" (str.++ ">" "")))
 ;witness2: "<O\u0093\u007F>"
-(define-fun Witness2 () String (seq.++ "<" (seq.++ "O" (seq.++ "\x93" (seq.++ "\x7f" (seq.++ ">" ""))))))
+(define-fun Witness2 () String (str.++ "<" (str.++ "O" (str.++ "\u{93}" (str.++ "\u{7f}" (str.++ ">" ""))))))
 
-(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\x00" "=") (re.range "?" "\xff"))) (re.range ">" ">")))))
+(assert (= regexA (re.++ (re.range "<" "<")(re.++ (re.* (re.union (re.range "\u{00}" "=") (re.range "?" "\u{ff}"))) (re.range ">" ">")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

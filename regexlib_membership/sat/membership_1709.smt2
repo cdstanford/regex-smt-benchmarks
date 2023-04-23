@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = <script[^>]*>[\w|\t|\r|\W]*</script>
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "k<script|\x121>\u0080</script>\u00AB"
-(define-fun Witness1 () String (seq.++ "k" (seq.++ "<" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" (seq.++ "|" (seq.++ "\x12" (seq.++ "1" (seq.++ ">" (seq.++ "\x80" (seq.++ "<" (seq.++ "/" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" (seq.++ ">" (seq.++ "\xab" ""))))))))))))))))))))))))
+(define-fun Witness1 () String (str.++ "k" (str.++ "<" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" (str.++ "|" (str.++ "\u{12}" (str.++ "1" (str.++ ">" (str.++ "\u{80}" (str.++ "<" (str.++ "/" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" (str.++ ">" (str.++ "\u{ab}" ""))))))))))))))))))))))))
 ;witness2: "\u00A4<script\u00FA\u00CD?\u00EF>\u00E2\u009B</script>"
-(define-fun Witness2 () String (seq.++ "\xa4" (seq.++ "<" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" (seq.++ "\xfa" (seq.++ "\xcd" (seq.++ "?" (seq.++ "\xef" (seq.++ ">" (seq.++ "\xe2" (seq.++ "\x9b" (seq.++ "<" (seq.++ "/" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" (seq.++ ">" "")))))))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "\u{a4}" (str.++ "<" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" (str.++ "\u{fa}" (str.++ "\u{cd}" (str.++ "?" (str.++ "\u{ef}" (str.++ ">" (str.++ "\u{e2}" (str.++ "\u{9b}" (str.++ "<" (str.++ "/" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" (str.++ ">" "")))))))))))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "<" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" ""))))))))(re.++ (re.* (re.union (re.range "\x00" "=") (re.range "?" "\xff")))(re.++ (re.range ">" ">")(re.++ (re.* (re.range "\x00" "\xff")) (str.to_re (seq.++ "<" (seq.++ "/" (seq.++ "s" (seq.++ "c" (seq.++ "r" (seq.++ "i" (seq.++ "p" (seq.++ "t" (seq.++ ">" ""))))))))))))))))
+(assert (= regexA (re.++ (str.to_re (str.++ "<" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" ""))))))))(re.++ (re.* (re.union (re.range "\u{00}" "=") (re.range "?" "\u{ff}")))(re.++ (re.range ">" ">")(re.++ (re.* (re.range "\u{00}" "\u{ff}")) (str.to_re (str.++ "<" (str.++ "/" (str.++ "s" (str.++ "c" (str.++ "r" (str.++ "i" (str.++ "p" (str.++ "t" (str.++ ">" ""))))))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

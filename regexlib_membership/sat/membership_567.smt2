@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = <font[a-zA-Z0-9_\^\$\.\|\{\[\}\]\(\)\*\+\?\\~`!@#%&-=;:'",/\n\s]*>
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "<font>"
-(define-fun Witness1 () String (seq.++ "<" (seq.++ "f" (seq.++ "o" (seq.++ "n" (seq.++ "t" (seq.++ ">" "")))))))
+(define-fun Witness1 () String (str.++ "<" (str.++ "f" (str.++ "o" (str.++ "n" (str.++ "t" (str.++ ">" "")))))))
 ;witness2: "x\u00BD<font>"
-(define-fun Witness2 () String (seq.++ "x" (seq.++ "\xbd" (seq.++ "<" (seq.++ "f" (seq.++ "o" (seq.++ "n" (seq.++ "t" (seq.++ ">" "")))))))))
+(define-fun Witness2 () String (str.++ "x" (str.++ "\u{bd}" (str.++ "<" (str.++ "f" (str.++ "o" (str.++ "n" (str.++ "t" (str.++ ">" "")))))))))
 
-(assert (= regexA (re.++ (str.to_re (seq.++ "<" (seq.++ "f" (seq.++ "o" (seq.++ "n" (seq.++ "t" ""))))))(re.++ (re.* (re.union (re.range "\x09" "\x0d")(re.union (re.range " " "=")(re.union (re.range "?" "~")(re.union (re.range "\x85" "\x85") (re.range "\xa0" "\xa0")))))) (re.range ">" ">")))))
+(assert (= regexA (re.++ (str.to_re (str.++ "<" (str.++ "f" (str.++ "o" (str.++ "n" (str.++ "t" ""))))))(re.++ (re.* (re.union (re.range "\u{09}" "\u{0d}")(re.union (re.range " " "=")(re.union (re.range "?" "~")(re.union (re.range "\u{85}" "\u{85}") (re.range "\u{a0}" "\u{a0}")))))) (re.range ">" ">")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

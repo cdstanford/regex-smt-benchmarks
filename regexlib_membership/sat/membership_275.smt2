@@ -3,15 +3,15 @@
 ; check membership of .Net regex
 ; regexA = ^((\d{8})|(\d{10})|(\d{11})|(\d{6}-\d{5}))?$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9889688898"
-(define-fun Witness1 () String (seq.++ "9" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "6" (seq.++ "8" (seq.++ "8" (seq.++ "8" (seq.++ "9" (seq.++ "8" "")))))))))))
+(define-fun Witness1 () String (str.++ "9" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "6" (str.++ "8" (str.++ "8" (str.++ "8" (str.++ "9" (str.++ "8" "")))))))))))
 ;witness2: ""
 (define-fun Witness2 () String "")
 

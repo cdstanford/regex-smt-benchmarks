@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = ^\d{0,2}(\.\d{1,4})? *%?$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "9 "
-(define-fun Witness1 () String (seq.++ "9" (seq.++ " " "")))
+(define-fun Witness1 () String (str.++ "9" (str.++ " " "")))
 ;witness2: "9%"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "%" "")))
+(define-fun Witness2 () String (str.++ "9" (str.++ "%" "")))
 
 (assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 0 2) (re.range "0" "9"))(re.++ (re.opt (re.++ (re.range "." ".") ((_ re.loop 1 4) (re.range "0" "9"))))(re.++ (re.* (re.range " " " "))(re.++ (re.opt (re.range "%" "%")) (str.to_re ""))))))))
 

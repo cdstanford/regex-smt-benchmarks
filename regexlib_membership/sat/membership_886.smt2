@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^M{0,1}T{0,1}W{0,1}(TH){0,1}F{0,1}S{0,1}(SU){0,1}$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "MTTHFSSU"
-(define-fun Witness1 () String (seq.++ "M" (seq.++ "T" (seq.++ "T" (seq.++ "H" (seq.++ "F" (seq.++ "S" (seq.++ "S" (seq.++ "U" "")))))))))
+(define-fun Witness1 () String (str.++ "M" (str.++ "T" (str.++ "T" (str.++ "H" (str.++ "F" (str.++ "S" (str.++ "S" (str.++ "U" "")))))))))
 ;witness2: "MWTHFS"
-(define-fun Witness2 () String (seq.++ "M" (seq.++ "W" (seq.++ "T" (seq.++ "H" (seq.++ "F" (seq.++ "S" "")))))))
+(define-fun Witness2 () String (str.++ "M" (str.++ "W" (str.++ "T" (str.++ "H" (str.++ "F" (str.++ "S" "")))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "M" "M"))(re.++ (re.opt (re.range "T" "T"))(re.++ (re.opt (re.range "W" "W"))(re.++ (re.opt (str.to_re (seq.++ "T" (seq.++ "H" ""))))(re.++ (re.opt (re.range "F" "F"))(re.++ (re.opt (re.range "S" "S"))(re.++ (re.opt (str.to_re (seq.++ "S" (seq.++ "U" "")))) (str.to_re "")))))))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.opt (re.range "M" "M"))(re.++ (re.opt (re.range "T" "T"))(re.++ (re.opt (re.range "W" "W"))(re.++ (re.opt (str.to_re (str.++ "T" (str.++ "H" ""))))(re.++ (re.opt (re.range "F" "F"))(re.++ (re.opt (re.range "S" "S"))(re.++ (re.opt (str.to_re (str.++ "S" (str.++ "U" "")))) (str.to_re "")))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

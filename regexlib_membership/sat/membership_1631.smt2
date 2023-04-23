@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "2.88.9.8"
-(define-fun Witness1 () String (seq.++ "2" (seq.++ "." (seq.++ "8" (seq.++ "8" (seq.++ "." (seq.++ "9" (seq.++ "." (seq.++ "8" "")))))))))
+(define-fun Witness1 () String (str.++ "2" (str.++ "." (str.++ "8" (str.++ "8" (str.++ "." (str.++ "9" (str.++ "." (str.++ "8" "")))))))))
 ;witness2: "93.2.2.8"
-(define-fun Witness2 () String (seq.++ "9" (seq.++ "3" (seq.++ "." (seq.++ "2" (seq.++ "." (seq.++ "2" (seq.++ "." (seq.++ "8" "")))))))))
+(define-fun Witness2 () String (str.++ "9" (str.++ "3" (str.++ "." (str.++ "2" (str.++ "." (str.++ "2" (str.++ "." (str.++ "8" "")))))))))
 
 (assert (= regexA (re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "." ".")(re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "." ".")(re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "." ".") ((_ re.loop 1 3) (re.range "0" "9"))))))))))
 

@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^((0*[0-1]?[0-9]{1,2}\.)|(0*((2[0-4][0-9])|(25[0-5]))\.)){3}((0*[0-1]?[0-9]{1,2})|(0*((2[0-4][0-9])|(25[0-5]))))$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "11.099.9.6"
-(define-fun Witness1 () String (seq.++ "1" (seq.++ "1" (seq.++ "." (seq.++ "0" (seq.++ "9" (seq.++ "9" (seq.++ "." (seq.++ "9" (seq.++ "." (seq.++ "6" "")))))))))))
+(define-fun Witness1 () String (str.++ "1" (str.++ "1" (str.++ "." (str.++ "0" (str.++ "9" (str.++ "9" (str.++ "." (str.++ "9" (str.++ "." (str.++ "6" "")))))))))))
 ;witness2: "0000255.247.8.19"
-(define-fun Witness2 () String (seq.++ "0" (seq.++ "0" (seq.++ "0" (seq.++ "0" (seq.++ "2" (seq.++ "5" (seq.++ "5" (seq.++ "." (seq.++ "2" (seq.++ "4" (seq.++ "7" (seq.++ "." (seq.++ "8" (seq.++ "." (seq.++ "1" (seq.++ "9" "")))))))))))))))))
+(define-fun Witness2 () String (str.++ "0" (str.++ "0" (str.++ "0" (str.++ "0" (str.++ "2" (str.++ "5" (str.++ "5" (str.++ "." (str.++ "2" (str.++ "4" (str.++ "7" (str.++ "." (str.++ "8" (str.++ "." (str.++ "1" (str.++ "9" "")))))))))))))))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 3 3) (re.union (re.++ (re.* (re.range "0" "0"))(re.++ (re.opt (re.range "0" "1"))(re.++ ((_ re.loop 1 2) (re.range "0" "9")) (re.range "." ".")))) (re.++ (re.* (re.range "0" "0"))(re.++ (re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (seq.++ "2" (seq.++ "5" ""))) (re.range "0" "5"))) (re.range "." ".")))))(re.++ (re.union (re.++ (re.* (re.range "0" "0"))(re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))) (re.++ (re.* (re.range "0" "0")) (re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (seq.++ "2" (seq.++ "5" ""))) (re.range "0" "5"))))) (str.to_re ""))))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ ((_ re.loop 3 3) (re.union (re.++ (re.* (re.range "0" "0"))(re.++ (re.opt (re.range "0" "1"))(re.++ ((_ re.loop 1 2) (re.range "0" "9")) (re.range "." ".")))) (re.++ (re.* (re.range "0" "0"))(re.++ (re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (str.++ "2" (str.++ "5" ""))) (re.range "0" "5"))) (re.range "." ".")))))(re.++ (re.union (re.++ (re.* (re.range "0" "0"))(re.++ (re.opt (re.range "0" "1")) ((_ re.loop 1 2) (re.range "0" "9")))) (re.++ (re.* (re.range "0" "0")) (re.union (re.++ (re.range "2" "2")(re.++ (re.range "0" "4") (re.range "0" "9"))) (re.++ (str.to_re (str.++ "2" (str.++ "5" ""))) (re.range "0" "5"))))) (str.to_re ""))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

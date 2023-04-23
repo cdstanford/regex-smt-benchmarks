@@ -3,17 +3,17 @@
 ; check membership of .Net regex
 ; regexA = (?:^(?:-)?(?:\d{1,3}\.(?:\d{3}\.)*\d{3})(?:\,\d+)?$|^(?:-)?\d*(?:\,\d+)?$)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ",89"
-(define-fun Witness1 () String (seq.++ "," (seq.++ "8" (seq.++ "9" ""))))
+(define-fun Witness1 () String (str.++ "," (str.++ "8" (str.++ "9" ""))))
 ;witness2: "-8.015.890.082.189,8"
-(define-fun Witness2 () String (seq.++ "-" (seq.++ "8" (seq.++ "." (seq.++ "0" (seq.++ "1" (seq.++ "5" (seq.++ "." (seq.++ "8" (seq.++ "9" (seq.++ "0" (seq.++ "." (seq.++ "0" (seq.++ "8" (seq.++ "2" (seq.++ "." (seq.++ "1" (seq.++ "8" (seq.++ "9" (seq.++ "," (seq.++ "8" "")))))))))))))))))))))
+(define-fun Witness2 () String (str.++ "-" (str.++ "8" (str.++ "." (str.++ "0" (str.++ "1" (str.++ "5" (str.++ "." (str.++ "8" (str.++ "9" (str.++ "0" (str.++ "." (str.++ "0" (str.++ "8" (str.++ "2" (str.++ "." (str.++ "1" (str.++ "8" (str.++ "9" (str.++ "," (str.++ "8" "")))))))))))))))))))))
 
 (assert (= regexA (re.union (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ ((_ re.loop 1 3) (re.range "0" "9"))(re.++ (re.range "." ".")(re.++ (re.* (re.++ ((_ re.loop 3 3) (re.range "0" "9")) (re.range "." ".")))(re.++ ((_ re.loop 3 3) (re.range "0" "9"))(re.++ (re.opt (re.++ (re.range "," ",") (re.+ (re.range "0" "9")))) (str.to_re "")))))))) (re.++ (str.to_re "")(re.++ (re.opt (re.range "-" "-"))(re.++ (re.* (re.range "0" "9"))(re.++ (re.opt (re.++ (re.range "," ",") (re.+ (re.range "0" "9")))) (str.to_re ""))))))))
 

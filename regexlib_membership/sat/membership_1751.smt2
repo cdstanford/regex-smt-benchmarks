@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ^(/w|/W|[^<>+?$%{}&])+$
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: "/w"
-(define-fun Witness1 () String (seq.++ "/" (seq.++ "w" "")))
+(define-fun Witness1 () String (str.++ "/" (str.++ "w" "")))
 ;witness2: "/W/W"
-(define-fun Witness2 () String (seq.++ "/" (seq.++ "W" (seq.++ "/" (seq.++ "W" "")))))
+(define-fun Witness2 () String (str.++ "/" (str.++ "W" (str.++ "/" (str.++ "W" "")))))
 
-(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (str.to_re (seq.++ "/" (seq.++ "w" "")))(re.union (str.to_re (seq.++ "/" (seq.++ "W" ""))) (re.union (re.range "\x00" "#")(re.union (re.range "'" "*")(re.union (re.range "," ";")(re.union (re.range "=" "=")(re.union (re.range "@" "z")(re.union (re.range "|" "|") (re.range "~" "\xff")))))))))) (str.to_re "")))))
+(assert (= regexA (re.++ (str.to_re "")(re.++ (re.+ (re.union (str.to_re (str.++ "/" (str.++ "w" "")))(re.union (str.to_re (str.++ "/" (str.++ "W" ""))) (re.union (re.range "\u{00}" "#")(re.union (re.range "'" "*")(re.union (re.range "," ";")(re.union (re.range "=" "=")(re.union (re.range "@" "z")(re.union (re.range "|" "|") (re.range "~" "\u{ff}")))))))))) (str.to_re "")))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))

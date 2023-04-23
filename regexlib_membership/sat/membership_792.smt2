@@ -3,19 +3,19 @@
 ; check membership of .Net regex
 ; regexA = ((?:[\\?&](?:[a-z\d\\.\\[\\]%-]+)(?:=[a-z\\d\\.\\[\\]%-]*)?)*)
 ;---
-(set-info :status sat)
-(set-option :print-success true)
-(set-logic QF_BVRE)
+;(set-info :status sat)
+;(set-option :print-success true)
+(set-logic QF_S)
 
-(declare-const regexA (RegEx String))
+(declare-const regexA RegLan)
 (declare-const x String)
 
 ;witness1: ""
 (define-fun Witness1 () String "")
 ;witness2: "?[%-]=.%-"
-(define-fun Witness2 () String (seq.++ "?" (seq.++ "[" (seq.++ "%" (seq.++ "-" (seq.++ "]" (seq.++ "=" (seq.++ "." (seq.++ "%" (seq.++ "-" ""))))))))))
+(define-fun Witness2 () String (str.++ "?" (str.++ "[" (str.++ "%" (str.++ "-" (str.++ "]" (str.++ "=" (str.++ "." (str.++ "%" (str.++ "-" ""))))))))))
 
-(assert (= regexA (re.* (re.++ (re.union (re.range "&" "&")(re.union (re.range "?" "?") (re.range "\x5c" "\x5c")))(re.++ (re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "[" "\x5c") (re.range "a" "z"))))(re.++ (str.to_re (seq.++ "%" (seq.++ "-" "")))(re.++ (re.+ (re.range "]" "]")) (re.opt (re.++ (re.range "=" "=")(re.++ (re.union (re.range "." ".")(re.union (re.range "[" "\x5c") (re.range "a" "z")))(re.++ (str.to_re (seq.++ "%" (seq.++ "-" ""))) (re.* (re.range "]" "]")))))))))))))
+(assert (= regexA (re.* (re.++ (re.union (re.range "&" "&")(re.union (re.range "?" "?") (re.range "\u{5c}" "\u{5c}")))(re.++ (re.union (re.range "." ".")(re.union (re.range "0" "9")(re.union (re.range "[" "\u{5c}") (re.range "a" "z"))))(re.++ (str.to_re (str.++ "%" (str.++ "-" "")))(re.++ (re.+ (re.range "]" "]")) (re.opt (re.++ (re.range "=" "=")(re.++ (re.union (re.range "." ".")(re.union (re.range "[" "\u{5c}") (re.range "a" "z")))(re.++ (str.to_re (str.++ "%" (str.++ "-" ""))) (re.* (re.range "]" "]")))))))))))))
 
 ;check that the regex contains some x
 (assert (str.in_re x regexA))
